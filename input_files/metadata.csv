@@ -1,0 +1,646 @@
+Sample;Individual;Species;Study;Origin;Sample_type;S_region;Platform;Type;Read_length;F_Primer;R_Primer;Accession;Class;Diet;Mobility
+1;D00344;I00313;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883413;Reptilia;Omnivorous;Aquatic
+2;D00345;I00314;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883412;Reptilia;Omnivorous;Aquatic
+3;D00346;I00315;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883411;Reptilia;Omnivorous;Aquatic
+4;D00347;I00316;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883410;Reptilia;Omnivorous;Aquatic
+5;D00348;I00317;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883409;Reptilia;Omnivorous;Aquatic
+6;D00349;I00302;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883428;Reptilia;Omnivorous;Aquatic
+7;D00350;I00303;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883427;Reptilia;Omnivorous;Aquatic
+8;D00351;I00304;CHMY;Campos2018;Wild;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883430;Reptilia;Omnivorous;Aquatic
+9;D00360;I01649;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883426;Reptilia;Omnivorous;Aquatic
+10;D00361;I01650;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883425;Reptilia;Omnivorous;Aquatic
+11;D00362;I01651;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883432;Reptilia;Omnivorous;Aquatic
+12;D00363;I01652;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883431;Reptilia;Omnivorous;Aquatic
+13;D00364;I01653;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883419;Reptilia;Omnivorous;Aquatic
+14;D00365;I01654;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883420;Reptilia;Omnivorous;Aquatic
+15;D00366;I01655;CHMY;Campos2018;Captivity;Scat;V1,V2,V3;Illumina MiSeq;Preprocessed (fastq);530;27f;519r;SRR5883421;Reptilia;Omnivorous;Aquatic
+16;D03235;I03676;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011576;Mammalia;Omnivorous;Terrestrial
+17;D03243;I03684;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011584;Mammalia;Omnivorous;Terrestrial
+18;D03244;I03685;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011585;Mammalia;Omnivorous;Terrestrial
+19;D03247;I03688;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011588;Mammalia;Omnivorous;Terrestrial
+20;D03248;I03689;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011589;Mammalia;Omnivorous;Terrestrial
+21;D03250;I03691;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011591;Mammalia;Omnivorous;Terrestrial
+22;D03251;I03692;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011592;Mammalia;Omnivorous;Terrestrial
+23;D03254;I03695;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011595;Mammalia;Omnivorous;Terrestrial
+24;D03259;I03700;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011600;Mammalia;Omnivorous;Terrestrial
+25;D03260;I03701;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011601;Mammalia;Omnivorous;Terrestrial
+26;D03261;I03702;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011602;Mammalia;Omnivorous;Terrestrial
+27;D03264;I03705;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011605;Mammalia;Omnivorous;Terrestrial
+28;D03266;I03707;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011607;Mammalia;Omnivorous;Terrestrial
+29;D03267;I03708;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011608;Mammalia;Omnivorous;Terrestrial
+30;D03270;I03711;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011611;Mammalia;Omnivorous;Terrestrial
+31;D03272;I03713;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011613;Mammalia;Omnivorous;Terrestrial
+32;D03273;I03714;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011614;Mammalia;Omnivorous;Terrestrial
+33;D03276;I03717;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011617;Mammalia;Omnivorous;Terrestrial
+34;D03279;I03720;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011620;Mammalia;Omnivorous;Terrestrial
+35;D03283;I03724;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011624;Mammalia;Omnivorous;Terrestrial
+36;D03284;I03725;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011625;Mammalia;Omnivorous;Terrestrial
+37;D03285;I03726;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011626;Mammalia;Omnivorous;Terrestrial
+38;D03286;I03727;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011627;Mammalia;Omnivorous;Terrestrial
+39;D03288;I03729;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011629;Mammalia;Omnivorous;Terrestrial
+40;D03289;I03730;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011630;Mammalia;Omnivorous;Terrestrial
+41;D03290;I03731;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011631;Mammalia;Omnivorous;Terrestrial
+42;D03291;I03732;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011632;Mammalia;Omnivorous;Terrestrial
+43;D03292;I03733;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011633;Mammalia;Omnivorous;Terrestrial
+44;D03296;I03737;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011637;Mammalia;Omnivorous;Terrestrial
+45;D03297;I03738;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011638;Mammalia;Omnivorous;Terrestrial
+46;D03298;I03739;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011639;Mammalia;Omnivorous;Terrestrial
+47;D03299;I03740;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011640;Mammalia;Omnivorous;Terrestrial
+48;D03301;I03742;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011642;Mammalia;Omnivorous;Terrestrial
+49;D03303;I03744;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011644;Mammalia;Omnivorous;Terrestrial
+50;D03307;I03748;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011648;Mammalia;Omnivorous;Terrestrial
+51;D03308;I03749;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011649;Mammalia;Omnivorous;Terrestrial
+52;D03310;I03751;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011651;Mammalia;Omnivorous;Terrestrial
+53;D03311;I03752;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011652;Mammalia;Omnivorous;Terrestrial
+54;D03312;I03753;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011653;Mammalia;Omnivorous;Terrestrial
+55;D03313;I03754;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011654;Mammalia;Omnivorous;Terrestrial
+56;D03316;I03757;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011657;Mammalia;Omnivorous;Terrestrial
+57;D03317;I03758;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011658;Mammalia;Omnivorous;Terrestrial
+58;D03319;I03760;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011660;Mammalia;Omnivorous;Terrestrial
+59;D03322;I03763;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011663;Mammalia;Omnivorous;Terrestrial
+60;D03324;I03765;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011665;Mammalia;Omnivorous;Terrestrial
+61;D03325;I03766;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011666;Mammalia;Omnivorous;Terrestrial
+62;D03332;I03773;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011673;Mammalia;Omnivorous;Terrestrial
+63;D03333;I03774;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011674;Mammalia;Omnivorous;Terrestrial
+64;D03335;I03776;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011676;Mammalia;Omnivorous;Terrestrial
+65;D03339;I03780;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011680;Mammalia;Omnivorous;Terrestrial
+66;D03343;I03784;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011684;Mammalia;Omnivorous;Terrestrial
+67;D03344;I03785;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011685;Mammalia;Omnivorous;Terrestrial
+68;D03346;I03787;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011687;Mammalia;Omnivorous;Terrestrial
+69;D03347;I03788;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011688;Mammalia;Omnivorous;Terrestrial
+70;D03354;I03795;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011695;Mammalia;Omnivorous;Terrestrial
+71;D03359;I03800;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011700;Mammalia;Omnivorous;Terrestrial
+72;D03364;I03805;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011705;Mammalia;Omnivorous;Terrestrial
+73;D03366;I03807;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011707;Mammalia;Omnivorous;Terrestrial
+74;D03367;I03808;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011710;Mammalia;Omnivorous;Terrestrial
+75;D03368;I03809;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011711;Mammalia;Omnivorous;Terrestrial
+76;D03369;I03810;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011712;Mammalia;Omnivorous;Terrestrial
+77;D03370;I03811;PEMA;Schmidt2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011713;Mammalia;Omnivorous;Terrestrial
+78;D03372;I03813;PEMA;Schmidt2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;805r;SRR7011715;Mammalia;Omnivorous;Terrestrial
+79;D04372;I06142;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811582;Mammalia;Herviborous;Terrestrial
+80;D04373;I06143;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811581;Mammalia;Herviborous;Terrestrial
+81;D04374;I06144;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811580;Mammalia;Herviborous;Terrestrial
+82;D04375;I06145;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811579;Mammalia;Herviborous;Terrestrial
+83;D04376;I06146;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811578;Mammalia;Herviborous;Terrestrial
+84;D04377;I06147;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811577;Mammalia;Herviborous;Terrestrial
+85;D04378;I06148;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811576;Mammalia;Herviborous;Terrestrial
+86;D04379;I06149;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811575;Mammalia;Herviborous;Terrestrial
+87;D04380;I06150;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811574;Mammalia;Herviborous;Terrestrial
+88;D04381;I06151;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811573;Mammalia;Herviborous;Terrestrial
+89;D04382;I06152;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811572;Mammalia;Herviborous;Terrestrial
+90;D04383;I06153;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811571;Mammalia;Herviborous;Terrestrial
+91;D04384;I06154;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811570;Mammalia;Herviborous;Terrestrial
+92;D04385;I06155;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811569;Mammalia;Herviborous;Terrestrial
+93;D04386;I06156;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811568;Mammalia;Herviborous;Terrestrial
+94;D04387;I06157;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811567;Mammalia;Herviborous;Terrestrial
+95;D04388;I06158;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811566;Mammalia;Herviborous;Terrestrial
+96;D04389;I06159;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811565;Mammalia;Herviborous;Terrestrial
+97;D04390;I06160;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811564;Mammalia;Herviborous;Terrestrial
+98;D04391;I06161;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811563;Mammalia;Herviborous;Terrestrial
+99;D04392;I06162;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811562;Mammalia;Herviborous;Terrestrial
+100;D04393;I06163;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811561;Mammalia;Herviborous;Terrestrial
+101;D04394;I06164;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811560;Mammalia;Herviborous;Terrestrial
+102;D04395;I06165;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811559;Mammalia;Herviborous;Terrestrial
+103;D04396;I06166;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811558;Mammalia;Herviborous;Terrestrial
+104;D04397;I06167;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811557;Mammalia;Herviborous;Terrestrial
+105;D04398;I06168;PYNE;Clayton2016;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811556;Mammalia;Herviborous;Terrestrial
+106;D04410;I06180;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811544;Mammalia;Herviborous;Terrestrial
+107;D04411;I06181;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811543;Mammalia;Herviborous;Terrestrial
+108;D04412;I06182;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811542;Mammalia;Herviborous;Terrestrial
+109;D04413;I06183;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811541;Mammalia;Herviborous;Terrestrial
+110;D04414;I06184;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811540;Mammalia;Herviborous;Terrestrial
+111;D04415;I06185;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811539;Mammalia;Herviborous;Terrestrial
+112;D04416;I06186;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811538;Mammalia;Herviborous;Terrestrial
+113;D04417;I06187;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811537;Mammalia;Herviborous;Terrestrial
+114;D04418;I06188;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811536;Mammalia;Herviborous;Terrestrial
+115;D04419;I06189;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811535;Mammalia;Herviborous;Terrestrial
+116;D04420;I06190;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811534;Mammalia;Herviborous;Terrestrial
+117;D04421;I06191;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811533;Mammalia;Herviborous;Terrestrial
+118;D04422;I06192;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811532;Mammalia;Herviborous;Terrestrial
+119;D04423;I06193;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811531;Mammalia;Herviborous;Terrestrial
+120;D04424;I06194;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811530;Mammalia;Herviborous;Terrestrial
+121;D04432;I06202;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811522;Mammalia;Herviborous;Terrestrial
+122;D04433;I06203;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811521;Mammalia;Herviborous;Terrestrial
+123;D04434;I06204;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811520;Mammalia;Herviborous;Terrestrial
+124;D04435;I06205;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811519;Mammalia;Herviborous;Terrestrial
+125;D04436;I06206;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811518;Mammalia;Herviborous;Terrestrial
+126;D04437;I06207;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811517;Mammalia;Herviborous;Terrestrial
+127;D04438;I06208;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811516;Mammalia;Herviborous;Terrestrial
+128;D04439;I06209;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811515;Mammalia;Herviborous;Terrestrial
+129;D04440;I06210;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811514;Mammalia;Herviborous;Terrestrial
+130;D04441;I06211;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811513;Mammalia;Herviborous;Terrestrial
+131;D04442;I06212;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811512;Mammalia;Herviborous;Terrestrial
+132;D04443;I06213;PYNE;Clayton2016;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;ERR1811511;Mammalia;Herviborous;Terrestrial
+133;D05494;I10328;ELDA;Sun2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+134;D05500;I10330;ELDA;Sun2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+135;D05501;I10332;ELDA;Sun2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+136;D05502;I10334;ELDA;Sun2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+137;D05503;I10336;ELDA;Sun2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+138;D05504;I10338;ELDA;Sun2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+139;D05506;I10342;ELDA;Sun2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+140;D05507;I10344;ELDA;Sun2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+141;D05508;I10346;ELDA;Sun2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+142;D05509;I10348;ELDA;Sun2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+143;D05510;I10350;ELDA;Sun2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+144;D05511;I10352;ELDA;Sun2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;NA;515f;907r;;Mammalia;Herviborous;Terrestrial
+145;D05619;I09610;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984596;Mammalia;Carnivorous;Terrestrial
+146;D05626;I09612;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984620;Mammalia;Carnivorous;Terrestrial
+147;D05630;I09618;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984601;Mammalia;Carnivorous;Terrestrial
+148;D05635;I09622;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984603;Mammalia;Carnivorous;Terrestrial
+149;D05641;I09624;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984641;Mammalia;Carnivorous;Terrestrial
+150;D05643;I09625;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984606;Mammalia;Carnivorous;Terrestrial
+151;D05647;I09627;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984625;Mammalia;Carnivorous;Terrestrial
+152;D05648;I09630;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984611;Mammalia;Carnivorous;Terrestrial
+153;D05651;I09631;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984616;Mammalia;Carnivorous;Terrestrial
+154;D05654;I09633;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984614;Mammalia;Carnivorous;Terrestrial
+155;D05655;I09636;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984617;Mammalia;Carnivorous;Terrestrial
+156;D05658;I09640;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984621;Mammalia;Carnivorous;Terrestrial
+157;D05659;I09641;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984622;Mammalia;Carnivorous;Terrestrial
+158;D05663;I09647;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984628;Mammalia;Carnivorous;Terrestrial
+159;D05670;I09653;SAHA1;Chong2019;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984635;Mammalia;Carnivorous;Terrestrial
+160;D05672;I09657;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984638;Mammalia;Carnivorous;Terrestrial
+161;D05673;I09658;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984639;Mammalia;Carnivorous;Terrestrial
+162;D05674;I09662;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984643;Mammalia;Carnivorous;Terrestrial
+163;D05675;I09663;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984644;Mammalia;Carnivorous;Terrestrial
+164;D05676;I09665;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984646;Mammalia;Carnivorous;Terrestrial
+165;D05677;I09666;SAHA1;Chong2019;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;SRR8984647;Mammalia;Carnivorous;Terrestrial
+166;D05724;I10285;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686475;Reptilia;Carnivorous;Terrestrial
+167;D05725;I10286;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686476;Reptilia;Carnivorous;Terrestrial
+168;D05726;I10287;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686477;Reptilia;Carnivorous;Terrestrial
+169;D05727;I10288;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686478;Reptilia;Carnivorous;Terrestrial
+170;D05728;I10289;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686479;Reptilia;Carnivorous;Terrestrial
+171;D05729;I10290;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686480;Reptilia;Carnivorous;Terrestrial
+172;D05730;I10291;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686481;Reptilia;Carnivorous;Terrestrial
+173;D05731;I10292;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686482;Reptilia;Carnivorous;Terrestrial
+174;D05732;I10293;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686483;Reptilia;Carnivorous;Terrestrial
+175;D05733;I10294;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686484;Reptilia;Carnivorous;Terrestrial
+176;D05734;I10295;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686485;Reptilia;Carnivorous;Terrestrial
+177;D05735;I10296;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686486;Reptilia;Carnivorous;Terrestrial
+178;D05736;I10297;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686487;Reptilia;Carnivorous;Terrestrial
+179;D05737;I10298;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686488;Reptilia;Carnivorous;Terrestrial
+180;D05738;I10299;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686489;Reptilia;Carnivorous;Terrestrial
+181;D05739;I10300;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686490;Reptilia;Carnivorous;Terrestrial
+182;D05740;I10301;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686491;Reptilia;Carnivorous;Terrestrial
+183;D05742;I10303;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686493;Reptilia;Carnivorous;Terrestrial
+184;D05743;I10304;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686494;Reptilia;Carnivorous;Terrestrial
+185;D05745;I10306;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686496;Reptilia;Carnivorous;Terrestrial
+186;D05746;I10307;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686497;Reptilia;Carnivorous;Terrestrial
+187;D05747;I10308;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686498;Reptilia;Carnivorous;Terrestrial
+188;D05748;I10309;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686499;Reptilia;Carnivorous;Terrestrial
+189;D05750;I10311;SHCR;Tang2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686501;Reptilia;Carnivorous;Terrestrial
+190;D05752;I10313;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686503;Reptilia;Carnivorous;Terrestrial
+191;D05753;I10314;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686504;Reptilia;Carnivorous;Terrestrial
+192;D05754;I10315;SHCR;Tang2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;250;341f;806r;SRR10686505;Reptilia;Carnivorous;Terrestrial
+193;D05808;I10786;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+194;D05809;I10787;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+195;D05810;I10788;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+196;D05812;I10790;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+197;D05813;I10791;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+198;D05814;I10792;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+199;D05815;I10793;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+200;D05816;I10794;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+201;D05817;I10795;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+202;D05818;I10796;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+203;D05819;I10797;APIB;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+204;D05820;I10798;APIB;Nyholm2021;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+205;D05830;I10808;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+206;D05831;I10809;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+207;D05832;I10810;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+208;D05834;I10812;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+209;D05835;I10813;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+210;D05836;I10814;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+211;D05838;I10816;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+212;D05839;I10817;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+213;D05844;I10822;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+214;D05845;I10823;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+215;D05846;I10824;APIB;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Omnivorous;Aquatic
+216;D05933;I10911;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+217;D05934;I10912;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+218;D05935;I10913;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+219;D05940;I10918;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+220;D05941;I10919;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+221;D05942;I10920;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+222;D05944;I10922;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+223;D05945;I10923;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+224;D05953;I10931;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+225;D05955;I10933;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+226;D05957;I10935;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+227;D05959;I10937;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+228;D05961;I10939;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+229;D05962;I10940;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+230;D05963;I10941;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+231;D05964;I10942;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+232;D05965;I10943;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+233;D05966;I10944;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+234;D05967;I10945;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+235;D05968;I10946;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+236;D05969;I10947;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+237;D05970;I10948;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+238;D05971;I10949;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+239;D05972;I10950;VAHI;Nyholm2021;Wild;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+240;D05973;I10951;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+241;D05974;I10952;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+242;D05975;I10953;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+243;D05976;I10954;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+244;D05977;I10955;VAHI;Nyholm2021;Captivity;Entire gut;V3,V4;Illumina MiSeq;PE;300;341f;806r;;Actinopterygii;Carnivorous;Aquatic
+245;D06942;I11426;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149915;Mammalia;Herviborous;Terrestrial
+246;D06943;I11447;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149896;Mammalia;Herviborous;Terrestrial
+247;D06944;I11488;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149857;Mammalia;Herviborous;Terrestrial
+248;D06945;I11503;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149841;Mammalia;Herviborous;Terrestrial
+249;D06946;I11504;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149966;Mammalia;Herviborous;Terrestrial
+250;D06947;I11506;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149938;Mammalia;Herviborous;Terrestrial
+251;D06948;I11509;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149957;Mammalia;Herviborous;Terrestrial
+252;D06949;I11514;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149865;Mammalia;Herviborous;Terrestrial
+253;D06950;I11518;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5150004;Mammalia;Herviborous;Terrestrial
+254;D06951;I11526;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149994;Mammalia;Herviborous;Terrestrial
+255;D06952;I11532;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149821;Mammalia;Herviborous;Terrestrial
+256;D06953;I11533;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149817;Mammalia;Herviborous;Terrestrial
+257;D06954;I11537;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149851;Mammalia;Herviborous;Terrestrial
+258;D06955;I11547;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149852;Mammalia;Herviborous;Terrestrial
+259;D06956;I11550;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149895;Mammalia;Herviborous;Terrestrial
+260;D06957;I11553;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149996;Mammalia;Herviborous;Terrestrial
+261;D06958;I11555;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149901;Mammalia;Herviborous;Terrestrial
+262;D06959;I11556;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149952;Mammalia;Herviborous;Terrestrial
+263;D06960;I11566;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149999;Mammalia;Herviborous;Terrestrial
+264;D06961;I11572;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149880;Mammalia;Herviborous;Terrestrial
+265;D06962;I11575;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149969;Mammalia;Herviborous;Terrestrial
+266;D06963;I11576;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149848;Mammalia;Herviborous;Terrestrial
+267;D06964;I11577;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149986;Mammalia;Herviborous;Terrestrial
+268;D06965;I11590;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149853;Mammalia;Herviborous;Terrestrial
+269;D06966;I11596;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149874;Mammalia;Herviborous;Terrestrial
+270;D06967;I11597;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149888;Mammalia;Herviborous;Terrestrial
+271;D06969;I11603;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130529;Mammalia;Herviborous;Terrestrial
+272;D06970;I11604;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130589;Mammalia;Herviborous;Terrestrial
+273;D06971;I11605;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130567;Mammalia;Herviborous;Terrestrial
+274;D06973;I11606;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130539;Mammalia;Herviborous;Terrestrial
+275;D06974;I11607;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130553;Mammalia;Herviborous;Terrestrial
+276;D06975;I11608;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130564;Mammalia;Herviborous;Terrestrial
+277;D06976;I11609;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130534;Mammalia;Herviborous;Terrestrial
+278;D06977;I11610;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130556;Mammalia;Herviborous;Terrestrial
+279;D06978;I11611;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130582;Mammalia;Herviborous;Terrestrial
+280;D06979;I11612;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130591;Mammalia;Herviborous;Terrestrial
+281;D06980;I11613;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130532;Mammalia;Herviborous;Terrestrial
+282;D06981;I11614;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130547;Mammalia;Herviborous;Terrestrial
+283;D06982;I11615;AIME;Guo2019;Wild;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5130571;Mammalia;Herviborous;Terrestrial
+284;D06987;I11636;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149869;Mammalia;Herviborous;Terrestrial
+285;D06988;I11643;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149934;Mammalia;Herviborous;Terrestrial
+286;D06989;I11644;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149941;Mammalia;Herviborous;Terrestrial
+287;D06990;I11651;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149892;Mammalia;Herviborous;Terrestrial
+288;D06991;I11652;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149891;Mammalia;Herviborous;Terrestrial
+289;D06992;I11443;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149930;Mammalia;Herviborous;Terrestrial
+290;D06993;I11461;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149908;Mammalia;Herviborous;Terrestrial
+291;D06994;I11478;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149855;Mammalia;Herviborous;Terrestrial
+292;D06995;I11479;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149917;Mammalia;Herviborous;Terrestrial
+293;D06996;I11480;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149881;Mammalia;Herviborous;Terrestrial
+294;D06997;I11486;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149964;Mammalia;Herviborous;Terrestrial
+295;D06999;I11508;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149826;Mammalia;Herviborous;Terrestrial
+296;D07000;I11512;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149977;Mammalia;Herviborous;Terrestrial
+297;D07001;I11513;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149991;Mammalia;Herviborous;Terrestrial
+298;D07002;I11515;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149830;Mammalia;Herviborous;Terrestrial
+299;D07003;I11522;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5150005;Mammalia;Herviborous;Terrestrial
+300;D07028;I11638;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149967;Mammalia;Herviborous;Terrestrial
+301;D07029;I11639;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149956;Mammalia;Herviborous;Terrestrial
+302;D07030;I11640;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149914;Mammalia;Herviborous;Terrestrial
+303;D07031;I11641;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149893;Mammalia;Herviborous;Terrestrial
+304;D07032;I11645;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5150000;Mammalia;Herviborous;Terrestrial
+305;D07033;I11647;AIME;Guo2019;Captivity;Scat;V4;Illumina MiSeq;Preprocessed (fastq);NA;515f;806r;SRR5149900;Mammalia;Herviborous;Terrestrial
+306;D07441;I12748;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513553;Mammalia;Carnivorous;Terrestrial
+307;D07442;I12749;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513563;Mammalia;Carnivorous;Terrestrial
+308;D07443;I12750;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513564;Mammalia;Carnivorous;Terrestrial
+309;D07444;I12751;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513565;Mammalia;Carnivorous;Terrestrial
+310;D07445;I12752;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513566;Mammalia;Carnivorous;Terrestrial
+311;D07446;I12753;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513567;Mammalia;Carnivorous;Terrestrial
+312;D07447;I12754;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513568;Mammalia;Carnivorous;Terrestrial
+313;D07448;I12755;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513569;Mammalia;Carnivorous;Terrestrial
+314;D07449;I12756;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513570;Mammalia;Carnivorous;Terrestrial
+315;D07450;I12757;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513572;Mammalia;Carnivorous;Terrestrial
+316;D07451;I12758;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513573;Mammalia;Carnivorous;Terrestrial
+317;D07452;I12759;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513554;Mammalia;Carnivorous;Terrestrial
+318;D07453;I12760;PATI;Ning2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513574;Mammalia;Carnivorous;Terrestrial
+319;D07463;I12770;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513583;Mammalia;Carnivorous;Terrestrial
+320;D07464;I12771;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513582;Mammalia;Carnivorous;Terrestrial
+321;D07465;I12772;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513585;Mammalia;Carnivorous;Terrestrial
+322;D07466;I12773;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513586;Mammalia;Carnivorous;Terrestrial
+323;D07467;I12774;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513587;Mammalia;Carnivorous;Terrestrial
+324;D07468;I12775;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513584;Mammalia;Carnivorous;Terrestrial
+325;D07469;I12776;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513560;Mammalia;Carnivorous;Terrestrial
+326;D07470;I12777;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513571;Mammalia;Carnivorous;Terrestrial
+327;D07471;I12778;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513577;Mammalia;Carnivorous;Terrestrial
+328;D07472;I12779;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513578;Mammalia;Carnivorous;Terrestrial
+329;D07473;I12780;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513579;Mammalia;Carnivorous;Terrestrial
+330;D07474;I12781;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513580;Mammalia;Carnivorous;Terrestrial
+331;D07475;I12782;PATI;Ning2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;323f;826r;SRS5513581;Mammalia;Carnivorous;Terrestrial
+332;D07526;I12784;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489597;Mammalia;Herviborous;Terrestrial
+333;D07527;I12785;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489575;Mammalia;Herviborous;Terrestrial
+334;D07528;I12786;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489576;Mammalia;Herviborous;Terrestrial
+335;D07529;I12787;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489577;Mammalia;Herviborous;Terrestrial
+336;D07530;I12788;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489578;Mammalia;Herviborous;Terrestrial
+337;D07531;I12789;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489599;Mammalia;Herviborous;Terrestrial
+338;D07532;I12790;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489600;Mammalia;Herviborous;Terrestrial
+339;D07533;I12791;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489601;Mammalia;Herviborous;Terrestrial
+340;D07534;I12792;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489602;Mammalia;Herviborous;Terrestrial
+341;D07535;I12793;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489603;Mammalia;Herviborous;Terrestrial
+342;D07536;I12794;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489604;Mammalia;Herviborous;Terrestrial
+343;D07537;I12795;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489605;Mammalia;Herviborous;Terrestrial
+344;D07538;I12796;MOCH;Sun2020b;Captivity;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489596;Mammalia;Herviborous;Terrestrial
+345;D07539;I12797;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489571;Mammalia;Herviborous;Terrestrial
+346;D07540;I12798;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489587;Mammalia;Herviborous;Terrestrial
+347;D07541;I12799;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489590;Mammalia;Herviborous;Terrestrial
+348;D07542;I12800;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489589;Mammalia;Herviborous;Terrestrial
+349;D07543;I12801;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489592;Mammalia;Herviborous;Terrestrial
+350;D07544;I12802;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489591;Mammalia;Herviborous;Terrestrial
+351;D07545;I12803;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489583;Mammalia;Herviborous;Terrestrial
+352;D07546;I12804;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489582;Mammalia;Herviborous;Terrestrial
+353;D07547;I12805;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489579;Mammalia;Herviborous;Terrestrial
+354;D07548;I12806;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489584;Mammalia;Herviborous;Terrestrial
+355;D07549;I12807;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489580;Mammalia;Herviborous;Terrestrial
+356;D07550;I12808;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489572;Mammalia;Herviborous;Terrestrial
+357;D07551;I12809;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489581;Mammalia;Herviborous;Terrestrial
+358;D07552;I12810;MOCH;Sun2020b;Wild;Scat;V3,V4;Illumina HiSeq;Preprocessed (fastq);250;341f;806r;SRR6489593;Mammalia;Herviborous;Terrestrial
+359;D08036;I12378;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959695;Mammalia;Herviborous;Terrestrial
+360;D08037;I12379;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959696;Mammalia;Herviborous;Terrestrial
+361;D08038;I12380;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959681;Mammalia;Herviborous;Terrestrial
+362;D08039;I12381;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959680;Mammalia;Herviborous;Terrestrial
+363;D08040;I12382;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959679;Mammalia;Herviborous;Terrestrial
+364;D08041;I12383;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959678;Mammalia;Herviborous;Terrestrial
+365;D08042;I12384;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959685;Mammalia;Herviborous;Terrestrial
+366;D08043;I12385;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959692;Mammalia;Herviborous;Terrestrial
+367;D08044;I12386;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959684;Mammalia;Herviborous;Terrestrial
+368;D08045;I12387;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959683;Mammalia;Herviborous;Terrestrial
+369;D08046;I12388;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959682;Mammalia;Herviborous;Terrestrial
+370;D08047;I12389;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959677;Mammalia;Herviborous;Terrestrial
+371;D08048;I12390;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959676;Mammalia;Herviborous;Terrestrial
+372;D08049;I12391;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959740;Mammalia;Herviborous;Terrestrial
+373;D08053;I12395;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959626;Mammalia;Herviborous;Terrestrial
+374;D08054;I12396;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959625;Mammalia;Herviborous;Terrestrial
+375;D08056;I12398;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959627;Mammalia;Herviborous;Terrestrial
+376;D08058;I12400;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959621;Mammalia;Herviborous;Terrestrial
+377;D08060;I12402;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959623;Mammalia;Herviborous;Terrestrial
+378;D08061;I12403;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959630;Mammalia;Herviborous;Terrestrial
+379;D08066;I12408;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959605;Mammalia;Herviborous;Terrestrial
+380;D08067;I12409;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959604;Mammalia;Herviborous;Terrestrial
+381;D08068;I12410;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959603;Mammalia;Herviborous;Terrestrial
+382;D08069;I12411;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959602;Mammalia;Herviborous;Terrestrial
+383;D08072;I12414;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959609;Mammalia;Herviborous;Terrestrial
+384;D08076;I12418;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959743;Mammalia;Herviborous;Terrestrial
+385;D08077;I12419;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959599;Mammalia;Herviborous;Terrestrial
+386;D08078;I12420;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959738;Mammalia;Herviborous;Terrestrial
+387;D08079;I12421;EQKI;Gao2018;Wild;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959600;Mammalia;Herviborous;Terrestrial
+388;D08131;I12397;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959698;Mammalia;Herviborous;Terrestrial
+389;D08133;I12399;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959675;Mammalia;Herviborous;Terrestrial
+390;D08135;I12401;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959708;Mammalia;Herviborous;Terrestrial
+391;D08138;I12404;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959620;Mammalia;Herviborous;Terrestrial
+392;D08139;I12405;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959619;Mammalia;Herviborous;Terrestrial
+393;D08140;I12406;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959618;Mammalia;Herviborous;Terrestrial
+394;D08141;I12407;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959617;Mammalia;Herviborous;Terrestrial
+395;D08146;I12412;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959612;Mammalia;Herviborous;Terrestrial
+396;D08147;I12413;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959611;Mammalia;Herviborous;Terrestrial
+397;D08149;I12415;EQKI;Gao2018;Captivity;Scat;V4,V5;Ion S5TM XL;SR (Forward);400;515f;;SRR9959643;Mammalia;Herviborous;Terrestrial
+398;D08180;I12483;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586349;Mammalia;Herviborous;Terrestrial
+399;D08181;I12474;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586360;Mammalia;Herviborous;Terrestrial
+400;D08182;I12484;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586359;Mammalia;Herviborous;Terrestrial
+401;D08183;I12485;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586365;Mammalia;Herviborous;Terrestrial
+402;D08184;I12486;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586348;Mammalia;Herviborous;Terrestrial
+403;D08185;I12487;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586347;Mammalia;Herviborous;Terrestrial
+404;D08186;I12488;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586362;Mammalia;Herviborous;Terrestrial
+405;D08187;I12489;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586361;Mammalia;Herviborous;Terrestrial
+406;D08188;I12490;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586364;Mammalia;Herviborous;Terrestrial
+407;D08189;I12491;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586363;Mammalia;Herviborous;Terrestrial
+408;D08190;I12492;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586358;Mammalia;Herviborous;Terrestrial
+409;D08191;I12493;CENI;Guan2017;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586357;Mammalia;Herviborous;Terrestrial
+410;D08192;I12494;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586356;Mammalia;Herviborous;Terrestrial
+411;D08193;I12495;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586355;Mammalia;Herviborous;Terrestrial
+412;D08194;I12496;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586354;Mammalia;Herviborous;Terrestrial
+413;D08195;I12497;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586353;Mammalia;Herviborous;Terrestrial
+414;D08196;I12498;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586352;Mammalia;Herviborous;Terrestrial
+415;D08197;I12499;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586351;Mammalia;Herviborous;Terrestrial
+416;D08198;I12500;CENI;Guan2017;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;515f;785r2;SRR5586350;Mammalia;Herviborous;Terrestrial
+417;D08495;I13156;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513248;Mammalia;Herviborous;Terrestrial
+418;D08497;I13157;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513250;Mammalia;Herviborous;Terrestrial
+419;D08498;I13157;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513251;Mammalia;Herviborous;Terrestrial
+420;D08499;I13158;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513252;Mammalia;Herviborous;Terrestrial
+421;D08500;I13158;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513253;Mammalia;Herviborous;Terrestrial
+422;D08501;I13159;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513254;Mammalia;Herviborous;Terrestrial
+423;D08502;I13159;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513255;Mammalia;Herviborous;Terrestrial
+424;D08503;I13160;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513256;Mammalia;Herviborous;Terrestrial
+425;D08504;I13160;RHBR;Hale2019;Wild;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513257;Mammalia;Herviborous;Terrestrial
+426;D08512;I13164;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513265;Mammalia;Herviborous;Terrestrial
+427;D08513;I13165;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513266;Mammalia;Herviborous;Terrestrial
+428;D08518;I13167;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513271;Mammalia;Herviborous;Terrestrial
+429;D08522;I13169;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513275;Mammalia;Herviborous;Terrestrial
+430;D08523;I13170;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513276;Mammalia;Herviborous;Terrestrial
+431;D08525;I13171;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513278;Mammalia;Herviborous;Terrestrial
+432;D08526;I13171;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513279;Mammalia;Herviborous;Terrestrial
+433;D08532;I13174;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513285;Mammalia;Herviborous;Terrestrial
+434;D08533;I13175;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513286;Mammalia;Herviborous;Terrestrial
+435;D08536;I13176;RHBR;Hale2019;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);100;515f;;ERR1513289;Mammalia;Herviborous;Terrestrial
+436;D11574;I13460;GOGO;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762751;Mammalia;Herviborous;Terrestrial
+437;D11575;I13461;GOGO;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762752;Mammalia;Herviborous;Terrestrial
+438;D11576;I13462;GOGO;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762755;Mammalia;Herviborous;Terrestrial
+439;D11577;I13463;GOGO;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762756;Mammalia;Herviborous;Terrestrial
+440;D11580;I13466;GOGO;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762760;Mammalia;Herviborous;Terrestrial
+441;D11581;I13467;GOGO;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762763;Mammalia;Herviborous;Terrestrial
+442;D11586;I13472;GOGO;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762745;Mammalia;Herviborous;Terrestrial
+443;D11587;I13473;GOGO;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762746;Mammalia;Herviborous;Terrestrial
+444;D11588;I13474;GOGO;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762748;Mammalia;Herviborous;Terrestrial
+445;D11589;I13475;GOGO;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762749;Mammalia;Herviborous;Terrestrial
+446;D11590;I13476;GOGO;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762753;Mammalia;Herviborous;Terrestrial
+447;D11591;I13477;GOGO;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762754;Mammalia;Herviborous;Terrestrial
+448;D11592;I13478;PATR;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762738;Mammalia;Omnivorous;Terrestrial
+449;D11593;I13479;PATR;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762743;Mammalia;Omnivorous;Terrestrial
+450;D11594;I13480;PATR;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762757;Mammalia;Omnivorous;Terrestrial
+451;D11595;I13481;PATR;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762761;Mammalia;Omnivorous;Terrestrial
+452;D11597;I13483;PATR;Narat2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762764;Mammalia;Omnivorous;Terrestrial
+453;D11598;I13484;PATR;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762739;Mammalia;Omnivorous;Terrestrial
+454;D11599;I13485;PATR;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762741;Mammalia;Omnivorous;Terrestrial
+455;D11600;I13486;PATR;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762742;Mammalia;Omnivorous;Terrestrial
+456;D11601;I13487;PATR;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762744;Mammalia;Omnivorous;Terrestrial
+457;D11602;I13488;PATR;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762747;Mammalia;Omnivorous;Terrestrial
+458;D11603;I13489;PATR;Narat2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;270;341f;785r;SRR12762750;Mammalia;Omnivorous;Terrestrial
+459;D12343;I14106;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693642;Mammalia;Herviborous;Terrestrial
+460;D12344;I14107;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693641;Mammalia;Herviborous;Terrestrial
+461;D12345;I14108;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693630;Mammalia;Herviborous;Terrestrial
+462;D12346;I14109;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693619;Mammalia;Herviborous;Terrestrial
+463;D12347;I14110;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693618;Mammalia;Herviborous;Terrestrial
+464;D12348;I14111;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693617;Mammalia;Herviborous;Terrestrial
+465;D12349;I14112;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693616;Mammalia;Herviborous;Terrestrial
+466;D12350;I14113;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693615;Mammalia;Herviborous;Terrestrial
+467;D12351;I14114;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693614;Mammalia;Herviborous;Terrestrial
+468;D12352;I14115;BOGA;Prabhu2020;Captivity;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693613;Mammalia;Herviborous;Terrestrial
+469;D12364;I14127;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693639;Mammalia;Herviborous;Terrestrial
+470;D12365;I14128;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693638;Mammalia;Herviborous;Terrestrial
+471;D12366;I14129;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693637;Mammalia;Herviborous;Terrestrial
+472;D12367;I14130;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693636;Mammalia;Herviborous;Terrestrial
+473;D12368;I14131;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693635;Mammalia;Herviborous;Terrestrial
+474;D12369;I14132;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693634;Mammalia;Herviborous;Terrestrial
+475;D12370;I14133;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693633;Mammalia;Herviborous;Terrestrial
+476;D12371;I14134;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693632;Mammalia;Herviborous;Terrestrial
+477;D12372;I14135;BOGA;Prabhu2020;Wild;Scat;V3,V4;Illumina HiSeq;PE;250;341f;805r;SRR10693631;Mammalia;Herviborous;Terrestrial
+478;D12373;I14026;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458159;Mammalia;Omnivorous;Terrestrial
+479;D12374;I14027;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458158;Mammalia;Omnivorous;Terrestrial
+480;D12375;I14028;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458157;Mammalia;Omnivorous;Terrestrial
+481;D12376;I14029;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458156;Mammalia;Omnivorous;Terrestrial
+482;D12377;I14030;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458155;Mammalia;Omnivorous;Terrestrial
+483;D12378;I14031;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458154;Mammalia;Omnivorous;Terrestrial
+484;D12379;I14032;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458153;Mammalia;Omnivorous;Terrestrial
+485;D12380;I14033;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458152;Mammalia;Omnivorous;Terrestrial
+486;D12381;I14034;PAAN;Tsukayama2018;Captivity;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458151;Mammalia;Omnivorous;Terrestrial
+487;D12382;I14035;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458150;Mammalia;Omnivorous;Terrestrial
+488;D12383;I14036;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458148;Mammalia;Omnivorous;Terrestrial
+489;D12384;I14037;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458147;Mammalia;Omnivorous;Terrestrial
+490;D12385;I14038;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458144;Mammalia;Omnivorous;Terrestrial
+491;D12386;I14039;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458143;Mammalia;Omnivorous;Terrestrial
+492;D12387;I14040;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458142;Mammalia;Omnivorous;Terrestrial
+493;D12388;I14041;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458141;Mammalia;Omnivorous;Terrestrial
+494;D12389;I14042;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458140;Mammalia;Omnivorous;Terrestrial
+495;D12390;I14043;PAAN;Tsukayama2018;Wild;Scat;V4;Illumina MiSeq;PE;250;515f;806r;SRR3458139;Mammalia;Omnivorous;Terrestrial
+496;D12453;I14136;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6384024;Amphibia;Carnivorous;Terrestrial
+497;D12454;I14137;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6384025;Amphibia;Carnivorous;Terrestrial
+498;D12455;I14138;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6384026;Amphibia;Carnivorous;Terrestrial
+499;D12456;I14139;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6384027;Amphibia;Carnivorous;Terrestrial
+500;D12457;I14140;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6384028;Amphibia;Carnivorous;Terrestrial
+501;D12458;I14141;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293945;Amphibia;Carnivorous;Terrestrial
+502;D12459;I14142;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293946;Amphibia;Carnivorous;Terrestrial
+503;D12460;I14143;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293947;Amphibia;Carnivorous;Terrestrial
+504;D12461;I14144;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293948;Amphibia;Carnivorous;Terrestrial
+505;D12462;I14145;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293949;Amphibia;Carnivorous;Terrestrial
+506;D12463;I14146;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293950;Amphibia;Carnivorous;Terrestrial
+507;D12464;I14147;RADY;Tong2019;Captivity;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293951;Amphibia;Carnivorous;Terrestrial
+508;D12465;I14148;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293964;Amphibia;Carnivorous;Terrestrial
+509;D12466;I14149;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293965;Amphibia;Carnivorous;Terrestrial
+510;D12467;I14150;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293966;Amphibia;Carnivorous;Terrestrial
+511;D12468;I14151;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293967;Amphibia;Carnivorous;Terrestrial
+512;D12469;I14152;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293968;Amphibia;Carnivorous;Terrestrial
+513;D12470;I14153;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293969;Amphibia;Carnivorous;Terrestrial
+514;D12471;I14154;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR8293970;Amphibia;Carnivorous;Terrestrial
+515;D12472;I14155;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6448871;Amphibia;Carnivorous;Terrestrial
+516;D12473;I14156;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6448872;Amphibia;Carnivorous;Terrestrial
+517;D12474;I14157;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6448873;Amphibia;Carnivorous;Terrestrial
+518;D12475;I14158;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6448874;Amphibia;Carnivorous;Terrestrial
+519;D12476;I14159;RADY;Tong2019;Wild;Gut content;V3,V4;Illumina MiSeq;PE;300;338f;806r;SRR6448875;Amphibia;Carnivorous;Terrestrial
+520;D12481;I12658;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597642;Mammalia;Carnivorous;Aquatic
+521;D12500;I12663;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597470;Mammalia;Carnivorous;Aquatic
+522;D12507;I12665;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597472;Mammalia;Carnivorous;Aquatic
+523;D12519;I12669;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597648;Mammalia;Carnivorous;Aquatic
+524;D12547;I12671;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597651;Mammalia;Carnivorous;Aquatic
+525;D12567;I12672;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597653;Mammalia;Carnivorous;Aquatic
+526;D12571;I12673;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597654;Mammalia;Carnivorous;Aquatic
+527;D12606;I12678;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597497;Mammalia;Carnivorous;Aquatic
+528;D12609;I12679;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597656;Mammalia;Carnivorous;Aquatic
+529;D12635;I12681;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597660;Mammalia;Carnivorous;Aquatic
+530;D12656;I12682;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597663;Mammalia;Carnivorous;Aquatic
+531;D12699;I12683;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597664;Mammalia;Carnivorous;Aquatic
+532;D12719;I12684;TUTR;Bik2016;Captivity;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597521;Mammalia;Carnivorous;Aquatic
+533;D12722;I12685;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597703;Mammalia;Carnivorous;Aquatic
+534;D12724;I12686;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597704;Mammalia;Carnivorous;Aquatic
+535;D12726;I12687;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597705;Mammalia;Carnivorous;Aquatic
+536;D12728;I12688;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597706;Mammalia;Carnivorous;Aquatic
+537;D12730;I12689;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597707;Mammalia;Carnivorous;Aquatic
+538;D12732;I12690;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597708;Mammalia;Carnivorous;Aquatic
+539;D12734;I12691;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597709;Mammalia;Carnivorous;Aquatic
+540;D12736;I12692;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597710;Mammalia;Carnivorous;Aquatic
+541;D12738;I12693;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597711;Mammalia;Carnivorous;Aquatic
+542;D12740;I12695;TUTR;Bik2016;Wild;Rectum;V3,V4,V5;454 GS FLX Titanium;SR (Forward);NA;338f;;SRR597712;Mammalia;Carnivorous;Aquatic
+543;D13559;I14879;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658819;Mammalia;Herviborous;Terrestrial
+544;D13560;I14880;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658817;Mammalia;Herviborous;Terrestrial
+545;D13561;I14881;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658816;Mammalia;Herviborous;Terrestrial
+546;D13562;I14882;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658815;Mammalia;Herviborous;Terrestrial
+547;D13563;I14883;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658813;Mammalia;Herviborous;Terrestrial
+548;D13564;I14884;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658835;Mammalia;Herviborous;Terrestrial
+549;D13565;I14885;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658832;Mammalia;Herviborous;Terrestrial
+550;D13566;I14886;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658831;Mammalia;Herviborous;Terrestrial
+551;D13567;I14887;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658829;Mammalia;Herviborous;Terrestrial
+552;D13568;I14888;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658827;Mammalia;Herviborous;Terrestrial
+553;D13569;I14889;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658826;Mammalia;Herviborous;Terrestrial
+554;D13570;I14890;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658824;Mammalia;Herviborous;Terrestrial
+555;D13571;I14891;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658822;Mammalia;Herviborous;Terrestrial
+556;D13572;I14892;LALT;Eisenhofer2020;Captivity;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658821;Mammalia;Herviborous;Terrestrial
+557;D13573;I14893;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658854;Mammalia;Herviborous;Terrestrial
+558;D13575;I14895;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658843;Mammalia;Herviborous;Terrestrial
+559;D13577;I14897;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658841;Mammalia;Herviborous;Terrestrial
+560;D13579;I14899;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658839;Mammalia;Herviborous;Terrestrial
+561;D13580;I14900;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658838;Mammalia;Herviborous;Terrestrial
+562;D13581;I14901;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658837;Mammalia;Herviborous;Terrestrial
+563;D13582;I14902;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658853;Mammalia;Herviborous;Terrestrial
+564;D13583;I14903;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658852;Mammalia;Herviborous;Terrestrial
+565;D13584;I14904;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658851;Mammalia;Herviborous;Terrestrial
+566;D13586;I14906;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658849;Mammalia;Herviborous;Terrestrial
+567;D13587;I14907;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658848;Mammalia;Herviborous;Terrestrial
+568;D13588;I14908;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658846;Mammalia;Herviborous;Terrestrial
+569;D13589;I14909;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658845;Mammalia;Herviborous;Terrestrial
+570;D13591;I14911;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658866;Mammalia;Herviborous;Terrestrial
+571;D13592;I14912;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658865;Mammalia;Herviborous;Terrestrial
+572;D13594;I14914;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658863;Mammalia;Herviborous;Terrestrial
+573;D13595;I14915;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658862;Mammalia;Herviborous;Terrestrial
+574;D13596;I14916;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658861;Mammalia;Herviborous;Terrestrial
+575;D13598;I14918;LALT;Eisenhofer2020;Wild;Scat;V4;Illumina MiSeq;PE;150;515f;806r;SRR12658859;Mammalia;Herviborous;Terrestrial
+576;D13671;I14964;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+577;D13673;I14965;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+578;D13675;I14966;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+579;D13677;I14967;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+580;D13679;I14975;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+581;D13681;I14976;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+582;D13683;I14968;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+583;D13685;I14977;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+584;D13687;I14969;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+585;D13689;I14970;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+586;D13691;I14971;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+587;D13693;I14972;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+588;D13695;I14978;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+589;D13697;I14973;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+590;D13699;I14979;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+591;D13701;I14974;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+592;D13703;I14980;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+593;D13705;I14981;PELE;vanLeeuwen2020;Captivity;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+594;D13707;I14982;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+595;D13708;I14982;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+596;D13709;I14983;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+597;D13710;I14983;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+598;D13711;I14984;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+599;D13712;I14984;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+600;D13713;I14985;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+601;D13714;I14985;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+602;D13715;I14986;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+603;D13716;I14986;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+604;D13717;I14987;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+605;D13718;I14987;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+606;D13719;I14988;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+607;D13720;I14988;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+608;D13721;I14989;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+609;D13722;I14989;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+610;D13723;I14990;PELE;vanLeeuwen2020;Wild;Scat;V4;Illumina MiSeq;PE;300;515f;806r;;Mammalia;Omnivorous;Terrestrial
+611;D14129;I15369;SAHA2;Cheng2016;Captivity;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442752;Mammalia;Carnivorous;Terrestrial
+612;D14132;I15372;SAHA2;Cheng2016;Captivity;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442756;Mammalia;Carnivorous;Terrestrial
+613;D14135;I15375;SAHA2;Cheng2016;Captivity;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442759;Mammalia;Carnivorous;Terrestrial
+614;D14136;I15376;SAHA2;Cheng2016;Captivity;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442760;Mammalia;Carnivorous;Terrestrial
+615;D14140;I15380;SAHA2;Cheng2016;Captivity;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442764;Mammalia;Carnivorous;Terrestrial
+616;D14144;I15384;SAHA2;Cheng2016;Captivity;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442769;Mammalia;Carnivorous;Terrestrial
+617;D14156;I15396;SAHA2;Cheng2016;Wild;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442713;Mammalia;Carnivorous;Terrestrial
+618;D14160;I15400;SAHA2;Cheng2016;Wild;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442774;Mammalia;Carnivorous;Terrestrial
+619;D14162;I15402;SAHA2;Cheng2016;Wild;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442776;Mammalia;Carnivorous;Terrestrial
+620;D14163;I15403;SAHA2;Cheng2016;Wild;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442716;Mammalia;Carnivorous;Terrestrial
+621;D14164;I15404;SAHA2;Cheng2016;Wild;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442717;Mammalia;Carnivorous;Terrestrial
+622;D14166;I15406;SAHA2;Cheng2016;Wild;Scat;V1,V2,V3;454 GS FLX Titanium;SR (Forward);500;27f;;SRR2442731;Mammalia;Carnivorous;Terrestrial
+623;D14213;I15456;MYTR;Delsuc2014;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328019;Mammalia;Carnivorous;Terrestrial
+624;D14214;I15457;MYTR;Delsuc2014;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR327982;Mammalia;Carnivorous;Terrestrial
+625;D14215;I15458;MYTR;Delsuc2014;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR327980;Mammalia;Carnivorous;Terrestrial
+626;D14216;I15459;MYTR;Delsuc2014;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328061;Mammalia;Carnivorous;Terrestrial
+627;D14217;I15460;MYTR;Delsuc2014;Captivity;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328054;Mammalia;Carnivorous;Terrestrial
+628;D14218;I15461;MYTR;Delsuc2014;Wild;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328018;Mammalia;Carnivorous;Terrestrial
+629;D14219;I15462;MYTR;Delsuc2014;Wild;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328045;Mammalia;Carnivorous;Terrestrial
+630;D14220;I15463;MYTR;Delsuc2014;Wild;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328040;Mammalia;Carnivorous;Terrestrial
+631;D14221;I15464;MYTR;Delsuc2014;Wild;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328016;Mammalia;Carnivorous;Terrestrial
+632;D14222;I15465;MYTR;Delsuc2014;Wild;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR327975;Mammalia;Carnivorous;Terrestrial
+633;D14223;I15466;MYTR;Delsuc2014;Wild;Scat;V4;Illumina MiSeq;SR (Forward);150;515f;;ERR328034;Mammalia;Carnivorous;Terrestrial
+634;D14276;I15334;ALGI;Sandri2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988760;Reptilia;Herviborous;Terrestrial
+635;D14277;I15335;ALGI;Sandri2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988759;Reptilia;Herviborous;Terrestrial
+636;D14278;I15336;ALGI;Sandri2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988758;Reptilia;Herviborous;Terrestrial
+637;D14279;I15337;ALGI;Sandri2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988757;Reptilia;Herviborous;Terrestrial
+638;D14280;I15338;ALGI;Sandri2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988756;Reptilia;Herviborous;Terrestrial
+639;D14281;I15339;ALGI;Sandri2020;Captivity;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988755;Reptilia;Herviborous;Terrestrial
+640;D14285;I15343;ALGI;Sandri2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988751;Reptilia;Herviborous;Terrestrial
+641;D14286;I15344;ALGI;Sandri2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988750;Reptilia;Herviborous;Terrestrial
+642;D14287;I15345;ALGI;Sandri2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988749;Reptilia;Herviborous;Terrestrial
+643;D14288;I15346;ALGI;Sandri2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988748;Reptilia;Herviborous;Terrestrial
+644;D14289;I15347;ALGI;Sandri2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988747;Reptilia;Herviborous;Terrestrial
+645;D14290;I15348;ALGI;Sandri2020;Wild;Scat;V3,V4;Illumina MiSeq;PE;300;341f;806r;ERR3988746;Reptilia;Herviborous;Terrestrial
