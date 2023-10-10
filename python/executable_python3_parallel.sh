@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: Arey Ferrero Ramos.
-# Date: June 9, 2023. Version: 2.
+# Date: June 9, 2023. Version: 3.
 # Description: This script runs a command that executes, applying parallelism, the section of the project made in SEES:lab that performs nestednes assessment.
 #	Input:
 #		-The type of abundance matrix.
