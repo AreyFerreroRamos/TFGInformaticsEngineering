@@ -233,18 +233,16 @@ def nestedness_optimized(matrix):
     # and the sum of the minimum of pairs of interactions of rows.
     for first_row in range(matrix.shape[0] - 1):
         for second_row in range(first_row + 1, matrix.shape[0]):
-            for col in range(matrix.shape[1]):
-                if matrix[first_row][col] == 1 and matrix[second_row][col] == 1:
-                    first_isocline += 1
+            first_isocline += sum(
+                [first and second for first, second in zip(matrix[first_row, :], matrix[second_row, :])])
             third_isocline += min(sum_rows[first_row], sum_rows[second_row])
 
     # Calculate the sum of the number of shared interactions between columns
     # and the sum of the minimum of pairs of the number of interactions of columns.
     for first_col in range(matrix.shape[1] - 1):
         for second_col in range(first_col + 1, matrix.shape[1]):
-            for row in range(matrix.shape[0]):
-                if matrix[row][first_col] == 1 and matrix[row][second_col] == 1:
-                    second_isocline += 1
+            second_isocline += sum(
+                [first and second for first, second in zip(matrix[:, first_col], matrix[:, second_col])])
             fourth_isocline += min(sum_cols[first_col], sum_cols[second_col])
 
     # Calculate and return the nestedness of the matrix.
