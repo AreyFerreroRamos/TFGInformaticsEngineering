@@ -11,6 +11,24 @@ def get_num_species_per_individual(individual, df_vertebrates):
     return num_bacterial_species_per_individual
 
 
+def abundances_individuals_matrix(df_vertebrates):
+    individuals_matrix = np.empty((df_vertebrates.shape[1], df_vertebrates.shape[0]))
+
+    num_individuals = 0
+    for individual in df_vertebrates:
+        num_bacterial_species_per_individual = get_num_species_per_individual(individual, df_vertebrates)
+
+        column_genus = 0
+        for num_bacterial_species_per_genus in df_vertebrates[individual]:
+            relative_abundance = num_bacterial_species_per_genus / num_bacterial_species_per_individual
+            individuals_matrix[num_individuals][column_genus] = relative_abundance
+            column_genus += 1
+
+        num_individuals += 1
+
+    return individuals_matrix
+
+
 def get_specie_sample_type(individual, df_metadata):
     specie = sample_type = ""
 
@@ -23,25 +41,6 @@ def get_specie_sample_type(individual, df_metadata):
             row += 1
 
     return specie, sample_type
-
-
-def get_code_specie(name_specie, name_file_codes_vertebrates):
-    f_codes_vertebrates = open(name_file_codes_vertebrates, 'r')
-    code_specie = ""
-
-    for vertebrate_specie in f_codes_vertebrates:
-        if name_specie.replace(' ', '_', 1) == vertebrate_specie.split()[1]:
-            code_specie = vertebrate_specie.split()[0]
-
-    f_codes_vertebrates.close()
-    return code_specie
-
-
-def offset(sample_type):
-    if sample_type == 'Wild':
-        return 0
-    else:
-        return 1
 
 
 def normalize_matrix(matrix, rows, columns, num_individuals):
@@ -59,22 +58,11 @@ def normalize_matrix_vertebrates(matrix_vertebrate_genus, num_specie, num_wild, 
         num_genus += 1
 
 
-def abundances_individuals_matrix(df_vertebrates):
-    individuals_matrix = np.empty((df_vertebrates.shape[1], df_vertebrates.shape[0]))
-
-    num_individuals = 0
-    for individual in df_vertebrates:
-        num_bacterial_species_per_individual = get_num_species_per_individual(individual, df_vertebrates)
-
-        column_genus = 0
-        for num_bacterial_species_per_genus in df_vertebrates[individual]:
-            relative_abundance = num_bacterial_species_per_genus / num_bacterial_species_per_individual
-            individuals_matrix[num_individuals][column_genus] = relative_abundance
-            column_genus += 1
-
-        num_individuals += 1
-
-    return individuals_matrix
+def offset(sample_type):
+    if sample_type == 'Wild':
+        return 0
+    else:
+        return 1
 
 
 def abundances_vertebrates_matrix(df_vertebrates, df_metadata):
@@ -109,7 +97,19 @@ def abundances_vertebrates_matrix(df_vertebrates, df_metadata):
     return vertebrates_matrix
 
 
-def abundances_matrices_specie(vertebrate_specie, df_vertebrates, df_metadata):
+def get_code_specie(name_specie, name_file_codes_vertebrates):
+    f_codes_vertebrates = open(name_file_codes_vertebrates, 'r')
+    code_specie = ""
+
+    for vertebrate_specie in f_codes_vertebrates:
+        if name_specie.replace(' ', '_', 1) == vertebrate_specie.split()[1]:
+            code_specie = vertebrate_specie.split()[0]
+
+    f_codes_vertebrates.close()
+    return code_specie
+
+
+def abundances_specie_matrix(vertebrate_specie, df_vertebrates, df_metadata):
     specie_matrix = np.empty((0, df_vertebrates.shape[0]))
 
     num_individuals = 0
@@ -132,27 +132,28 @@ def abundances_matrices_specie(vertebrate_specie, df_vertebrates, df_metadata):
     return specie_matrix
 
 
-def abundances_matrices_specie_sample_type(vertebrate_specie, vertebrate_sample_type, df_vertebrates, df_metadata):
-    specie_matrix = np.empty((0, df_vertebrates.shape[0]))
+def abundances_specie_sample_type_matrix(vertebrate_specie, vertebrate_sample_type, df_vertebrates, df_metadata):
+    specie_sample_type_matrix = np.empty((0, df_vertebrates.shape[0]))
 
     num_individuals = 0
     for individual in df_vertebrates:
         specie, sample_type = get_specie_sample_type(individual, df_metadata)
 
         if specie == vertebrate_specie and sample_type == vertebrate_sample_type:
-            specie_matrix.resize((specie_matrix.shape[0] + 1, specie_matrix.shape[1]))
+            specie_sample_type_matrix.resize((specie_sample_type_matrix.shape[0] + 1,
+                                              specie_sample_type_matrix.shape[1]))
 
             num_bacterial_species_per_individual = get_num_species_per_individual(individual, df_vertebrates)
 
             column_genus = 0
             for num_bacterial_species_per_genus in df_vertebrates[individual]:
                 relative_abundance = num_bacterial_species_per_genus / num_bacterial_species_per_individual
-                specie_matrix[num_individuals][column_genus] = relative_abundance
+                specie_sample_type_matrix[num_individuals][column_genus] = relative_abundance
                 column_genus += 1
 
             num_individuals += 1
 
-    return specie_matrix
+    return specie_sample_type_matrix
 
 
 def discretize_matrix(matrix, threshold):
@@ -301,13 +302,13 @@ elif sys.argv[4] == "vertebrates":
 
 elif len(sys.argv[4].split()) >= 2:
     if len(sys.argv[4].split()) == 2:
-        abundances_matrix = abundances_matrices_specie(get_code_specie(sys.argv[4], sys.argv[3]),
+        abundances_matrix = abundances_specie_matrix(get_code_specie(sys.argv[4], sys.argv[3]),
                                                        df_vertebrates, df_metadata)
     elif sys.argv[4].split()[2] == "Wild":
-        abundances_matrix = abundances_matrices_specie_sample_type(get_code_specie(
+        abundances_matrix = abundances_specie_sample_type_matrix(get_code_specie(
             sys.argv[4].split()[0] + ' ' + sys.argv[4].split()[1], sys.argv[3]), 'Wild', df_vertebrates, df_metadata)
     elif sys.argv[4].split()[2] == "Captive":
-        abundances_matrix = abundances_matrices_specie_sample_type(get_code_specie(
+        abundances_matrix = abundances_specie_sample_type_matrix(get_code_specie(
             sys.argv[4].split()[0] + ' ' + sys.argv[4].split()[1], sys.argv[3]), 'Captivity', df_vertebrates, df_metadata)
 
 discretize_matrix(abundances_matrix, 0.0001)
