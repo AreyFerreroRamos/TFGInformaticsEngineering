@@ -2,7 +2,7 @@
 
 # Author: Arey Ferrero Ramos.
 # Date: June 9, 2023. Version: 3.
-# Description: This script runs a command that executes, applying parallelism, the section of the project made in SEES:lab that performs nestednes assessment.
+# Description: This script runs a command that executes the section of the project made in SEES:lab that performs nestednes assessment using the python3 interpreter, but applying external parallelism.
 #	Input:
 #		-The type of abundance matrix.
 #		-The number of randomized matrices for the assessment.

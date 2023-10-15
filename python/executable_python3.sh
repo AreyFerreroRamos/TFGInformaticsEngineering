@@ -2,7 +2,7 @@
 
 # Author: Arey Ferrero Ramos.
 # Date: June 11, 2023. Version: 2.
-# Description: This script runs the command that executes the section of the project made in SEES:lab that performs the nestedness assessment using the interpreter python3.
+# Description: This script runs the command that executes the section of the project made in SEES:lab that performs the nestedness assessment using the python3 interpreter.
 #	Input:
 #		-The type of abundance matrix.
 #		-The number of randomized matrices for the assessment.
