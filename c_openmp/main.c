@@ -5,8 +5,8 @@
 #include <assert.h>
 #include <omp.h>
 
-#define SIZE_X 2048
-#define SIZE_Y 4096
+#define SIZE_X 1024*4
+#define SIZE_Y 1024*8
 
 
 double nestedness(bool M[][SIZE_X]) {
@@ -97,6 +97,39 @@ double nestedness_aux(bool M[][SIZE_X], unsigned int row_count[SIZE_Y], unsigned
 	return interactions / isa;
 }
 
+
+double nestedness_aux_opti(bool M[][SIZE_X], unsigned int row_count[SIZE_Y], unsigned int col_count[SIZE_X]) {
+	unsigned long row_interactions = 0;
+	unsigned long col_interactions = 0;
+	unsigned long row_isa = 0;
+	unsigned long col_isa = 0;
+
+	for (int x = 0; x < SIZE_X; x++) {
+		unsigned int n = col_count[x];
+		row_interactions += ((n)*(n-1))/2;
+	}
+	for (int y = 0; y < SIZE_Y; y++) {
+		unsigned int n = row_count[y];
+		col_interactions += ((n)*(n-1))/2;
+	}
+	
+	#pragma omp parallel for default(none) shared(M, row_count) reduction(+:row_interactions,row_isa) schedule(static)
+	for (int i = 0; i < SIZE_Y-1; i++) {
+		for (int ii = i+1; ii < SIZE_Y; ii++) {
+			row_isa += (row_count[i] < row_count[ii]) ? row_count[i] : row_count[ii];
+		}
+	}
+	#pragma omp parallel for default(none) shared(M, col_count) reduction(+:col_interactions,col_isa) schedule(static)
+	for (int j = 0; j < SIZE_X-1; j++) {
+		for (int jj = j+1; jj < SIZE_X; jj++) {
+			col_isa += (col_count[j] < col_count[jj]) ? col_count[j] : col_count[jj];
+		}
+	}
+	double interactions = row_interactions + col_interactions;
+	double isa = row_isa + col_isa;
+	return interactions / isa;
+}
+
 /// FIXME: Incorrect results
 double single(bool M[][SIZE_X], unsigned int row_count[SIZE_Y], unsigned int col_count[SIZE_X]) {
 	unsigned long row_interactions = 0;
@@ -167,11 +200,19 @@ int main(int argc, char * argv[]) {
 	printf("omp_get_max_threads() = %d\n", omp_get_max_threads());
 	for (int k = 0; k < 10; ++k) {
 		{
+			// start = omp_get_wtime();
+			// double n_aux = nestedness_aux((*M), row_count, col_count);
+			// stop = omp_get_wtime();
+			// delta = stop - start;
+			// printf("[%.2lf] nestedness_aux(M[%dx%d] @k = %d) = %lf\n", delta, SIZE_X, SIZE_Y, k, n_aux);
+		}
+
+		{
 			start = omp_get_wtime();
-			double n_aux = nestedness_aux((*M), row_count, col_count);
+			double n_aux = nestedness_aux_opti((*M), row_count, col_count);
 			stop = omp_get_wtime();
 			delta = stop - start;
-			printf("[%.2lf] nestedness_aux(M[%dx%d] @k = %d) = %lf\n", delta, SIZE_X, SIZE_Y, k, n_aux);
+			printf("[%.2lf] nestedness_aux_opti(M[%dx%d] @k = %d) = %lf\n", delta, SIZE_X, SIZE_Y, k, n_aux);
 		}
 
 		{
