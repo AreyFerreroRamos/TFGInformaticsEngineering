@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <omp.h>
 
-#define SIZE_X 1024*4
+#define SIZE_X 1024*8
 #define SIZE_Y 1024*8
 
 
