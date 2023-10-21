@@ -1,47 +1,64 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+# include <stdio.h>
 
-typedef struct
+# define THRESHOLD 0.5
+# define NUM_ROWS 4
+# define NUM_COLS 4
+
+// void abundances_matrix(double **matrix)
+// {
+    // double **abundances_matrix = (double **) malloc(rows * sizeof(double *));
+    // for (i = 0; i < rows; i++) {
+        // abundances_matrix[i] = (double *) malloc(cols * sizeof(double))
+    // }
+// }
+
+void discretize_matrix(double matrix[][NUM_COLS], double threshold)
 {
-    double nested_value;
-    double p_value;
-} nested_components;
+    int rows, columns;
 
-int abundances_individuals_matrix()
-{
-    return 0;
-}
-
-int abundances_vertebrates_matrix()
-{
-    return 0;
-}
-
-void discretize_matrix()
-{
-
-}
-
-void nestedness_assesment()
-{
-
+    rows = 0;
+    while (rows < NUM_ROWS) {
+        columns = 0;
+        while (columns < NUM_COLS) {
+            if (matrix[rows][columns] > threshold) {
+                matrix[rows][columns] = 1;
+            }
+            else {
+                matrix[rows][columns] = 0;
+            }
+            columns++;
+        }
+        rows++;
+    }
 }
 
 int main(int argc, char * argv[])
 {
-    double **abundances_matrix;
+    int i, j;
 
-    if (! strcmp(argv[4], "individuals"))
-    {
-        abundances_matrix = abundances_individuals_matrix();
-    }
-    else if (! strcmp(argv[4], "vertebrates"))
-    {
-        abundances_matrix = abundances_vertebrates_matrix()
+    double abundances_matrix[NUM_ROWS][NUM_COLS] = {
+            {0.9, 0.8, 0.7, 0.6},
+            {0.8, 0.7, 0.6, 0.5},
+            {0.7, 0.6, 0.5, 0.4},
+            {0.6, 0.5, 0.4, 0.3}
+    };
+    for (i = 0; i < NUM_ROWS; i++) {
+        for (j = 0; j < NUM_COLS; j++) {
+            printf("%.1f\t", abundances_matrix[i][j]);
+        }
+        printf("\n");
     }
 
-    discretize_matrix(abundances_matrix);
-    nestedness_assesment(abundances_matrix, atoi(argv[5]))
-    printf("\nnested value: %.2f\np-value: %.2f", nested_components.nested_value, nested_components.p_value)
+    discretize_matrix(abundances_matrix, THRESHOLD);
+
+    printf("\n");
+    for (i = 0; i < NUM_ROWS; i++) {
+        for (j = 0; j < NUM_COLS; j++) {
+            printf("%.1f\t", abundances_matrix[i][j]);
+        }
+        printf("\n");
+    }
+
+    // nestedness_assesment(abundances_matrix, atoi(argv[5]))
+    // printf("\nnested value: %.2f\np-value: %.2f", nested_components.nested_value, nested_components.p_value)
 }
