@@ -102,6 +102,62 @@ double nestedness(double matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
+double nestedness_optimized(double matrix[][NUM_COLS])
+{
+    int sum_rows[NUM_ROWS];
+    int sum_cols[NUM_COLS];
+    int first_isocline, second_isocline, third_isocline, fourth_isocline;
+    int row, col;
+
+    for (row = 0; row < NUM_ROWS; row++) {
+        for (col = 0; col < NUM_COLS; col++) {
+            sum_rows[row] += matrix[row][col];
+        }
+    }
+
+    for (col = 0; col < NUM_COLS; col++) {
+        for (row = 0; row < NUM_ROWS; row++) {
+            sum_cols[col] += matrix[row][col];
+        }
+    }
+
+    first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
+
+    for (int first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
+        for (int second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
+            for (col = 0; col < NUM_COLS; col++) {
+                if ((matrix[first_row][col] == 1) && (matrix[second_row][col] == 1)) {
+                    first_isocline++;
+                }
+            }
+            if (sum_rows[first_row] < sum_rows[second_row]) {
+                third_isocline += sum_rows[first_row];
+            }
+            else {
+                third_isocline += sum_rows[second_row];
+            }
+        }
+    }
+
+    for (int first_col = 0; first_col < NUM_COLS - 1; first_col++) {
+        for (int second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
+            for (row = 0; row < NUM_ROWS; row++) {
+                if ((matrix[row][first_col] == 1) && (matrix[row][second_col] == 1)) {
+                    second_isocline++;
+                }
+            }
+            if (sum_cols[first_col] < sum_cols[second_col]) {
+                fourth_isocline += sum_cols[first_col];
+            }
+            else {
+                fourth_isocline += sum_cols[second_col];
+            }
+        }
+    }
+
+    return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
+}
+
 int main(int argc, char * argv[])
 {
     double nested_value;
@@ -131,6 +187,7 @@ int main(int argc, char * argv[])
     }
 
     nested_value = nestedness(abundances_matrix);
+    // nested_value = nestedness_optimized(abundances_matrix);
     printf("\n%.2f\n", nested_value);
 
     // nestedness_assesment(abundances_matrix, atoi(argv[5]))
