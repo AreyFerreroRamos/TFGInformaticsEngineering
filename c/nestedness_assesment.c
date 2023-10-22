@@ -39,6 +39,7 @@ double nestedness(int matrix[][NUM_COLS])
 
     first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
 
+    // Calculate the sum of the number of shared interactions between rows.
     for (first_row = 0; first_row < NUM_ROWS; first_row++) {
         for (second_row = 0; second_row < NUM_ROWS; second_row++) {
             if (first_row < second_row) {
@@ -51,6 +52,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
+    // Calculate the sum of the number of shared interactions between columns.
     for (first_col = 0; first_col < NUM_COLS; first_col++) {
         for (second_col = 0; second_col < NUM_COLS; second_col++) {
             if (first_col < second_col) {
@@ -63,6 +65,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
+    // Calculate the sum of the number of interactions of rows.
     for (first_row = 0; first_row < NUM_ROWS; first_row++) {
         for (second_row = 0; second_row < NUM_ROWS; second_row++) {
             if (first_row < second_row) {
@@ -81,6 +84,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
+    // Calculate the sum of the number of interactions of columns.
     for (first_col = 0; first_col < NUM_COLS; first_col++) {
         for (second_col = 0; second_col < NUM_COLS; second_col++) {
             if (first_col < second_col) {
@@ -99,6 +103,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
+    // Calculate and return the nestedness value of the matrix.
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
@@ -109,12 +114,14 @@ double nestedness_optimized(int matrix[][NUM_COLS])
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int row, col, first_row, second_row, first_col, second_col;
 
+    // Calculate and save the number of interactions of every row.
     for (row = 0; row < NUM_ROWS; row++) {
         for (col = 0; col < NUM_COLS; col++) {
             sum_rows[row] += matrix[row][col];
         }
     }
 
+    // Calculate and save the number of interactions of every column.
     for (col = 0; col < NUM_COLS; col++) {
         for (row = 0; row < NUM_ROWS; row++) {
             sum_cols[col] += matrix[row][col];
@@ -123,6 +130,8 @@ double nestedness_optimized(int matrix[][NUM_COLS])
 
     first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
 
+    // Calculate the sum of the number of shared interactions between rows
+    // and the sum of the minimum of pairs of interactions of rows.
     for (first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
         for (second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
             for (col = 0; col < NUM_COLS; col++) {
@@ -137,6 +146,8 @@ double nestedness_optimized(int matrix[][NUM_COLS])
         }
     }
 
+    // Calculate the sum of the number of shared interactions between columns
+    // and the sum of the minimum of pairs of the number of interactions of columns.
     for (first_col = 0; first_col < NUM_COLS - 1; first_col++) {
         for (second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
             for (row = 0; row < NUM_ROWS; row++) {
@@ -151,6 +162,7 @@ double nestedness_optimized(int matrix[][NUM_COLS])
         }
     }
 
+    // Calculate and return the nestedness value of the matrix.
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 

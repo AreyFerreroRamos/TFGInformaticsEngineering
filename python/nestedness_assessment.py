@@ -211,7 +211,7 @@ def nestedness(matrix):
                     second_acum += matrix[row][second_col]
                 fourth_isocline += min(first_acum, second_acum)
 
-    # Calculate and return the nestedness of the matrix.
+    # Calculate and return the nestedness value of the matrix.
     return (first_isocline + second_isocline) / (third_isocline + fourth_isocline)
 
 
@@ -245,7 +245,7 @@ def nestedness_optimized(matrix):
                 [first and second for first, second in zip(matrix[:, first_col], matrix[:, second_col])])
             fourth_isocline += min(sum_cols[first_col], sum_cols[second_col])
 
-    # Calculate and return the nestedness of the matrix.
+    # Calculate and return the nestedness value of the matrix.
     return (first_isocline + second_isocline) / (third_isocline + fourth_isocline)
 
 
