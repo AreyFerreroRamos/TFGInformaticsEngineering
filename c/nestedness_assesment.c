@@ -111,28 +111,11 @@ double nestedness_optimized(double matrix[][NUM_COLS])
 
     for (first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
         for (second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
+            first_acum = second_acum = 0;
             for (col = 0; col < NUM_COLS; col++) {
                 if ((matrix[first_row][col] == 1) && (matrix[second_row][col] == 1)) {
                     first_isocline++;
                 }
-            }
-        }
-    }
-
-    for (first_col = 0; first_col < NUM_COLS - 1; first_col++) {
-        for (second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
-            for (row = 0; row < NUM_ROWS; row++) {
-                if ((matrix[row][first_col] == 1) && (matrix[row][second_col] == 1)) {
-                    second_isocline++;
-                }
-            }
-        }
-    }
-
-    for (first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
-        for (second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
-            first_acum = second_acum = 0;
-            for (col = 0; col < NUM_COLS; col++) {
                 first_acum += matrix[first_row][col];
                 second_acum += matrix[second_row][col];
             }
@@ -149,6 +132,9 @@ double nestedness_optimized(double matrix[][NUM_COLS])
         for (second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
             first_acum = second_acum = 0;
             for (row = 0; row < NUM_ROWS; row++) {
+                if ((matrix[row][first_col] == 1) && (matrix[row][second_col] == 1)) {
+                    second_isocline++;
+                }
                 first_acum += matrix[row][first_col];
                 second_acum += matrix[row][second_col];
             }
