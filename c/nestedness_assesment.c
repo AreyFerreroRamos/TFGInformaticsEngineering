@@ -126,9 +126,7 @@ double nestedness_optimized(int matrix[][NUM_COLS])
     for (first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
         for (second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
             for (col = 0; col < NUM_COLS; col++) {
-                if ((matrix[first_row][col] == 1) && (matrix[second_row][col] == 1)) {
-                    first_isocline++;
-                }
+                first_isocline += matrix[first_row][col] & matrix[second_row][col];
             }
             if (sum_rows[first_row] < sum_rows[second_row]) {
                 third_isocline += sum_rows[first_row];
@@ -142,9 +140,7 @@ double nestedness_optimized(int matrix[][NUM_COLS])
     for (first_col = 0; first_col < NUM_COLS - 1; first_col++) {
         for (second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
             for (row = 0; row < NUM_ROWS; row++) {
-                if ((matrix[row][first_col] == 1) && (matrix[row][second_col] == 1)) {
-                    second_isocline++;
-                }
+                second_isocline += matrix[row][first_col] & matrix[row][second_col];
             }
             if (sum_cols[first_col] < sum_cols[second_col]) {
                 fourth_isocline += sum_cols[first_col];
