@@ -12,7 +12,7 @@
     // }
 // }
 
-void discretize_matrix(double matrix[][NUM_COLS], double threshold)
+void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
 {
     int rows, columns;
 
@@ -21,10 +21,10 @@ void discretize_matrix(double matrix[][NUM_COLS], double threshold)
         columns = 0;
         while (columns < NUM_COLS) {
             if (matrix[rows][columns] > threshold) {
-                matrix[rows][columns] = 1;
+                binary_matrix[rows][columns] = 1;
             }
             else {
-                matrix[rows][columns] = 0;
+                binary_matrix[rows][columns] = 0;
             }
             columns++;
         }
@@ -32,7 +32,7 @@ void discretize_matrix(double matrix[][NUM_COLS], double threshold)
     }
 }
 
-double nestedness(double matrix[][NUM_COLS])
+double nestedness(int matrix[][NUM_COLS])
 {
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int first_row, second_row, row, first_col, second_col, col, first_acum, second_acum;
@@ -102,7 +102,7 @@ double nestedness(double matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-double nestedness_optimized(double matrix[][NUM_COLS])
+double nestedness_optimized(int matrix[][NUM_COLS])
 {
     int sum_rows[NUM_ROWS] = {0, 0, 0, 0};
     int sum_cols[NUM_COLS] = {0, 0, 0, 0};
@@ -166,6 +166,8 @@ int main(int argc, char * argv[])
             {0.7, 0.6, 0.5, 0.4},
             {0.6, 0.5, 0.4, 0.3}
     };
+    int binary_matrix[NUM_ROWS][NUM_COLS];
+
     double nested_value;
     int i, j;
 
@@ -176,18 +178,18 @@ int main(int argc, char * argv[])
         printf("\n");
     }
 
-    discretize_matrix(abundances_matrix, THRESHOLD);
+    discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
 
     printf("\n");
     for (i = 0; i < NUM_ROWS; i++) {
         for (j = 0; j < NUM_COLS; j++) {
-            printf("%.1f\t", abundances_matrix[i][j]);
+            printf("%i\t", binary_matrix[i][j]);
         }
         printf("\n");
     }
 
-    // nested_value = nestedness(abundances_matrix);
-    nested_value = nestedness_optimized(abundances_matrix);
+    // nested_value = nestedness(binary_matrix);
+    nested_value = nestedness_optimized(binary_matrix);
     printf("\n%.2f\n", nested_value);
 
     // nestedness_assesment(abundances_matrix, atoi(argv[5]))
