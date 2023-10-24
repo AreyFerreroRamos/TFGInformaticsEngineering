@@ -166,6 +166,44 @@ double nestedness_optimized(int matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
+void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_values[], int num_randomized_matrices)
+{
+
+}
+
+void sort(double array[])
+{
+
+}
+
+int get_index(double nested_values[], double nested_value)
+{
+
+}
+
+double nestedness_assesment(int matrix[][NUM_COLS], int num_randomized_matrices)
+{
+    double nested_values[num_randomized_matrices + 1];
+    double nested_value;
+
+    // Generate as many randomized matrices from the real matrix as it is specified
+    // and calculate their nestedness values.
+    generate_nested_values_randomized(matrix, nested_values, num_randomized_matrices);
+
+    // Calculate and store the nestedness value of the real matrix.
+    nested_value = nestedness(matrix);
+    // nested_value = nestedness_optimized(matrix);
+    nested_values[num_randomized_matrices] = nested_value;
+
+    // Sort the list of nestedness values.
+    sort(nested_values);
+
+    // Calculate the fraction of randomized matrices that have a nestedness value greater than that of the real matrix.
+    p_value = (num_randomized_matrices - get_index(nested_values, nested_value)) / (num_randomized_matrices + 1);
+
+    return p_value;
+}
+
 int main(int argc, char * argv[])
 {
     double abundances_matrix[NUM_ROWS][NUM_COLS] = {
