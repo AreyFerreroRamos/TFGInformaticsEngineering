@@ -4,6 +4,12 @@
 # define NUM_ROWS 4
 # define NUM_COLS 4
 
+typedef struct
+{
+    double nested_value;
+    double p_value;
+} Nested_elements;
+
 // void abundances_matrix(double **matrix)
 // {
     // double **abundances_matrix = (double **) malloc(rows * sizeof(double *));
@@ -39,7 +45,7 @@ double nestedness(int matrix[][NUM_COLS])
 
     first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
 
-    // Calculate the sum of the number of shared interactions between rows.
+    /* Calculate the sum of the number of shared interactions between rows. */
     for (first_row = 0; first_row < NUM_ROWS; first_row++) {
         for (second_row = 0; second_row < NUM_ROWS; second_row++) {
             if (first_row < second_row) {
@@ -52,7 +58,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
-    // Calculate the sum of the number of shared interactions between columns.
+    /* Calculate the sum of the number of shared interactions between columns. */
     for (first_col = 0; first_col < NUM_COLS; first_col++) {
         for (second_col = 0; second_col < NUM_COLS; second_col++) {
             if (first_col < second_col) {
@@ -65,7 +71,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
-    // Calculate the sum of the number of interactions of rows.
+    /* Calculate the sum of the number of interactions of rows. */
     for (first_row = 0; first_row < NUM_ROWS; first_row++) {
         for (second_row = 0; second_row < NUM_ROWS; second_row++) {
             if (first_row < second_row) {
@@ -84,7 +90,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
-    // Calculate the sum of the number of interactions of columns.
+    /* Calculate the sum of the number of interactions of columns. */
     for (first_col = 0; first_col < NUM_COLS; first_col++) {
         for (second_col = 0; second_col < NUM_COLS; second_col++) {
             if (first_col < second_col) {
@@ -103,7 +109,7 @@ double nestedness(int matrix[][NUM_COLS])
         }
     }
 
-    // Calculate and return the nestedness value of the matrix.
+    /* Calculate and return the nested value of the matrix. */
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
@@ -114,14 +120,14 @@ double nestedness_optimized(int matrix[][NUM_COLS])
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int row, col, first_row, second_row, first_col, second_col;
 
-    // Calculate and save the number of interactions of every row.
+    /* Calculate and save the number of interactions of every row. */
     for (row = 0; row < NUM_ROWS; row++) {
         for (col = 0; col < NUM_COLS; col++) {
             sum_rows[row] += matrix[row][col];
         }
     }
 
-    // Calculate and save the number of interactions of every column.
+    /* Calculate and save the number of interactions of every column. */
     for (col = 0; col < NUM_COLS; col++) {
         for (row = 0; row < NUM_ROWS; row++) {
             sum_cols[col] += matrix[row][col];
@@ -130,8 +136,8 @@ double nestedness_optimized(int matrix[][NUM_COLS])
 
     first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
 
-    // Calculate the sum of the number of shared interactions between rows
-    // and the sum of the minimum of pairs of interactions of rows.
+    /* Calculate the sum of the number of shared interactions between rows
+       and the sum of the minimum of pairs of interactions of rows. */
     for (first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
         for (second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
             for (col = 0; col < NUM_COLS; col++) {
@@ -146,8 +152,8 @@ double nestedness_optimized(int matrix[][NUM_COLS])
         }
     }
 
-    // Calculate the sum of the number of shared interactions between columns
-    // and the sum of the minimum of pairs of the number of interactions of columns.
+    /* Calculate the sum of the number of shared interactions between columns
+       and the sum of the minimum of pairs of the number of interactions of columns. */
     for (first_col = 0; first_col < NUM_COLS - 1; first_col++) {
         for (second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
             for (row = 0; row < NUM_ROWS; row++) {
@@ -162,7 +168,7 @@ double nestedness_optimized(int matrix[][NUM_COLS])
         }
     }
 
-    // Calculate and return the nestedness value of the matrix.
+    /* Calculate and return the nested value of the matrix. */
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
@@ -183,25 +189,25 @@ int get_index(double nested_values[], double nested_value)
 
 double nestedness_assesment(int matrix[][NUM_COLS], int num_randomized_matrices)
 {
+    Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
-    double nested_value;
 
-    // Generate as many randomized matrices from the real matrix as it is specified
-    // and calculate their nestedness values.
+    /* Generate as many randomized matrices from the real matrix as it is specified and calculate their nested values. */
     generate_nested_values_randomized(matrix, nested_values, num_randomized_matrices);
 
-    // Calculate and store the nestedness value of the real matrix.
-    nested_value = nestedness(matrix);
-    // nested_value = nestedness_optimized(matrix);
-    nested_values[num_randomized_matrices] = nested_value;
+    /* Calculate and store the nested value of the real matrix. */
+    nested_elements.nested_value = nestedness(matrix);
+    // nested_elements.nested_value = nestedness_optimized(matrix);
+    nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
-    // Sort the list of nestedness values.
+    /* Sort the list of nestedness values. */
     sort(nested_values);
 
-    // Calculate the fraction of randomized matrices that have a nestedness value greater than that of the real matrix.
-    p_value = (num_randomized_matrices - get_index(nested_values, nested_value)) / (num_randomized_matrices + 1);
+    /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
+    nested_elements.p_value = ((double)(num_randomized_matrices - get_index(
+            nested_values, nested_elements.nested_value)) / (double) (num_randomized_matrices + 1));
 
-    return p_value;
+    return nested_elements;
 }
 
 int main(int argc, char * argv[])
@@ -214,6 +220,7 @@ int main(int argc, char * argv[])
     };
     int binary_matrix[NUM_ROWS][NUM_COLS];
 
+    // Nested_elements nested_elements;
     double nested_value;
     int i, j;
 
@@ -234,10 +241,10 @@ int main(int argc, char * argv[])
         printf("\n");
     }
 
-    // nested_value = nestedness(binary_matrix);
-    nested_value = nestedness_optimized(binary_matrix);
+    nested_value = nestedness(binary_matrix);
+    // nested_value = nestedness_optimized(binary_matrix);
     printf("\n%.2f\n", nested_value);
 
-    // nestedness_assesment(abundances_matrix, atoi(argv[5]))
-    // printf("\nnested value: %.2f\np-value: %.2f", nested_components.nested_value, nested_components.p_value)
+    // nested_elements = nestedness_assesment(abundances_matrix, 1000);
+    // printf("\nnested value: %.2f\np-value: %.2f", nested_elements.nested_value, nested_elements.p_value);
 }
