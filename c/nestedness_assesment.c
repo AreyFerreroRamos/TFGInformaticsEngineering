@@ -199,7 +199,7 @@ void initialize_randomized_matrix(int randomized_matrix[][NUM_COLS])
 
 void generate_randomized_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
 {
-    int num_elements = NUM_ROWS * NUM_COLS;
+    int cont_ones, pos, num_elements = NUM_ROWS * NUM_COLS;
     srand(time(NULL));
 
     cont_ones = 0;
@@ -235,7 +235,7 @@ int get_index(double nested_values[], double nested_value)
 
 }
 
-double nestedness_assesment(int matrix[][NUM_COLS], int num_randomized_matrices)
+Nested_elements nestedness_assesment(int matrix[][NUM_COLS], int num_randomized_matrices)
 {
     Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
