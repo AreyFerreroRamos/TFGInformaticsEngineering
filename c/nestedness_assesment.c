@@ -1,4 +1,6 @@
 # include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
 
 # define THRESHOLD 0.5
 # define NUM_ROWS 4
@@ -184,7 +186,7 @@ int count_ones_binary_matrix(int matrix[][NUM_COLS])
     return num_ones;
 }
 
-void initialize_randomized_matrix(randomized_matrix[][NUM_COLS])
+void initialize_randomized_matrix(int randomized_matrix[][NUM_COLS])
 {
     int row, col;
 
@@ -195,9 +197,19 @@ void initialize_randomized_matrix(randomized_matrix[][NUM_COLS])
     }
 }
 
-void randomize_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
+void generate_randomized_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
 {
-    
+    int num_elements = NUM_ROWS * NUM_COLS;
+    srand(time(NULL));
+
+    cont_ones = 0;
+    while (cont_ones < num_ones) {
+        pos = rand() % num_elements;
+        if (randomized_matrix[pos] != 1) {
+            randomized_matrix[pos] = 1;
+            cont_ones++;
+        }
+    }
 }
 
 void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_values_randomized[], int num_randomized_matrices)
@@ -207,7 +219,7 @@ void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_val
 
     for (pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_randomized_matrix(randomized_matrix);
-        randomize_matrix(randomized_matrix, num_ones);
+        generate_randomized_matrix(randomized_matrix, num_ones);
         nested_values_randomized[pos] = nestedness(randomized_matrix);
         // nested_values_randomized[pos] = nestedness_optimized(randomized_matrix);
     }
