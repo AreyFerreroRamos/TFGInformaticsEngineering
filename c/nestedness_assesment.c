@@ -172,9 +172,45 @@ double nestedness_optimized(int matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_values[], int num_randomized_matrices)
+int count_ones_binary_matrix(int matrix[][NUM_COLS])
 {
+    int row, col, num_ones = 0;
 
+    for (row = 0; row < NUM_ROWS; row++) {
+        for (col = 0; col < NUM_COLS; col++) {
+            num_ones += matrix[row][col];
+        }
+    }
+    return num_ones;
+}
+
+void initialize_randomized_matrix(randomized_matrix[][NUM_COLS])
+{
+    int row, col;
+
+    for (row = 0; row < NUM_ROWS; row++) {
+        for (col = 0; col < NUM_COLS; col++) {
+            randomized_matrix[row][col] = 0;
+        }
+    }
+}
+
+void randomize_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
+{
+    
+}
+
+void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_values_randomized[], int num_randomized_matrices)
+{
+    int randomized_matrix[NUM_ROWS][NUM_COLS];
+    int pos, num_ones = count_ones_binary_matrix(matrix);
+
+    for (pos = 0; pos < num_randomized_matrices; pos++) {
+        initialize_randomized_matrix(randomized_matrix);
+        randomize_matrix(randomized_matrix, num_ones);
+        nested_values_randomized[pos] = nestedness(randomized_matrix);
+        // nested_values_randomized[pos] = nestedness_optimized(randomized_matrix);
+    }
 }
 
 void sort(double array[])
