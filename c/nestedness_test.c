@@ -40,7 +40,7 @@ void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS],
     }
 }
 
-double nestedness(int matrix[][NUM_COLS])
+double calculate_nested_value(int matrix[][NUM_COLS])
 {
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int first_row, second_row, row, first_col, second_col, col, first_acum, second_acum;
@@ -115,7 +115,7 @@ double nestedness(int matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-double nestedness_optimized(int matrix[][NUM_COLS])
+double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 {
     int sum_rows[NUM_ROWS] = {0, 0, 0, 0};
     int sum_cols[NUM_COLS] = {0, 0, 0, 0};
@@ -220,8 +220,8 @@ void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_val
     for (pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_randomized_matrix(randomized_matrix);
         generate_randomized_matrix(randomized_matrix, num_ones);
-        nested_values_randomized[pos] = nestedness(randomized_matrix);
-        // nested_values_randomized[pos] = nestedness_optimized(randomized_matrix);
+        nested_values_randomized[pos] = calculate_nested_value(randomized_matrix);
+        // nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix);
     }
 }
 
@@ -235,7 +235,7 @@ int get_index(double nested_values[], double nested_value)
 
 }
 
-Nested_elements nestedness_assesment(int matrix[][NUM_COLS], int num_randomized_matrices)
+Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
 {
     Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
@@ -244,11 +244,11 @@ Nested_elements nestedness_assesment(int matrix[][NUM_COLS], int num_randomized_
     generate_nested_values_randomized(matrix, nested_values, num_randomized_matrices);
 
     /* Calculate and store the nested value of the real matrix. */
-    nested_elements.nested_value = nestedness(matrix);
-    // nested_elements.nested_value = nestedness_optimized(matrix);
+    nested_elements.nested_value = calculate_nested_value(matrix);
+    // nested_elements.nested_value = calculate_nested_value_optimized(matrix);
     nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
-    /* Sort the list of nestedness values. */
+    /* Sort the list of nested values. */
     sort(nested_values);
 
     /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
@@ -289,10 +289,10 @@ int main(int argc, char * argv[])
         printf("\n");
     }
 
-    nested_value = nestedness(binary_matrix);
-    // nested_value = nestedness_optimized(binary_matrix);
+    nested_value = calculate_nested_value(binary_matrix);
+    // nested_value = calculate_nested_value_optimized(binary_matrix);
     printf("\n%.2f\n", nested_value);
 
-    // nested_elements = nestedness_assesment(abundances_matrix, 1000);
-    // printf("\nnested value: %.2f\np-value: %.2f", nested_elements.nested_value, nested_elements.p_value);
+    // nested_elements = nested_test(abundances_matrix, 1000);
+    // printf("\nNested value: %.2f\nP-value: %.2f", nested_elements.nested_value, nested_elements.p_value);
 }

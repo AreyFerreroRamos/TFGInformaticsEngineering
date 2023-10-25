@@ -272,7 +272,7 @@ def generate_nested_values_randomized(matrix, num_randomized_matrices):
     return nested_values_randomized
 
 
-def nestedness_assessment(matrix, num_randomized_matrices):
+def nestedness_test(matrix, num_randomized_matrices):
     if matrix.size == 0:
         return 0, 0
 
@@ -314,5 +314,5 @@ elif len(sys.argv[4].split()) >= 2:
             sys.argv[4].split()[0] + ' ' + sys.argv[4].split()[1], sys.argv[3]), 'Captivity', df_vertebrates, df_metadata)
 
 discretize_matrix(abundances_matrix, 0.0001)
-nested_abundances_matrix, p_value = nestedness_assessment(abundances_matrix, int(sys.argv[5]))
+nested_abundances_matrix, p_value = nestedness_test(abundances_matrix, int(sys.argv[5]))
 print(nested_abundances_matrix, p_value)

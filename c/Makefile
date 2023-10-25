@@ -1,8 +1,8 @@
-nestedness_assesment: nestedness_assesment.c
-	gcc nestedness_assesment.c -o nestedness_assesment
+nestedness_test: nestedness_test.c
+	gcc nestedness_test.c -o nestedness_test
 
-run: nestedness_assesment
-	./nestedness_assesment
+run: nestedness_test
+	./nestedness_test
 
 clean:
-	rm -f nestedness_assesment
+	rm -f nestedness_test
