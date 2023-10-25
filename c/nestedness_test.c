@@ -118,8 +118,8 @@ double calculate_nested_value(int matrix[][NUM_COLS])
 
 double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 {
-    int sum_rows[NUM_ROWS] = {0, 0, 0, 0};
-    int sum_cols[NUM_COLS] = {0, 0, 0, 0};
+    int sum_rows[NUM_ROWS] = {0};
+    int sum_cols[NUM_COLS] = {0};
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int row, col, first_row, second_row, first_col, second_col;
 
@@ -200,15 +200,14 @@ void initialize_randomized_matrix(int randomized_matrix[][NUM_COLS])
 
 void generate_randomized_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
 {
-    int cont_ones, row, col, num_elements = NUM_ROWS * NUM_COLS;
+    int cont_ones, pos, num_elements = NUM_ROWS * NUM_COLS;
     srand(time(NULL));
 
     cont_ones = 0;
     while (cont_ones < num_ones) {
-        row = (rand() % num_elements) / NUM_COLS;
-        col = (rand() % num_elements) % NUM_COLS;
-        if (randomized_matrix[row][col] != 1) {
-            randomized_matrix[row][col] = 1;
+        pos = rand() % num_elements;
+        if (randomized_matrix[pos / NUM_COLS][pos % NUM_COLS] != 1) {
+            randomized_matrix[pos / NUM_COLS][pos % NUM_COLS] = 1;
             cont_ones++;
         }
     }
@@ -227,9 +226,42 @@ void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_val
     }
 }
 
-void sort(double array[])
+int sort(double array[], int first, int last)
 {
+    int pivot = array[first], i = first + 1, j = last, aux;
 
+    while (i < j) {
+        if (array[i] > pivot) {
+            if (array[j] <= pivot) {
+                aux = array[i];
+                array[i] = array[j];
+                array[j] = aux;
+                i++;
+            }
+            j--;
+        }
+        else {
+            i++;
+        }
+    }
+    if (array[i] < pivot) {
+        aux = array[i];
+        array[i] = pivot;
+        array[first] = aux;
+    }
+    return i - 1;
+}
+
+void quicksort(double array[], int first, int last)
+{
+    int half;
+
+    /* In direct case we do nothing. */
+    if (first < last) {        /* Recursive case. */
+        half = sort(array, first, last);
+        quicksort(array, first, half);
+        quicksort(array, half + 1, last);
+    }
 }
 
 int get_index(double nested_values[], int num_elements, double nested_value)
@@ -262,7 +294,7 @@ Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
     nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
     /* Sort the list of nested values. */
-    sort(nested_values);
+    quicksort(nested_values, 0, num_randomized_matrices);
 
     /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
     nested_elements.p_value = ((double)(num_randomized_matrices - get_index(
@@ -280,9 +312,15 @@ int main(int argc, char * argv[])
             {0.7, 0.6, 0.5, 0.4},
             {0.6, 0.5, 0.4, 0.3}
     };
+    double transposed_abundances_matrix[NUM_ROWS][NUM_COLS] = {
+            {0.3, 0.9, 0.5, 0.7},
+            {0.9, 0.5, 0.3, 0.7},
+            {0.3, 0.6, 0.9, 0.1},
+            {0.6, 0.7, 0.1, 0.3}
+    };
     int binary_matrix[NUM_ROWS][NUM_COLS];
 
-    // Nested_elements nested_elements;
+    Nested_elements nested_elements;
     double nested_value;
     int i, j;
 
@@ -294,6 +332,7 @@ int main(int argc, char * argv[])
     }
 
     discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
+    // discretize_matrix(transposed_abundances_matrix, binary_matrix, THRESHOLD);
 
     printf("\n");
     for (i = 0; i < NUM_ROWS; i++) {
@@ -303,10 +342,10 @@ int main(int argc, char * argv[])
         printf("\n");
     }
 
-    nested_value = calculate_nested_value(binary_matrix);
+    // nested_value = calculate_nested_value(binary_matrix);
     // nested_value = calculate_nested_value_optimized(binary_matrix);
-    printf("\n%.2f\n", nested_value);
+    // printf("\n%.2f\n", nested_value);
 
-    // nested_elements = nested_test(abundances_matrix, 1000);
-    // printf("\nNested value: %.2f\nP-value: %.2f", nested_elements.nested_value, nested_elements.p_value);
+    nested_elements = nested_test(binary_matrix, 1000);
+    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 }

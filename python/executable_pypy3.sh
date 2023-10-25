@@ -34,6 +34,6 @@ then
 	exit 4
 fi
 
-pypy3 nestedness_assessment.py ../input_files/count_Genus_all.tsv ../input_files/metadata.csv ../input_files/sp_code.txt "$1" "$2"
+pypy3 nestedness_test.py ../input_files/count_Genus_all.tsv ../input_files/metadata.csv ../input_files/sp_code.txt "$1" "$2"
 
 exit 0
