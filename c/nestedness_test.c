@@ -1,5 +1,6 @@
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <time.h>
 
 # define THRESHOLD 0.5
@@ -231,9 +232,20 @@ void sort(double array[])
 
 }
 
-int get_index(double nested_values[], double nested_value)
+int get_index(double nested_values[], int num_elements, double nested_value)
 {
+    int pos = 0;
+    bool found = false;
 
+    while ((! found) && (pos < num_elements)) {
+        if (nested_values[pos] == nested_value) {
+            found = true;
+        }
+        else {
+            pos++;
+        }
+    }
+    return pos;
 }
 
 Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
@@ -254,7 +266,8 @@ Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
 
     /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
     nested_elements.p_value = ((double)(num_randomized_matrices - get_index(
-            nested_values, nested_elements.nested_value)) / (double) (num_randomized_matrices + 1));
+            nested_values,num_randomized_matrices + 1, nested_elements.nested_value))
+                    / (double) (num_randomized_matrices + 1));
 
     return nested_elements;
 }
