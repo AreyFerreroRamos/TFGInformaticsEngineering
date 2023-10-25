@@ -199,14 +199,15 @@ void initialize_randomized_matrix(int randomized_matrix[][NUM_COLS])
 
 void generate_randomized_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
 {
-    int cont_ones, pos, num_elements = NUM_ROWS * NUM_COLS;
+    int cont_ones, row, col, num_elements = NUM_ROWS * NUM_COLS;
     srand(time(NULL));
 
     cont_ones = 0;
     while (cont_ones < num_ones) {
-        pos = rand() % num_elements;
-        if (randomized_matrix[pos] != 1) {
-            randomized_matrix[pos] = 1;
+        row = (rand() % num_elements) / NUM_COLS;
+        col = (rand() % num_elements) % NUM_COLS;
+        if (randomized_matrix[row][col] != 1) {
+            randomized_matrix[row][col] = 1;
             cont_ones++;
         }
     }
