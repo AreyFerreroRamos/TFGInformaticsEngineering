@@ -2,7 +2,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <time.h>
-# include <unistd.h>
 
 # define THRESHOLD 0.5
 # define NUM_ROWS 4
@@ -121,8 +120,7 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 {
     int sum_rows[NUM_ROWS] = {0};
     int sum_cols[NUM_COLS] = {0};
-    int first_isocline, second_isocline, third_isocline, fourth_isocline;
-    int row, col, first_row, second_row, first_col, second_col;
+    int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
         /* Calculate and save the number of interactions of every row. */
     for (row = 0; row < NUM_ROWS; row++) {
@@ -142,8 +140,8 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 
         /* Calculate the sum of the number of shared interactions between rows
            and the sum of the minimum of pairs of interactions of rows. */
-    for (first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
-        for (second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
+    for (int first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
+        for (int second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
             for (col = 0; col < NUM_COLS; col++) {
                 first_isocline += matrix[first_row][col] & matrix[second_row][col];
             }
@@ -158,8 +156,8 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 
         /* Calculate the sum of the number of shared interactions between columns
            and the sum of the minimum of pairs of the number of interactions of columns. */
-    for (first_col = 0; first_col < NUM_COLS - 1; first_col++) {
-        for (second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
+    for (int first_col = 0; first_col < NUM_COLS - 1; first_col++) {
+        for (int second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
             for (row = 0; row < NUM_ROWS; row++) {
                 second_isocline += matrix[row][first_col] & matrix[row][second_col];
             }
@@ -178,10 +176,10 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 
 int count_ones_binary_matrix(int matrix[][NUM_COLS])
 {
-    int row, col, num_ones = 0;
+    int num_ones = 0;
 
-    for (row = 0; row < NUM_ROWS; row++) {
-        for (col = 0; col < NUM_COLS; col++) {
+    for (int row = 0; row < NUM_ROWS; row++) {
+        for (int col = 0; col < NUM_COLS; col++) {
             num_ones += matrix[row][col];
         }
     }
@@ -190,10 +188,8 @@ int count_ones_binary_matrix(int matrix[][NUM_COLS])
 
 void initialize_randomized_matrix(int randomized_matrix[][NUM_COLS])
 {
-    int row, col;
-
-    for (row = 0; row < NUM_ROWS; row++) {
-        for (col = 0; col < NUM_COLS; col++) {
+    for (int row = 0; row < NUM_ROWS; row++) {
+        for (int col = 0; col < NUM_COLS; col++) {
             randomized_matrix[row][col] = 0;
         }
     }
@@ -216,21 +212,12 @@ void generate_randomized_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
 void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_values_randomized[], int num_randomized_matrices)
 {
     int randomized_matrix[NUM_ROWS][NUM_COLS];
-    int pos, num_ones = count_ones_binary_matrix(matrix);
-    printf("\nNum ones: %i\n", num_ones);
+    int num_ones = count_ones_binary_matrix(matrix);
 
-    for (pos = 0; pos < num_randomized_matrices; pos++) {
+    for (int pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_randomized_matrix(randomized_matrix);
         generate_randomized_matrix(randomized_matrix, num_ones);
-        printf("\n");
-        for (int i = 0; i < NUM_ROWS; i++) {
-            for (int j = 0; j < NUM_COLS; j++) {
-                printf("%i\t", randomized_matrix[i][j]);
-            }
-            printf("\n");
-        }
         nested_values_randomized[pos] = calculate_nested_value(randomized_matrix);
-        printf("\nPos: %i. Nested value: %f\n", pos, nested_values_randomized[pos]);
         // nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix);
     }
 }
@@ -331,26 +318,11 @@ int main(int argc, char * argv[])
 
     Nested_elements nested_elements;
     double nested_value;
-    srand(time(NULL));
 
-    for (int i = 0; i < NUM_ROWS; i++) {
-        for (int j = 0; j < NUM_COLS; j++) {
-            printf("%.1f\t", abundances_matrix[i][j]);
-            // printf("%.1f\t", transposed_abundances_matrix[i][j]);
-        }
-        printf("\n");
-    }
+    srand(time(NULL));
 
     discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
     // discretize_matrix(transposed_abundances_matrix, binary_matrix, THRESHOLD);
-
-    printf("\n");
-    for (int i = 0; i < NUM_ROWS; i++) {
-        for (int j = 0; j < NUM_COLS; j++) {
-            printf("%i\t", binary_matrix[i][j]);
-        }
-        printf("\n");
-    }
 
     // nested_value = calculate_nested_value(binary_matrix);
     // nested_value = calculate_nested_value_optimized(binary_matrix);
