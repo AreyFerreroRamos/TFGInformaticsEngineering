@@ -1,11 +1,12 @@
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <stdbool.h>
 # include <time.h>
 
 # define THRESHOLD 0.5
-# define NUM_ROWS 4
-# define NUM_COLS 4
+# define NUM_ROWS 1056
+# define NUM_COLS 625
 
 typedef struct
 {
@@ -20,6 +21,43 @@ typedef struct
         // abundances_matrix[i] = (double *) malloc(cols * sizeof(double))
     // }
 // }
+
+void read_file(FILE *f_vertebrates, int matrix[][NUM_COLS])
+{
+    char line[10000], field[10000];
+    char *token;
+    int i = 0, j;
+
+    // while (fscanf(f_vertebrates, "%s", field) != EOF) {
+    // printf(" %s ", field);
+    //}
+    fgets(line, sizeof(line), f_vertebrates);
+    while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
+        sscanf(line, "%*s %[^\n]", field);
+        token = strtok(field, " ");
+        printf("%s", token[0]);
+        j = 0;
+        while (token != NULL) {
+            matrix[i][j] = (int)token[j];
+            // printf("%s\n", token);
+            // printf("%i", matrix[i][j]);
+            token = strtok(NULL, " ");
+            j++;
+        }
+        i++;
+    }
+    printf("\n");
+}
+
+int get_num_species_per_individual()
+{
+    return 0;
+}
+
+void abundances_individuals_matrix()
+{
+    int num_individuals = 0;
+}
 
 void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
 {
@@ -302,32 +340,31 @@ Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
 
 int main(int argc, char * argv[])
 {
-    double abundances_matrix[NUM_ROWS][NUM_COLS] = {
-            {0.9, 0.8, 0.7, 0.6},
-            {0.8, 0.7, 0.6, 0.5},
-            {0.7, 0.6, 0.5, 0.4},
-            {0.6, 0.5, 0.4, 0.3}
-    };
-    double transposed_abundances_matrix[NUM_ROWS][NUM_COLS] = {
-            {0.3, 0.9, 0.5, 0.7},
-            {0.9, 0.5, 0.3, 0.7},
-            {0.3, 0.6, 0.9, 0.1},
-            {0.6, 0.7, 0.1, 0.3}
-    };
-    int binary_matrix[NUM_ROWS][NUM_COLS];
-
+    FILE *f_vertebrates = fopen(argv[1],"r");
     Nested_elements nested_elements;
+    int abundances_matrix[NUM_ROWS][NUM_COLS];
+    int binary_matrix[NUM_ROWS][NUM_COLS];
     double nested_value;
+
+    if (f_vertebrates == NULL) {
+        printf("Error in opening the file.");
+        return 1;
+    }
 
     srand(time(NULL));
 
-    discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
-    // discretize_matrix(transposed_abundances_matrix, binary_matrix, THRESHOLD);
+    read_file(f_vertebrates, abundances_matrix);
+    // abundances_individuals_matrix();
+
+    // discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
 
     // nested_value = calculate_nested_value(binary_matrix);
     // nested_value = calculate_nested_value_optimized(binary_matrix);
     // printf("\n%.2f\n", nested_value);
 
-    nested_elements = nested_test(binary_matrix, 1000);
-    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+    // nested_elements = nested_test(binary_matrix, 1000);
+    // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+
+    fclose(f_vertebrates);
+    return 0;
 }
