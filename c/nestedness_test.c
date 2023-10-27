@@ -2,9 +2,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdbool.h>
-# include <time.h>
+// # include <time.h>
 
-# define THRESHOLD 0.5
+# define THRESHOLD 0.0001
 # define NUM_ROWS 644
 # define NUM_COLS 1056
 
@@ -41,16 +41,29 @@ void read_file(FILE *f_vertebrates, int matrix[][NUM_COLS])
     }
 }
 
-int get_num_species_per_individual()
+int get_num_species_per_individual(int vector_bacterias[])
 {
-    return 0;
+    int num_bacterial_species_per_individuals = 0;
+
+    for (int col = 0; col < NUM_COLS; col++) {
+        num_bacterial_species_per_individuals += vector_bacterias[col];
+    }
+    return num_bacterial_species_per_individuals;
 }
 
 void create_matrix_individuals_relatives_abundances(int matrix_absolute_abundances[][NUM_COLS], double matrix_individuals_relative_abundances[][NUM_COLS])
 {
-    int num_individuals = 0;
+    double relative_abundance;
+    int num_bacterial_species_per_individual;
 
+    for (int row = 0; row < NUM_ROWS; row++) {
+        num_bacterial_species_per_individual = get_num_species_per_individual(matrix_absolute_abundances[row]);
 
+        for (int col = 0; col < NUM_COLS; col++) {
+            relative_abundance = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species_per_individual;
+            matrix_individuals_relative_abundances[row][col] = relative_abundance;
+        }
+    }
 }
 
 void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
@@ -338,7 +351,7 @@ int main(int argc, char * argv[])
     Nested_elements nested_elements;
     double matrix_individuals_relative_abundances[NUM_ROWS][NUM_COLS];
     int matrix_absolute_abundances[NUM_ROWS][NUM_COLS];
-    int binary_matrix[NUM_ROWS][NUM_COLS];
+    // int binary_matrix[NUM_ROWS][NUM_COLS];
     // double nested_value;
 
     f_vertebrates = fopen(argv[1],"r");
@@ -347,12 +360,12 @@ int main(int argc, char * argv[])
         printf("Error in opening the file.");
     }
     else {
-        srand(time(NULL));
+        // srand(time(NULL));
 
         read_file(f_vertebrates, matrix_absolute_abundances);
         create_matrix_individuals_relatives_abundances(matrix_absolute_abundances, matrix_individuals_relative_abundances);
 
-        // discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
+        // discretize_matrix(matrix_individuals_relative_abundances, binary_matrix, THRESHOLD);
 
         // nested_value = calculate_nested_value(binary_matrix);
         // nested_value = calculate_nested_value_optimized(binary_matrix);
