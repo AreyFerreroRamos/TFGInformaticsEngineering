@@ -5,8 +5,8 @@
 # include <time.h>
 
 # define THRESHOLD 0.5
-# define NUM_ROWS 1056
-# define NUM_COLS 625
+# define NUM_ROWS 644
+# define NUM_COLS 1056
 
 typedef struct
 {
@@ -24,29 +24,21 @@ typedef struct
 
 void read_file(FILE *f_vertebrates, int matrix[][NUM_COLS])
 {
-    char line[10000], field[10000];
-    char *token;
-    int i = 0, j;
+    char line[10000], field[10000], *token;
+    int row, col = 0;
 
-    // while (fscanf(f_vertebrates, "%s", field) != EOF) {
-    // printf(" %s ", field);
-    //}
     fgets(line, sizeof(line), f_vertebrates);
     while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
         sscanf(line, "%*s %[^\n]", field);
         token = strtok(field, " ");
-        printf("%s", token[0]);
-        j = 0;
+        row = 0;
         while (token != NULL) {
-            matrix[i][j] = (int)token[j];
-            // printf("%s\n", token);
-            // printf("%i", matrix[i][j]);
+            matrix[row][col] = atoi(token);
             token = strtok(NULL, " ");
-            j++;
+            row++;
         }
-        i++;
+        col++;
     }
-    printf("\n");
 }
 
 int get_num_species_per_individual()
@@ -54,9 +46,11 @@ int get_num_species_per_individual()
     return 0;
 }
 
-void abundances_individuals_matrix()
+void create_matrix_individuals_relatives_abundances(int matrix_absolute_abundances[][NUM_COLS], double matrix_individuals_relative_abundances[][NUM_COLS])
 {
     int num_individuals = 0;
+
+
 }
 
 void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
@@ -340,31 +334,34 @@ Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
 
 int main(int argc, char * argv[])
 {
-    FILE *f_vertebrates = fopen(argv[1],"r");
+    FILE *f_vertebrates;
     Nested_elements nested_elements;
-    int abundances_matrix[NUM_ROWS][NUM_COLS];
+    double matrix_individuals_relative_abundances[NUM_ROWS][NUM_COLS];
+    int matrix_absolute_abundances[NUM_ROWS][NUM_COLS];
     int binary_matrix[NUM_ROWS][NUM_COLS];
-    double nested_value;
+    // double nested_value;
+
+    f_vertebrates = fopen(argv[1],"r");
 
     if (f_vertebrates == NULL) {
         printf("Error in opening the file.");
-        return 1;
     }
+    else {
+        srand(time(NULL));
 
-    srand(time(NULL));
+        read_file(f_vertebrates, matrix_absolute_abundances);
+        create_matrix_individuals_relatives_abundances(matrix_absolute_abundances, matrix_individuals_relative_abundances);
 
-    read_file(f_vertebrates, abundances_matrix);
-    // abundances_individuals_matrix();
+        // discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
 
-    // discretize_matrix(abundances_matrix, binary_matrix, THRESHOLD);
+        // nested_value = calculate_nested_value(binary_matrix);
+        // nested_value = calculate_nested_value_optimized(binary_matrix);
+        // printf("\n%.2f\n", nested_value);
 
-    // nested_value = calculate_nested_value(binary_matrix);
-    // nested_value = calculate_nested_value_optimized(binary_matrix);
-    // printf("\n%.2f\n", nested_value);
+        // nested_elements = nested_test(binary_matrix, 1000);
+        // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
-    // nested_elements = nested_test(binary_matrix, 1000);
-    // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
-
-    fclose(f_vertebrates);
+        fclose(f_vertebrates);
+    }
     return 0;
 }
