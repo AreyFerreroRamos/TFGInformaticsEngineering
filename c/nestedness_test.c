@@ -27,9 +27,9 @@ void read_file(FILE *f_vertebrates, int matrix[][NUM_COLS])
     char line[10000], field[10000], *token;
     int row, col = 0;
 
-    fgets(line, sizeof(line), f_vertebrates);
+    fgets(line, sizeof(line), f_vertebrates);       /* S'elimina la primera línia. */
     while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
-        sscanf(line, "%*s %[^\n]", field);
+        sscanf(line, "%*s %[^\n]", field);             /* S'elimina la primera columna. */
         token = strtok(field, " ");
         row = 0;
         while (token != NULL) {
@@ -364,6 +364,13 @@ int main(int argc, char * argv[])
 
         read_file(f_vertebrates, matrix_absolute_abundances);
         create_matrix_individuals_relatives_abundances(matrix_absolute_abundances, matrix_individuals_relative_abundances);
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < NUM_COLS; j++) {
+                printf(" %f ", matrix_individuals_relative_abundances[i][j]);
+            }
+            printf("\n");
+        }
 
         // discretize_matrix(matrix_individuals_relative_abundances, binary_matrix, THRESHOLD);
 
