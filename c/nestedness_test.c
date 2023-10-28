@@ -360,8 +360,16 @@ int main(int argc, char * argv[])
             }
             printf("\n");
         }
+        fflush(stdout);
 
-        // discretize_matrix(matrix_individuals_relative_abundances, binary_matrix, THRESHOLD);
+        // discretize_matrix(matrix_individuals, binary_matrix, THRESHOLD);
+
+        /*for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < NUM_COLS; j++) {
+                printf(" %i ", binary_matrix[i][j]);
+            }
+            printf("\n");
+        }*/
 
         // nested_value = calculate_nested_value(binary_matrix);
         // nested_value = calculate_nested_value_optimized(binary_matrix);
