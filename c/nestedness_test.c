@@ -57,6 +57,8 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
     create_relative_abundances(matrix_individuals, matrix_absolute_abundances, num_bacterial_species_per_individual);
 }
 
+
+
 void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
 {
     int rows, columns;
@@ -338,46 +340,53 @@ Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
 
 int main(int argc, char * argv[])
 {
-    FILE *f_vertebrates;
+    FILE *f_vertebrates, *f_metadata;
     Nested_elements nested_elements;
     double matrix_individuals[NUM_ROWS][NUM_COLS];
     // int binary_matrix[NUM_ROWS][NUM_COLS];
     // double nested_value;
 
     f_vertebrates = fopen(argv[1],"r");
+    f_metadata = fopen(argv[2], "r");
 
     if (f_vertebrates == NULL) {
-        printf("Error in opening the file.");
+        printf("Error in opening the file %s.", argv[1]);
     }
     else {
-        // srand(time(NULL));
-
-        create_matrix_individuals(f_vertebrates, matrix_individuals);
-
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < NUM_COLS; j++) {
-                printf(" %f ", matrix_individuals[i][j]);
-            }
-            printf("\n");
+        if (f_metadata == NULL) {
+            printf("Error in opening the file %s.", argv[2]);
         }
-        fflush(stdout);
+        else {
+            // srand(time(NULL));
 
-        // discretize_matrix(matrix_individuals, binary_matrix, THRESHOLD);
+            create_matrix_individuals(f_vertebrates, matrix_individuals);
 
-        /*for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < NUM_COLS; j++) {
-                printf(" %i ", binary_matrix[i][j]);
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < NUM_COLS; j++) {
+                    printf(" %f ", matrix_individuals[i][j]);
+                }
+                printf("\n");
             }
-            printf("\n");
-        }*/
+            fflush(stdout);
 
-        // nested_value = calculate_nested_value(binary_matrix);
-        // nested_value = calculate_nested_value_optimized(binary_matrix);
-        // printf("\n%.2f\n", nested_value);
+            // discretize_matrix(matrix_individuals, binary_matrix, THRESHOLD);
 
-        // nested_elements = nested_test(binary_matrix, 1000);
-        // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+            /*for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < NUM_COLS; j++) {
+                    printf(" %i ", binary_matrix[i][j]);
+                }
+                printf("\n");
+            }*/
 
+            // nested_value = calculate_nested_value(binary_matrix);
+            // nested_value = calculate_nested_value_optimized(binary_matrix);
+            // printf("\n%.2f\n", nested_value);
+
+            // nested_elements = nested_test(binary_matrix, 1000);
+            // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+
+            fclose(f_metadata);
+        }
         fclose(f_vertebrates);
     }
     return 0;
