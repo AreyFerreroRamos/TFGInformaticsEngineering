@@ -22,48 +22,39 @@ typedef struct
     // }
 // }
 
-void read_file(FILE *f_vertebrates, int matrix[][NUM_COLS])
+void create_relative_abundances(double matrix_relative_abundances[][NUM_COLS], int matrix_absolute_abundances[][NUM_COLS], int num_bacterial_species_per_individual[])
 {
-    char line[10000], field[10000], *token;
+    double relative_abundance;
+
+    for (int row = 0; row < NUM_ROWS; row++) {
+        for (int col = 0; col < NUM_COLS; col++) {
+            relative_abundance = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species_per_individual[row];
+            matrix_relative_abundances[row][col] = relative_abundance;
+        }
+    }
+}
+
+void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][NUM_COLS])
+{
+    char line[10000], absolute_abundances_individual[10000], *absolute_abundance;
+    int matrix_absolute_abundances[NUM_ROWS][NUM_COLS], num_bacterial_species_per_individual[NUM_ROWS] = {0};
     int row, col = 0;
 
     fgets(line, sizeof(line), f_vertebrates);       /* S'elimina la primera línia. */
     while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
-        sscanf(line, "%*s %[^\n]", field);             /* S'elimina la primera columna. */
-        token = strtok(field, " ");
+        sscanf(line, "%*s %[^\n]", absolute_abundances_individual);     /* S'elimina la primera columna. */
+
+        absolute_abundance = strtok(absolute_abundances_individual, " ");
         row = 0;
-        while (token != NULL) {
-            matrix[row][col] = atoi(token);
-            token = strtok(NULL, " ");
+        while (absolute_abundance != NULL) {
+            matrix_absolute_abundances[row][col] = atoi(absolute_abundance);
+            num_bacterial_species_per_individual[row] += atoi(absolute_abundance);
+            absolute_abundance = strtok(NULL, " ");
             row++;
         }
         col++;
     }
-}
-
-int get_num_species_per_individual(int vector_bacterias[])
-{
-    int num_bacterial_species_per_individuals = 0;
-
-    for (int col = 0; col < NUM_COLS; col++) {
-        num_bacterial_species_per_individuals += vector_bacterias[col];
-    }
-    return num_bacterial_species_per_individuals;
-}
-
-void create_matrix_individuals_relatives_abundances(int matrix_absolute_abundances[][NUM_COLS], double matrix_individuals_relative_abundances[][NUM_COLS])
-{
-    double relative_abundance;
-    int num_bacterial_species_per_individual;
-
-    for (int row = 0; row < NUM_ROWS; row++) {
-        num_bacterial_species_per_individual = get_num_species_per_individual(matrix_absolute_abundances[row]);
-
-        for (int col = 0; col < NUM_COLS; col++) {
-            relative_abundance = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species_per_individual;
-            matrix_individuals_relative_abundances[row][col] = relative_abundance;
-        }
-    }
+    create_relative_abundances(matrix_individuals, matrix_absolute_abundances, num_bacterial_species_per_individual);
 }
 
 void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
@@ -349,8 +340,7 @@ int main(int argc, char * argv[])
 {
     FILE *f_vertebrates;
     Nested_elements nested_elements;
-    double matrix_individuals_relative_abundances[NUM_ROWS][NUM_COLS];
-    int matrix_absolute_abundances[NUM_ROWS][NUM_COLS];
+    double matrix_individuals[NUM_ROWS][NUM_COLS];
     // int binary_matrix[NUM_ROWS][NUM_COLS];
     // double nested_value;
 
@@ -362,12 +352,11 @@ int main(int argc, char * argv[])
     else {
         // srand(time(NULL));
 
-        read_file(f_vertebrates, matrix_absolute_abundances);
-        create_matrix_individuals_relatives_abundances(matrix_absolute_abundances, matrix_individuals_relative_abundances);
+        create_matrix_individuals(f_vertebrates, matrix_individuals);
 
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < NUM_COLS; j++) {
-                printf(" %f ", matrix_individuals_relative_abundances[i][j]);
+                printf(" %f ", matrix_individuals[i][j]);
             }
             printf("\n");
         }
