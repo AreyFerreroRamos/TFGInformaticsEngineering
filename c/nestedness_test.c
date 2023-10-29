@@ -4,9 +4,10 @@
 # include <stdbool.h>
 // # include <time.h>
 
+# define NUM_INDIVIDUALS 644
+# define NUM_VERTEBRATES 50
+# define NUM_BACTERIAL_GENUS 1056
 # define THRESHOLD 0.0001
-# define NUM_ROWS 644
-# define NUM_COLS 1056
 
 typedef struct
 {
@@ -22,22 +23,24 @@ typedef struct
     // }
 // }
 
-void create_relative_abundances(double matrix_relative_abundances[][NUM_COLS], int matrix_absolute_abundances[][NUM_COLS], int num_bacterial_species_per_individual[])
+void create_relative_abundances(double matrix_relative_abundances[][NUM_BACTERIAL_GENUS], int matrix_absolute_abundances[][NUM_BACTERIAL_GENUS],
+                                int num_bacterial_species_per_individual[], int num_rows)
 {
     double relative_abundance;
 
-    for (int row = 0; row < NUM_ROWS; row++) {
-        for (int col = 0; col < NUM_COLS; col++) {
+    for (int row = 0; row < num_rows; row++) {
+        for (int col = 0; col < NUM_BACTERIAL_GENUS; col++) {
             relative_abundance = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species_per_individual[row];
             matrix_relative_abundances[row][col] = relative_abundance;
         }
     }
 }
 
-void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][NUM_COLS])
+void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][NUM_BACTERIAL_GENUS])
 {
     char line[10000], absolute_abundances_individual[10000], *absolute_abundance;
-    int matrix_absolute_abundances[NUM_ROWS][NUM_COLS], num_bacterial_species_per_individual[NUM_ROWS] = {0};
+    int matrix_absolute_abundances[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
+    int num_bacterial_species_per_individual[NUM_INDIVIDUALS] = {0};
     int row, col = 0;
 
     fgets(line, sizeof(line), f_vertebrates);       /* S'elimina la primera línia. */
@@ -54,15 +57,17 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
         }
         col++;
     }
-    create_relative_abundances(matrix_individuals, matrix_absolute_abundances, num_bacterial_species_per_individual);
+    create_relative_abundances(matrix_individuals, matrix_absolute_abundances,
+                               num_bacterial_species_per_individual, NUM_INDIVIDUALS);
 }
 
 
 
-void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
+void discretize_matrix(double matrix[][NUM_BACTERIAL_GENUS], int binary_matrix[][NUM_BACTERIAL_GENUS], int num_rows,
+                       double threshold)
 {
-    for (int row = 0; row < NUM_ROWS; row++) {
-        for (int col = 0; col < NUM_COLS; col++) {
+    for (int row = 0; row < num_rows; row++) {
+        for (int col = 0; col < NUM_BACTERIAL_GENUS; col++) {
             if (matrix[row][col] > threshold) {
                 binary_matrix[row][col] = 1;
             }
@@ -73,7 +78,7 @@ void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS],
     }
 }
 
-double calculate_nested_value(int matrix[][NUM_COLS])
+double calculate_nested_value(int matrix[][NUM_BACTERIAL_GENUS], int num_rows)
 {
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int first_row, second_row, row, first_col, second_col, col, first_acum, second_acum;
@@ -81,10 +86,10 @@ double calculate_nested_value(int matrix[][NUM_COLS])
     first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
 
         /* Calculate the sum of the number of shared interactions between rows. */
-    for (first_row = 0; first_row < NUM_ROWS; first_row++) {
-        for (second_row = 0; second_row < NUM_ROWS; second_row++) {
+    for (first_row = 0; first_row < num_rows; first_row++) {
+        for (second_row = 0; second_row < num_rows; second_row++) {
             if (first_row < second_row) {
-                for (col = 0; col < NUM_COLS; col++) {
+                for (col = 0; col < NUM_BACTERIAL_GENUS; col++) {
                     if ((matrix[first_row][col] == 1) && (matrix[second_row][col] == 1)) {
                         first_isocline++;
                     }
@@ -94,10 +99,10 @@ double calculate_nested_value(int matrix[][NUM_COLS])
     }
 
         /* Calculate the sum of the number of shared interactions between columns. */
-    for (first_col = 0; first_col < NUM_COLS; first_col++) {
-        for (second_col = 0; second_col < NUM_COLS; second_col++) {
+    for (first_col = 0; first_col < NUM_BACTERIAL_GENUS; first_col++) {
+        for (second_col = 0; second_col < NUM_BACTERIAL_GENUS; second_col++) {
             if (first_col < second_col) {
-                for (row = 0; row < NUM_ROWS; row++) {
+                for (row = 0; row < num_rows; row++) {
                     if ((matrix[row][first_col] == 1) && (matrix[row][second_col] == 1)) {
                         second_isocline++;
                     }
@@ -107,11 +112,11 @@ double calculate_nested_value(int matrix[][NUM_COLS])
     }
 
         /* Calculate the sum of the number of interactions of rows. */
-    for (first_row = 0; first_row < NUM_ROWS; first_row++) {
-        for (second_row = 0; second_row < NUM_ROWS; second_row++) {
+    for (first_row = 0; first_row < num_rows; first_row++) {
+        for (second_row = 0; second_row < num_rows; second_row++) {
             if (first_row < second_row) {
                 first_acum = second_acum = 0;
-                for (col = 0; col < NUM_COLS; col++) {
+                for (col = 0; col < NUM_BACTERIAL_GENUS; col++) {
                     first_acum += matrix[first_row][col];
                     second_acum += matrix[second_row][col];
                 }
@@ -126,11 +131,11 @@ double calculate_nested_value(int matrix[][NUM_COLS])
     }
 
         /* Calculate the sum of the number of interactions of columns. */
-    for (first_col = 0; first_col < NUM_COLS; first_col++) {
-        for (second_col = 0; second_col < NUM_COLS; second_col++) {
+    for (first_col = 0; first_col < NUM_BACTERIAL_GENUS; first_col++) {
+        for (second_col = 0; second_col < NUM_BACTERIAL_GENUS; second_col++) {
             if (first_col < second_col) {
                 first_acum = second_acum = 0;
-                for (row = 0; row < NUM_ROWS; row++) {
+                for (row = 0; row < num_rows; row++) {
                     first_acum += matrix[row][first_col];
                     second_acum += matrix[row][second_col];
                 }
@@ -148,22 +153,23 @@ double calculate_nested_value(int matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-double calculate_nested_value_optimized(int matrix[][NUM_COLS])
+double calculate_nested_value_optimized(int matrix[][NUM_BACTERIAL_GENUS], int num_rows)
 {
-    int sum_rows[NUM_ROWS] = {0};
-    int sum_cols[NUM_COLS] = {0};
+    int sum_rows[NUM_INDIVIDUALS] = {0};
+    // int sum_rows[NUM_VERTEBRATES] = {0};
+    int sum_cols[NUM_BACTERIAL_GENUS] = {0};
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
         /* Calculate and save the number of interactions of every row. */
-    for (row = 0; row < NUM_ROWS; row++) {
-        for (col = 0; col < NUM_COLS; col++) {
+    for (row = 0; row < num_rows; row++) {
+        for (col = 0; col < NUM_BACTERIAL_GENUS; col++) {
             sum_rows[row] += matrix[row][col];
         }
     }
 
         /* Calculate and save the number of interactions of every column. */
-    for (col = 0; col < NUM_COLS; col++) {
-        for (row = 0; row < NUM_ROWS; row++) {
+    for (col = 0; col < NUM_BACTERIAL_GENUS; col++) {
+        for (row = 0; row < num_rows; row++) {
             sum_cols[col] += matrix[row][col];
         }
     }
@@ -172,9 +178,9 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 
         /* Calculate the sum of the number of shared interactions between rows
            and the sum of the minimum of pairs of interactions of rows. */
-    for (int first_row = 0; first_row < NUM_ROWS - 1; first_row++) {
-        for (int second_row = first_row + 1; second_row < NUM_ROWS; second_row++) {
-            for (col = 0; col < NUM_COLS; col++) {
+    for (int first_row = 0; first_row < num_rows - 1; first_row++) {
+        for (int second_row = first_row + 1; second_row < num_rows; second_row++) {
+            for (col = 0; col < NUM_BACTERIAL_GENUS; col++) {
                 first_isocline += matrix[first_row][col] & matrix[second_row][col];
             }
             if (sum_rows[first_row] < sum_rows[second_row]) {
@@ -188,9 +194,9 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
 
         /* Calculate the sum of the number of shared interactions between columns
            and the sum of the minimum of pairs of the number of interactions of columns. */
-    for (int first_col = 0; first_col < NUM_COLS - 1; first_col++) {
-        for (int second_col = first_col + 1; second_col < NUM_COLS; second_col++) {
-            for (row = 0; row < NUM_ROWS; row++) {
+    for (int first_col = 0; first_col < NUM_BACTERIAL_GENUS - 1; first_col++) {
+        for (int second_col = first_col + 1; second_col < NUM_BACTERIAL_GENUS; second_col++) {
+            for (row = 0; row < num_rows; row++) {
                 second_isocline += matrix[row][first_col] & matrix[row][second_col];
             }
             if (sum_cols[first_col] < sum_cols[second_col]) {
@@ -206,51 +212,52 @@ double calculate_nested_value_optimized(int matrix[][NUM_COLS])
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-int count_ones_binary_matrix(int matrix[][NUM_COLS])
+int count_ones_binary_matrix(int matrix[][NUM_BACTERIAL_GENUS], int num_rows)
 {
     int num_ones = 0;
 
-    for (int row = 0; row < NUM_ROWS; row++) {
-        for (int col = 0; col < NUM_COLS; col++) {
+    for (int row = 0; row < num_rows; row++) {
+        for (int col = 0; col < NUM_BACTERIAL_GENUS; col++) {
             num_ones += matrix[row][col];
         }
     }
     return num_ones;
 }
 
-void initialize_randomized_matrix(int randomized_matrix[][NUM_COLS])
+void initialize_randomized_matrix(int randomized_matrix[][NUM_BACTERIAL_GENUS], int num_rows)
 {
-    for (int row = 0; row < NUM_ROWS; row++) {
-        for (int col = 0; col < NUM_COLS; col++) {
+    for (int row = 0; row < num_rows; row++) {
+        for (int col = 0; col < NUM_BACTERIAL_GENUS; col++) {
             randomized_matrix[row][col] = 0;
         }
     }
 }
 
-void generate_randomized_matrix(int randomized_matrix[][NUM_COLS], int num_ones)
+void generate_randomized_matrix(int randomized_matrix[][NUM_BACTERIAL_GENUS], int num_rows, int num_ones)
 {
-    int cont_ones, pos, num_elements = NUM_ROWS * NUM_COLS;
+    int cont_ones, pos, num_elements = num_rows * NUM_BACTERIAL_GENUS;
 
     cont_ones = 0;
     while (cont_ones < num_ones) {
         pos = rand() % num_elements;
-        if (randomized_matrix[pos / NUM_COLS][pos % NUM_COLS] != 1) {
-            randomized_matrix[pos / NUM_COLS][pos % NUM_COLS] = 1;
+        if (randomized_matrix[pos / NUM_BACTERIAL_GENUS][pos % NUM_BACTERIAL_GENUS] != 1) {
+            randomized_matrix[pos / NUM_BACTERIAL_GENUS][pos % NUM_BACTERIAL_GENUS] = 1;
             cont_ones++;
         }
     }
 }
 
-void generate_nested_values_randomized(int matrix[][NUM_COLS], double nested_values_randomized[], int num_randomized_matrices)
+void generate_nested_values_randomized(int matrix[][NUM_BACTERIAL_GENUS], int num_rows,
+                                       double nested_values_randomized[], int num_randomized_matrices)
 {
-    int randomized_matrix[NUM_ROWS][NUM_COLS];
-    int num_ones = count_ones_binary_matrix(matrix);
+    int randomized_matrix[num_rows][NUM_BACTERIAL_GENUS];
+    int num_ones = count_ones_binary_matrix(matrix, num_rows);
 
     for (int pos = 0; pos < num_randomized_matrices; pos++) {
-        initialize_randomized_matrix(randomized_matrix);
-        generate_randomized_matrix(randomized_matrix, num_ones);
-        nested_values_randomized[pos] = calculate_nested_value(randomized_matrix);
-        // nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix);
+        initialize_randomized_matrix(randomized_matrix, num_rows);
+        generate_randomized_matrix(randomized_matrix, num_rows, num_ones);
+        nested_values_randomized[pos] = calculate_nested_value(randomized_matrix, num_rows);
+        // nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows);
     }
 }
 
@@ -308,17 +315,17 @@ int get_index(double nested_values[], int num_elements, double nested_value)
     return pos;
 }
 
-Nested_elements nested_test(int matrix[][NUM_COLS], int num_randomized_matrices)
+Nested_elements nested_test(int matrix[][NUM_BACTERIAL_GENUS], int num_rows, int num_randomized_matrices)
 {
     Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
 
         /* Generate as many randomized matrices from the real matrix as it is specified and calculate their nested values. */
-    generate_nested_values_randomized(matrix, nested_values, num_randomized_matrices);
+    generate_nested_values_randomized(matrix, num_rows, nested_values, num_randomized_matrices);
 
         /* Calculate and store the nested value of the real matrix. */
-    nested_elements.nested_value = calculate_nested_value(matrix);
-    // nested_elements.nested_value = calculate_nested_value_optimized(matrix);
+    nested_elements.nested_value = calculate_nested_value(matrix, num_rows);
+    // nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows);
     nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
         /* Sort the list of nested values. */
@@ -336,8 +343,10 @@ int main(int argc, char * argv[])
 {
     FILE *f_vertebrates, *f_metadata;
     Nested_elements nested_elements;
-    double matrix_individuals[NUM_ROWS][NUM_COLS];
-    // int binary_matrix[NUM_ROWS][NUM_COLS];
+    double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
+    // double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
+    // int binary_matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
+    // int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // double nested_value;
 
     f_vertebrates = fopen(argv[1],"r");
@@ -354,16 +363,19 @@ int main(int argc, char * argv[])
             // srand(time(NULL));
 
             create_matrix_individuals(f_vertebrates, matrix_individuals);
+            // create_matrix_vertebrates(f_vertebrates, f_metadata, matrix_vertebrates);
 
             for (int i = 0; i < 1; i++) {
-                for (int j = 0; j < NUM_COLS; j++) {
+                for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
                     printf(" %f ", matrix_individuals[i][j]);
                 }
                 printf("\n");
             }
             fflush(stdout);
 
-            // discretize_matrix(matrix_individuals, binary_matrix, THRESHOLD);
+            // discretize_matrix(matrix_individuals, binary_matrix_individuals, NUM_INDIVIDUALS,THRESHOLD);
+            // discretize_matrix(matrix_vertebrates, binary_matrix_vertebrates, NUM_VERTEBRATES, THRESHOLD);
+
 
             /*for (int i = 0; i < 1; i++) {
                 for (int j = 0; j < NUM_COLS; j++) {
@@ -372,11 +384,14 @@ int main(int argc, char * argv[])
                 printf("\n");
             }*/
 
-            // nested_value = calculate_nested_value(binary_matrix);
-            // nested_value = calculate_nested_value_optimized(binary_matrix);
+            // nested_value = calculate_nested_value(binary_matrix_individuals, NUM_INDIVIDUALS);
+            // nested_value = calculate_nested_value(binary_matrix_vertebrates, NUM_VERTEBRATES);
+            // nested_value = calculate_nested_value_optimized(binary_matrix_individuals, NUM_INDIVIDUALS);
+            // nested_value = calculate_nested_value_optimized(binary_matrix_vertebrates, NUM_VERTEBRATES);
             // printf("\n%.2f\n", nested_value);
 
-            // nested_elements = nested_test(binary_matrix, 1000);
+            // nested_elements = nested_test(binary_matrix_individuals, NUM_INDIVIDUALS, 1000);
+            // nested_elements = nested_test(binary_matrix_vertebrates, NUM_VERTEBRATES, 1000);
             // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
             fclose(f_metadata);
