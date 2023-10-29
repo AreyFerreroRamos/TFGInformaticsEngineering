@@ -61,21 +61,15 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
 
 void discretize_matrix(double matrix[][NUM_COLS], int binary_matrix[][NUM_COLS], double threshold)
 {
-    int rows, columns;
-
-    rows = 0;
-    while (rows < NUM_ROWS) {
-        columns = 0;
-        while (columns < NUM_COLS) {
-            if (matrix[rows][columns] > threshold) {
-                binary_matrix[rows][columns] = 1;
+    for (int row = 0; row < NUM_ROWS; row++) {
+        for (int col = 0; col < NUM_COLS; col++) {
+            if (matrix[row][col] > threshold) {
+                binary_matrix[row][col] = 1;
             }
             else {
-                binary_matrix[rows][columns] = 0;
+                binary_matrix[row][col] = 0;
             }
-            columns++;
         }
-        rows++;
     }
 }
 
