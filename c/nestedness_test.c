@@ -60,6 +60,20 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
                                matrix_individuals, num_bacterial_species_per_individual);
 }
 
+void get_individuals(FILE *f_vertebrates, char *individuals[])
+{
+    char *individual, line[10000];
+    int pos = 0;
+
+    fgets(line, sizeof(line), f_vertebrates);
+    individual = strtok(line, " ");
+    while (individual != NULL) {
+        individuals[pos++] = individual;
+        individual = strtok(NULL, " ");
+    }
+    individuals[pos] = individual;
+}
+
 Individual_type get_individual_type(char *individual, char *metadata)
 {
     FILE *f_metadata = fopen(metadata, "r");
@@ -91,18 +105,11 @@ Individual_type get_individual_type(char *individual, char *metadata)
 void create_matrix_vertebrates(FILE *f_vertebrates, char *metadata, double matrix_vertebrates[][NUM_BACTERIAL_GENUS])
 {
     Individual_type individual_type;
-    char *individual, *absolute_abundances, absolute_abundances_individual[100000], line[10000],
-            *individuals[NUM_INDIVIDUALS];
+    char *absolute_abundances, absolute_abundances_individual[100000], line[10000], *individuals[NUM_INDIVIDUALS];
     int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS],
             num_bacterial_species_per_individual[NUM_INDIVIDUALS] = {0}, row, col = 0;
 
-    fgets(line, sizeof(line), f_vertebrates);
-    individual = strtok(line, " ");
-    while (individual != NULL) {
-        individuals[col++] = individual;
-        individual = strtok(NULL, " ");
-    }
-    individuals[col] = individual;
+    get_individuals(f_vertebrates, individuals);
 
     for (int i = 0; i < NUM_INDIVIDUALS; i++) {
         individual_type = get_individual_type(strtok(individuals[i], "\""), metadata);
