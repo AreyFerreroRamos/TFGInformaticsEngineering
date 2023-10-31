@@ -49,7 +49,7 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
         absolute_abundance = strtok(absolute_abundances_individual, " ");
         row = 0;
         while (absolute_abundance != NULL) {
-            matrix_absolute_abundancesinformation[row][col] = atoi(absolute_abundance);
+            matrix_absolute_abundances[row][col] = atoi(absolute_abundance);
             num_bacterial_species_per_individual[row] += atoi(absolute_abundance);
             absolute_abundance = strtok(NULL, " ");
             row++;
@@ -60,53 +60,53 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
                                matrix_individuals, num_bacterial_species_per_individual);
 }
 
-individual_type get_individual_type(char *individual, FILE *f_metadata)
+Individual_type get_individual_type(char *individual, char *metadata)
 {
+    FILE *f_metadata = fopen(metadata, "r");
     Individual_type individual_type;
-    char line[1000], *sample;
+    char *sample, line[500];
     bool found = false;
 
-    fgets(line, sizeof(line), f_metadata);
-    while ((fgets(line, sizeof(line), f_metadata) != NULL) && (! found) {
-        strtok(line, ";");
-        sample = strtok(line, ";");
-        if (strcmp(individual, sample) == 0) {
-            strtok(line, ";");
-            individual_type.vertebrate = strtok(line, ";");
-            strtok(line, ";");
-            individual_type.sample_type = strtok(line, ";");
-            found = true;
-        }
+    if (f_metadata == NULL) {
+        printf("Error in opening the file %s.", metadata);
     }
-    return individual_type
+    else {
+        fgets(line, sizeof(line), f_metadata);
+        while ((!found) && (fgets(line, sizeof(line), f_metadata) != NULL)) {
+            strtok(line, ";");
+            sample = strtok(NULL, ";");
+            if (strcmp(individual, sample) == 0) {
+                strtok(NULL, ";");
+                individual_type.vertebrate = strtok(NULL, ";");
+                strtok(NULL, ";");
+                individual_type.sample_type = strtok(NULL, ";");
+                found = true;
+            }
+        }
+        fclose(f_metadata);
+    }
+    return individual_type;
 }
 
-void create_matrix_vertebrates(FILE *f_vertebrates, FILE *f_metadata, double matrix_vertebrates[][NUM_BACTERIAL_GENUS])
+void create_matrix_vertebrates(FILE *f_vertebrates, char *metadata, double matrix_vertebrates[][NUM_BACTERIAL_GENUS])
 {
-    char line[10000], absolute_abundances_individual[100000], *absolute_abundances, *individual;
-    char *individuals[NUM_INDIVIDUALS];
-    int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
-    int num_bacterial_species_per_individual[NUM_INDIVIDUALS] = {0};
-    int row, col = 0;
+    Individual_type individual_type;
+    char *individual, *absolute_abundances, absolute_abundances_individual[100000], line[10000],
+            *individuals[NUM_INDIVIDUALS];
+    int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS],
+            num_bacterial_species_per_individual[NUM_INDIVIDUALS] = {0}, row, col = 0;
 
     fgets(line, sizeof(line), f_vertebrates);
     individual = strtok(line, " ");
     while (individual != NULL) {
         individuals[col++] = individual;
-        // strncpy(individual2, individual + 1, strlen(individual) - 2);
-        // sscanf(individual, "%*c%[^\n]%*c", individuals[col]);
         individual = strtok(NULL, " ");
     }
-    individuals[col++] = individual;
-    // strncpy(individual2, individual + 1, strlen(individual) - 2);
-    // sscanf(individual, "%*c %[^\n] %*c", individuals[col]);
-
-    while(fgets(line, sizeof(line), f_vertebrates)) {
-
-    }
+    individuals[col] = individual;
 
     for (int i = 0; i < NUM_INDIVIDUALS; i++) {
-       printf(" %s ", strtok(individuals[i], "\""));
+        individual_type = get_individual_type(strtok(individuals[i], "\""), metadata);
+        printf("%s %s %s\n", strtok(individuals[i], "\""), individual_type.vertebrate, individual_type.sample_type);
     }
 }
 
@@ -389,62 +389,55 @@ Nested_elements nested_test(int num_rows, int num_cols, int matrix[][num_cols], 
 
 int main(int argc, char * argv[])
 {
-    FILE *f_vertebrates, *f_metadata;
-    Nested_elements nested_elements;
-    double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
-    // double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
+    FILE *f_vertebrates;
+    // Nested_elements nested_elements;
+    // double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
+    double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // int binary_matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
     // int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // double nested_value;
 
     f_vertebrates = fopen(argv[1],"r");
-    f_metadata = fopen(argv[2], "r");
 
     if (f_vertebrates == NULL) {
         printf("Error in opening the file %s.", argv[1]);
     }
     else {
-        if (f_metadata == NULL) {
-            printf("Error in opening the file %s.", argv[2]);
-        }
-        else {
-            // srand(time(NULL));
+        // srand(time(NULL));
 
-            create_matrix_individuals(f_vertebrates, matrix_individuals);
-            // create_matrix_vertebrates(f_vertebrates, f_metadata, matrix_vertebrates);
+        // create_matrix_individuals(f_vertebrates, matrix_individuals);
+        create_matrix_vertebrates(f_vertebrates, argv[2], matrix_vertebrates);
 
-            for (int i = 0; i < 1; i++) {
-                for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
-                    // printf(" %f ", matrix_individuals[i][j]);
-                    // printf(" %f ", matrix_vertebrates[i][j]);
-                }
-                printf("\n");
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
+                // printf(" %f ", matrix_individuals[i][j]);
+                // printf(" %f ", matrix_vertebrates[i][j]);
             }
-            fflush(stdout);
-
-            // discretize_matrix(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_individuals, binary_matrix_individuals, THRESHOLD);
-            // discretize_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_vertebrates, binary_matrix_vertebrates, THRESHOLD);
-
-
-            /*for (int i = 0; i < 1; i++) {
-                for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
-                    printf(" %i ", binary_matrix_individuals[i][j]);
-                }
-                printf("\n");
-            }*/
-
-            // nested_value = calculate_nested_value(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals);
-            // nested_value = calculate_nested_value(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates);
-            // nested_value = calculate_nested_value_optimized(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals);
-            // nested_value = calculate_nested_value_optimized(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates);
-            // printf("\n%.2f\n", nested_value);
-
-            // nested_elements = nested_test(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals, 1000);
-            // nested_elements = nested_test(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates, 1000);
-            // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
-
-            fclose(f_metadata);
+            // printf("\n");
         }
+        fflush(stdout);
+
+        // discretize_matrix(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_individuals, binary_matrix_individuals, THRESHOLD);
+        // discretize_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_vertebrates, binary_matrix_vertebrates, THRESHOLD);
+
+
+        /*for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
+                printf(" %i ", binary_matrix_individuals[i][j]);
+            }
+            printf("\n");
+        }*/
+
+        // nested_value = calculate_nested_value(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals);
+        // nested_value = calculate_nested_value(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates);
+        // nested_value = calculate_nested_value_optimized(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals);
+        // nested_value = calculate_nested_value_optimized(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates);
+        // printf("\n%.2f\n", nested_value);
+
+        // nested_elements = nested_test(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals, 1000);
+        // nested_elements = nested_test(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates, 1000);
+        // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+
         fclose(f_vertebrates);
     }
     return 0;
