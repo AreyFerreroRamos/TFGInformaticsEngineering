@@ -122,40 +122,33 @@ int offset(char *sample_type)
 
 void create_matrix_vertebrates(FILE *f_vertebrates, FILE *f_metadata, double matrix_vertebrates[][NUM_BACTERIAL_GENUS])
 {
-    Individual individual_ant, individual_post, individuals[NUM_INDIVIDUALS];
+    Individual individual_ant, individuals[NUM_INDIVIDUALS];
     char *absolute_abundance, absolute_abundances_genus[10000], line[10000];
     int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0},
-            num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0}, row, col = 0, pos;
+            num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0}, row, col = 0, pos_ant = 0, pos;
 
     get_individuals(f_vertebrates, NUM_INDIVIDUALS, individuals);
     get_species_sample_types(f_metadata, NUM_INDIVIDUALS, individuals);
 
-    /*individual_type_ant = get_specie_sample_type(individuals[0], metadata);
-    printf("%s %s %s\n", individuals[0].individual, individual_type_ant.vertebrate, individual_type_ant.sample_type);
-
     while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
-        sscanf(line, "%*s %[^\n]", absolute_abundances_individual);     // S'elimina la primera columna.
+        sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     // S'elimina la primera columna.
 
-        absolute_abundance = strtok(absolute_abundances_individual, " ");
+        absolute_abundance = strtok(absolute_abundances_genus, " ");
         row = pos = 0;
         while (absolute_abundance != NULL) {
-            individual_type = get_specie_sample_type(individuals[pos++].individual, metadata);
-            printf("%i %s %s %s\n", pos - 1, individuals[pos - 1], individual_type_ant.vertebrate, individual_type_ant.sample_type);
-            printf("%i %s %s %s\n\n", pos - 1, individuals[pos - 1], individual_type.vertebrate, individual_type.sample_type);
-            if (strcmp(individual_type_ant.vertebrate, individual_type.vertebrate) != 0) {
+            if (strcmp(individuals[pos_ant].vertebrate, individuals[pos].vertebrate) != 0) {
                 row += 2;
-                individual_type_ant = individual_type;
+                pos_ant = pos;
             }
 
-            matrix_absolute_abundances[row + offset(individual_type.sample_type)][col] += atoi(absolute_abundance);
+            matrix_absolute_abundances[row + offset(individuals[pos++].sample_type)][col] += atoi(absolute_abundance);
             num_bacterial_species_per_vertebrate[row] += atoi(absolute_abundance);
             absolute_abundance = strtok(NULL, " ");
-            printf("\n%s\n", absolute_abundance);
         }
         col++;
     }
     create_relative_abundances(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_absolute_abundances,
-                               matrix_vertebrates, num_bacterial_species_per_vertebrate);*/
+                               matrix_vertebrates, num_bacterial_species_per_vertebrate);
 }
 
 void discretize_matrix(int num_rows, int num_cols, double matrix[][num_cols],
@@ -440,7 +433,7 @@ int main(int argc, char * argv[])
     FILE *f_vertebrates, *f_metadata;
     // Nested_elements nested_elements;
     // double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
-    double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0};
+    double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // int binary_matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
     // int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // double nested_value;
@@ -464,9 +457,9 @@ int main(int argc, char * argv[])
             for (int i = 0; i < 1; i++) {
                 for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
                     // printf(" %f ", matrix_individuals[i][j]);
-                    // printf(" %f ", matrix_vertebrates[i][j]);
+                    printf(" %f ", matrix_vertebrates[i][j]);
                 }
-                // printf("\n");
+                printf("\n");
             }
 
             // discretize_matrix(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_individuals, binary_matrix_individuals, THRESHOLD);
