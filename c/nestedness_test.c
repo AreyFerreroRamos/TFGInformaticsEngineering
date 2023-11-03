@@ -11,9 +11,9 @@
 
 typedef struct
 {
-    char *individual;
-    char *vertebrate;
-    char *sample_type;
+    char individual[7];
+    char vertebrate[5];
+    int sample_type;
 } Individual;
 
 typedef struct
@@ -62,57 +62,21 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
 
 void get_individuals(FILE *f_vertebrates, int num_individuals, Individual *individuals)
 {
-    char line[10000], *individual;
+    char line[10000], *individual, *individuals_code[NUM_INDIVIDUALS];
     int pos = 0;
 
     fgets(line, sizeof(line), f_vertebrates);
     individual = strtok(line, " ");
     while (individual != NULL) {
-        individuals[pos++].individual = individual;
+        individuals_code[pos++] = individual;
         individual = strtok(NULL, " ");
     }
     for (pos = 0; pos < num_individuals; pos++) {
-        individuals[pos].individual = strtok(individuals[pos].individual, "\"");
+        individuals_code[pos] = strtok(individuals_code[pos], "\"");
     }
-}
-
-void get_species_sample_types(FILE *f_metadata, int num_individuals, Individual *individuals)
-{
-    char *sample, *vertebrate, *sample_type, line[500];
-    int pos, inc = 0, pos_ant = 0;
-    bool found;
-
-    fgets(line, sizeof(line), f_metadata);          /* Removed from first row. */
-    while (fgets(line, sizeof(line), f_metadata) != NULL) {
-        printf("%s", line);
-        printf("%i %s %i %s %s\n", inc, individuals[pos_ant].individual, pos_ant, individuals[pos_ant].vertebrate, individuals[pos_ant].sample_type);
-        strtok(line, ";");
-        sample = strtok(NULL, ";");
-        found = false;
-        pos = 0;
-        while ((! found) && (pos < num_individuals)) {
-            if (strcmp(sample, individuals[pos].individual) == 0) {
-                printf("%i %s %s %i %s %s\n", inc, sample, individuals[pos_ant].individual, pos_ant, individuals[pos_ant].vertebrate, individuals[pos_ant].sample_type);
-                printf("%i %s %s %i %s %s\n", inc, sample, individuals[pos].individual, pos, individuals[pos].vertebrate, individuals[pos].sample_type);
-                strtok(NULL, ";");
-                vertebrate = strtok(NULL, ";");
-                individuals[pos].vertebrate = vertebrate;
-                strtok(NULL, ";");
-                sample_type = strtok(NULL, ";");
-                individuals[pos].sample_type = sample_type;
-                printf("%i %s %s %i %s %s\n", inc, sample, individuals[pos].individual, pos, individuals[pos].vertebrate, individuals[pos].sample_type);
-                pos_ant = pos;
-                found = true;
-            }
-            else {
-                pos++;
-            }
-        }
-        printf("%i %s %s %i %s %s\n", inc++, sample, individuals[pos].individual, pos, individuals[pos].vertebrate, individuals[pos].sample_type);
+    for (pos = 0; pos < num_individuals; pos++) {
+        strcpy(individuals[pos].individual, individuals_code[pos]);
     }
-    // for (pos = 0; pos < num_individuals; pos++) {
-    //      printf("%i %s %s %s\n", pos, individuals[pos].individual, individuals[pos].vertebrate, individuals[pos].sample_type);
-    // }
 }
 
 int offset(char *sample_type)
@@ -123,6 +87,46 @@ int offset(char *sample_type)
     else {
         return 1;
     }
+}
+
+void get_species_sample_types(FILE *f_metadata, int num_individuals, Individual *individuals)
+{
+    char *sample, *vertebrate, line[500];
+    int pos, inc = 0, pos_ant = 0;
+    bool found;
+
+    fgets(line, sizeof(line), f_metadata);          /* Removed from first row. */
+    while (fgets(line, sizeof(line), f_metadata) != NULL) {
+        printf("%i %s %i %s %i\n", inc, individuals[pos_ant].individual, pos_ant, individuals[pos_ant].vertebrate, individuals[pos_ant].sample_type);
+        strtok(line, ";");
+        sample = strtok(NULL, ";");
+        found = false;
+        pos = 0;
+        while ((! found) && (pos < num_individuals)) {
+            if (strcmp(sample, individuals[pos].individual) == 0) {
+                printf("%i %s %s %i %s %i\n", inc, sample, individuals[pos_ant].individual, pos_ant, individuals[pos_ant].vertebrate, individuals[pos_ant].sample_type);
+                printf("%i %s %s %i %s %i\n", inc, sample, individuals[pos].individual, pos, individuals[pos].vertebrate, individuals[pos].sample_type);
+                strtok(NULL, ";");
+                printf("%s\n", individuals[pos].individual);
+                vertebrate = strtok(NULL, ";");
+                printf("%s\n", individuals[pos].individual);
+                strcpy(individuals[pos].vertebrate, vertebrate);
+                printf("%s\n", individuals[pos].individual);
+                strtok(NULL, ";");
+                individuals[pos].sample_type = offset(strtok(NULL, ";"));
+                printf("%i %s %s %i %s %i\n", inc, sample, individuals[pos].individual, pos, individuals[pos].vertebrate, individuals[pos].sample_type);
+                pos_ant = pos;
+                found = true;
+            }
+            else {
+                pos++;
+            }
+        }
+        printf("%i %s %s %i %s %i\n", inc++, sample, individuals[pos].individual, pos, individuals[pos].vertebrate, individuals[pos].sample_type);
+    }
+    // for (pos = 0; pos < num_individuals; pos++) {
+    //      printf("%i %s %s %s\n", pos, individuals[pos].individual, individuals[pos].vertebrate, individuals[pos].sample_type);
+    // }
 }
 
 void create_matrix_vertebrates(FILE *f_vertebrates, FILE *f_metadata, double matrix_vertebrates[][NUM_BACTERIAL_GENUS])
@@ -146,7 +150,7 @@ void create_matrix_vertebrates(FILE *f_vertebrates, FILE *f_metadata, double mat
                 pos_ant = pos;
             }
 
-            matrix_absolute_abundances[row + offset(individuals[pos++].sample_type)][col] += atoi(absolute_abundance);
+            matrix_absolute_abundances[row + individuals[pos++].sample_type][col] += atoi(absolute_abundance);
             num_bacterial_species_per_vertebrate[row] += atoi(absolute_abundance);
             absolute_abundance = strtok(NULL, " ");
         }
@@ -463,7 +467,7 @@ int main(int argc, char * argv[])
             for (int i = 0; i < 1; i++) {
                 for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
                     // printf(" %f ", matrix_individuals[i][j]);
-                    // printf(" %f ", matrix_vertebrates[i][j]);
+                    printf(" %f ", matrix_vertebrates[i][j]);
                 }
                 // printf("\n");
             }
