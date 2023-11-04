@@ -62,7 +62,7 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
 
 void get_individuals(FILE *f_vertebrates, int num_individuals, Individual *individuals)
 {
-    char line[10000], *individual, *individuals_code[NUM_INDIVIDUALS];
+    char line[10000], *individual, *individuals_code[num_individuals];
     int pos = 0;
 
     fgets(line, sizeof(line), f_vertebrates);
@@ -454,7 +454,7 @@ int main(int argc, char * argv[])
             for (int i = 0; i < 1; i++) {
                 for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
                     // printf(" %f ", matrix_individuals[i][j]);
-                    printf(" %f ", matrix_vertebrates[i][j]);
+                    // printf(" %f ", matrix_vertebrates[i][j]);
                 }
                 // printf("\n");
             }
