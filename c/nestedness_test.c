@@ -11,7 +11,7 @@
 
 typedef struct
 {
-    char individual[7];
+    char code[7];
     char vertebrate[5];
     int sample_type;
 } Individual;
@@ -75,7 +75,7 @@ void get_individuals(FILE *f_vertebrates, int num_individuals, Individual *indiv
         individuals_code[pos] = strtok(individuals_code[pos], "\"");
     }
     for (pos = 0; pos < num_individuals; pos++) {
-        strcpy(individuals[pos].individual, individuals_code[pos]);
+        strcpy(individuals[pos].code, individuals_code[pos]);
     }
 }
 
@@ -102,7 +102,7 @@ void get_species_sample_types(FILE *f_metadata, int num_individuals, Individual 
         found = false;
         pos = 0;
         while ((! found) && (pos < num_individuals)) {
-            if (strcmp(sample, individuals[pos].individual) == 0) {
+            if (strcmp(sample, individuals[pos].code) == 0) {
                 strtok(NULL, ";");
                 strcpy(individuals[pos].vertebrate, strtok(NULL, ";"));
                 strtok(NULL, ";");
