@@ -62,17 +62,14 @@ void create_matrix_individuals(FILE *f_vertebrates, double matrix_individuals[][
 
 void get_individuals(FILE *f_vertebrates, int num_individuals, Individual *individuals)
 {
-    char line[10000], *individual, *individuals_code[num_individuals];
+    char line[10000], *individual;
     int pos = 0;
 
     fgets(line, sizeof(line), f_vertebrates);
     individual = strtok(line, "\" \"");
     while (individual != NULL) {
-        individuals_code[pos++] = individual;
+        strcpy(individuals[pos++].code, individual);
         individual = strtok(NULL, "\" \"");
-    }
-    for (pos = 0; pos < num_individuals; pos++) {
-        strcpy(individuals[pos].code, individuals_code[pos]);
     }
 }
 
