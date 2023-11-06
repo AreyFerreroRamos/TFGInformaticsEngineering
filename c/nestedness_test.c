@@ -149,11 +149,17 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
                     pos_ant = pos;
                 }
 
-                matrix_absolute_abundances[row + individuals[pos++].sample_type][col] += atoi(absolute_abundance);
-                num_bacterial_species_per_vertebrate[row] += atoi(absolute_abundance);
+                matrix_absolute_abundances[row + individuals[pos].sample_type][col] += atoi(absolute_abundance);
+                num_bacterial_species_per_vertebrate[row + individuals[pos++].sample_type] += atoi(absolute_abundance);
                 absolute_abundance = strtok(NULL, " ");
             }
             col++;
+        }
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
+                // printf("%i ", matrix_absolute_abundances[i][j]);
+            }
+            // printf("\n\n");
         }
         free(individuals);
         create_relative_abundances(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_absolute_abundances,
@@ -443,7 +449,7 @@ int main(int argc, char * argv[])
 {
     // Nested_elements nested_elements;
     // double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
-    double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
+    double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0};
     // int binary_matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
     // int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // double nested_value;
@@ -456,9 +462,9 @@ int main(int argc, char * argv[])
     for (int i = 0; i < 1; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
             // printf(" %f ", matrix_individuals[i][j]);
-            // printf(" %f ", matrix_vertebrates[i][j]);
+            printf("%f ", matrix_vertebrates[i][j]);
         }
-        // printf("\n");
+        printf("\n");
     }
 
     // discretize_matrix(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_individuals, binary_matrix_individuals, THRESHOLD);
