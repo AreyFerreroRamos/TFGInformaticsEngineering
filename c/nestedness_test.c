@@ -66,13 +66,10 @@ void get_individuals(FILE *f_vertebrates, int num_individuals, Individual *indiv
     int pos = 0;
 
     fgets(line, sizeof(line), f_vertebrates);
-    individual = strtok(line, " ");
+    individual = strtok(line, "\" \"");
     while (individual != NULL) {
         individuals_code[pos++] = individual;
-        individual = strtok(NULL, " ");
-    }
-    for (pos = 0; pos < num_individuals; pos++) {
-        individuals_code[pos] = strtok(individuals_code[pos], "\"");
+        individual = strtok(NULL, "\" \"");
     }
     for (pos = 0; pos < num_individuals; pos++) {
         strcpy(individuals[pos].code, individuals_code[pos]);
