@@ -12,7 +12,7 @@
 typedef struct
 {
     char code[7];
-    char vertebrate[5];
+    char vertebrate[6];
     int sample_type;
 } Individual;
 
@@ -25,12 +25,9 @@ typedef struct
 void create_relative_abundances(int num_rows, int num_cols, int matrix_absolute_abundances[][num_cols],
                                 double matrix_relative_abundances[][num_cols], int num_bacterial_species[])
 {
-    double relative_abundance;
-
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
-            relative_abundance = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species[row];
-            matrix_relative_abundances[row][col] = relative_abundance;
+            matrix_relative_abundances[row][col] = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species[row];
         }
     }
 }
@@ -130,6 +127,7 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
     char *absolute_abundance, absolute_abundances_genus[10000], line[10000];
     int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0},
             num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0}, row, col = 0, pos_ant = 0, pos;
+    bool found = false;
 
     if (f_vertebrates == NULL) {
         printf("Error in opening the file %s.", vertebrates);
@@ -159,7 +157,10 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
             for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
                 // printf("%i ", matrix_absolute_abundances[i][j]);
             }
-            // printf("\n\n");
+            // printf("\n");
+        }
+        for (int i = 0; i < NUM_VERTEBRATES; i++) {
+            // printf("%i ", num_bacterial_species_per_vertebrate[i]);
         }
         free(individuals);
         create_relative_abundances(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_absolute_abundances,
@@ -459,7 +460,7 @@ int main(int argc, char * argv[])
     // create_matrix_individuals(argv[1], matrix_individuals);
     create_matrix_vertebrates(argv[1], argv[2], matrix_vertebrates);
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < NUM_VERTEBRATES; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
             // printf(" %f ", matrix_individuals[i][j]);
             printf("%f ", matrix_vertebrates[i][j]);
