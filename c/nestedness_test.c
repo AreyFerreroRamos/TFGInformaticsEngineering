@@ -126,8 +126,7 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
     Individual *individuals = (Individual *) malloc(NUM_INDIVIDUALS * sizeof(Individual));
     char *absolute_abundance, absolute_abundances_genus[10000], line[10000];
     int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0},
-            num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0}, row, col = 0, pos_ant = 0, pos;
-    bool found = false;
+            num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0}, pos_ant, pos, row, col = 0;
 
     if (f_vertebrates == NULL) {
         printf("Error in opening the file %s.", vertebrates);
@@ -140,7 +139,7 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
             sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     /* Removed from first column. */
 
             absolute_abundance = strtok(absolute_abundances_genus, " ");
-            row = pos = 0;
+            pos_ant = pos = row = 0;
             while (absolute_abundance != NULL) {
                 if (strcmp(individuals[pos_ant].vertebrate, individuals[pos].vertebrate) != 0) {
                     row += 2;
@@ -149,18 +148,10 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
 
                 matrix_absolute_abundances[row + individuals[pos].sample_type][col] += atoi(absolute_abundance);
                 num_bacterial_species_per_vertebrate[row + individuals[pos++].sample_type] += atoi(absolute_abundance);
+
                 absolute_abundance = strtok(NULL, " ");
             }
             col++;
-        }
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
-                // printf("%i ", matrix_absolute_abundances[i][j]);
-            }
-            // printf("\n");
-        }
-        for (int i = 0; i < NUM_VERTEBRATES; i++) {
-            // printf("%i ", num_bacterial_species_per_vertebrate[i]);
         }
         free(individuals);
         create_relative_abundances(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_absolute_abundances,
