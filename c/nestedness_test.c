@@ -27,7 +27,13 @@ void create_relative_abundances(int num_rows, int num_cols, int matrix_absolute_
 {
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
-            matrix_relative_abundances[row][col] = (double) matrix_absolute_abundances[row][col] / (double) num_bacterial_species[row];
+            if (num_bacterial_species[row] != 0) {
+                matrix_relative_abundances[row][col] = (double) matrix_absolute_abundances[row][col]
+                        / (double) num_bacterial_species[row];
+            }
+            else {
+                matrix_relative_abundances[row][col] = 0;
+            }
         }
     }
 }
@@ -111,7 +117,8 @@ void get_species_sample_types(char *metadata, int num_individuals, Individual *i
                     strtok(NULL, ";");
                     individuals[pos].sample_type = offset(strtok(NULL, ";"));
                     found = true;
-                } else {
+                }
+                else {
                     pos++;
                 }
             }
