@@ -450,7 +450,7 @@ int main(int argc, char * argv[])
     // double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
     double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0};
     // int binary_matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
-    // int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
+    int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // double nested_value;
 
     // srand(time(NULL));
@@ -458,7 +458,7 @@ int main(int argc, char * argv[])
     // create_matrix_individuals(argv[1], matrix_individuals);
     create_matrix_vertebrates(argv[1], argv[2], matrix_vertebrates);
 
-    for (int i = 0; i < NUM_VERTEBRATES; i++) {
+    for (int i = 0; i < 1; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
             // printf(" %f ", matrix_individuals[i][j]);
             printf("%f ", matrix_vertebrates[i][j]);
@@ -467,15 +467,15 @@ int main(int argc, char * argv[])
     }
 
     // discretize_matrix(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_individuals, binary_matrix_individuals, THRESHOLD);
-    // discretize_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_vertebrates, binary_matrix_vertebrates, THRESHOLD);
+    discretize_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_vertebrates, binary_matrix_vertebrates, THRESHOLD);
 
-
-    /*for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 1; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
-            printf(" %i ", binary_matrix_individuals[i][j]);
+            // printf("%i ", binary_matrix_individuals[i][j]);
+            printf("%i ", binary_matrix_vertebrates[i][j]);
         }
         printf("\n");
-    }*/
+    }
 
     // nested_value = calculate_nested_value(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals);
     // nested_value = calculate_nested_value(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates);
