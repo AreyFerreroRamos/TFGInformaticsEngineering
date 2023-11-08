@@ -22,6 +22,18 @@ typedef struct
     double p_value;
 } Nested_elements;
 
+void select_matrix(char *name_matrix, int *num_rows, int *num_cols)
+{
+    if (strcmp(name_matrix, "individuals") == 0) {
+        *num_rows = 644;
+        *num_cols = 1056;
+    }
+    else if (strcmp(name_matrix, "vertebrates") == 0) {
+        *num_rows = 50;
+        *num_cols = 1056;
+    }
+}
+
 void allocate_memory_doubles_matrix(double **matrix, int num_rows, int num_cols)
 {
     matrix = (double **) malloc(num_rows * sizeof(double *));
@@ -493,15 +505,17 @@ Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_ra
 int main(int argc, char * argv[])
 {
     double **abundances_matrix;
-    int **binary_matrix, num_rows = atoi(argv[3]);
+    int **binary_matrix, num_rows, num_cols;
     // Nested_elements nested_elements;
     // double nested_value;
     
     // srand(time(NULL));
 
+    select_matrix(argv[3], &num_rows, &num_cols);
+
     abundances_matrix = (double **) malloc( num_rows * sizeof(double *));
     for (int row = 0; row < num_rows; row++) {
-        abundances_matrix[row] = (double *) malloc(NUM_BACTERIAL_GENUS * sizeof(double));
+        abundances_matrix[row] = (double *) malloc(num_cols * sizeof(double));
     }
 
     if (num_rows == 644) {
@@ -512,7 +526,7 @@ int main(int argc, char * argv[])
     }
 
     for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
+        for (int j = 0; j < num_cols; j++) {
             printf(" %f ", abundances_matrix[i][j]);
         }
         printf("\n");
@@ -520,10 +534,10 @@ int main(int argc, char * argv[])
 
     binary_matrix = (int **) malloc(num_rows * sizeof(int *));
     for (int row = 0; row < num_rows; row++) {
-        binary_matrix[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
+        binary_matrix[row] = (int *) malloc(num_cols * sizeof(int));
     }
 
-    discretize_matrix(abundances_matrix, binary_matrix, num_rows, NUM_BACTERIAL_GENUS, THRESHOLD);
+    discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, THRESHOLD);
 
     for (int row = 0; row < num_rows; row++) {
         free(abundances_matrix[row]);
@@ -531,7 +545,7 @@ int main(int argc, char * argv[])
     free(abundances_matrix);
 
     for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
+        for (int j = 0; j < num_cols; j++) {
             printf("%i ", binary_matrix[i][j]);
         }
         printf("\n");
