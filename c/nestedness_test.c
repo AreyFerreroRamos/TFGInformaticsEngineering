@@ -7,7 +7,6 @@
 # define NUM_INDIVIDUALS 644
 # define NUM_VERTEBRATES 50
 # define NUM_BACTERIAL_GENUS 1056
-# define THRESHOLD 0.0001
 
 typedef struct
 {
@@ -537,7 +536,7 @@ int main(int argc, char * argv[])
         binary_matrix[row] = (int *) malloc(num_cols * sizeof(int));
     }
 
-    discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, THRESHOLD);
+    discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
     for (int row = 0; row < num_rows; row++) {
         free(abundances_matrix[row]);
