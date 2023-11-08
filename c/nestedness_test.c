@@ -24,12 +24,12 @@ typedef struct
 void select_matrix(char *name_matrix, int *num_rows, int *num_cols)
 {
     if (strcmp(name_matrix, "individuals") == 0) {
-        *num_rows = 644;
-        *num_cols = 1056;
+        *num_rows = NUM_INDIVIDUALS;
+        *num_cols = NUM_BACTERIAL_GENUS;
     }
     else if (strcmp(name_matrix, "vertebrates") == 0) {
-        *num_rows = 50;
-        *num_cols = 1056;
+        *num_rows = NUM_VERTEBRATES;
+        *num_cols = NUM_BACTERIAL_GENUS;
     }
 }
 
@@ -46,6 +46,13 @@ void allocate_memory_integers_matrix(int **matrix, int num_rows, int num_cols)
     matrix = (int **) malloc(num_rows * sizeof(int *));
     for (int row = 0; row < num_rows; row++) {
         matrix[row] = (int *) malloc(num_cols * sizeof(int));
+    }
+}
+
+void initialize_vector(int *vector, int num_elements)
+{
+    for (int pos = 0; pos < num_elements; pos++) {
+        vector[pos] = 0;
     }
 }
 
@@ -318,12 +325,12 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
 
 double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols)
 {
-    int sum_rows[NUM_INDIVIDUALS] = {0};
-    // int sum_rows[NUM_VERTEBRATES] = {0};
-    int sum_cols[NUM_BACTERIAL_GENUS] = {0};
+    int *sum_rows = (int *) malloc(num_rows * sizeof(int));
+    int *sum_cols = (int *) malloc(num_cols * sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
         /* Calculate and save the number of interactions of every row. */
+    initialize_vector(sum_rows, num_rows);
     for (row = 0; row < num_rows; row++) {
         for (col = 0; col < num_cols; col++) {
             sum_rows[row] += matrix[row][col];
@@ -331,6 +338,7 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
     }
 
         /* Calculate and save the number of interactions of every column. */
+    initialize_vector(sum_cols, num_cols);
     for (col = 0; col < num_cols; col++) {
         for (row = 0; row < num_rows; row++) {
             sum_cols[col] += matrix[row][col];
@@ -487,7 +495,7 @@ Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_ra
 
         /* Calculate and store the nested value of the real matrix. */
     nested_elements.nested_value = calculate_nested_value(matrix, num_rows, num_cols);
-    // nested_elements.nested_value = calculate_nested_value_optimized(num_rows, num_cols, matrix);
+    // nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
     nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
         /* Sort the list of nested values. */
@@ -517,10 +525,10 @@ int main(int argc, char * argv[])
         abundances_matrix[row] = (double *) malloc(num_cols * sizeof(double));
     }
 
-    if (num_rows == 644) {
+    if (strcmp(argv[3], "individuals") == 0) {
         create_matrix_individuals(argv[1], abundances_matrix);
     }
-    else {
+    else if (strcmp(argv[3], "vertebrates") == 0) {
         create_matrix_vertebrates(argv[1], argv[2], abundances_matrix);
     }
 
