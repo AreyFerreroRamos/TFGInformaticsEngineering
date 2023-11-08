@@ -22,8 +22,8 @@ typedef struct
     double p_value;
 } Nested_elements;
 
-void create_relative_abundances(int num_rows, int num_cols, int matrix_absolute_abundances[][num_cols],
-                                double matrix_relative_abundances[][num_cols], int num_bacterial_species[])
+void create_relative_abundances(int num_rows, int num_cols, int **matrix_absolute_abundances,
+                                double **matrix_relative_abundances, int num_bacterial_species[])
 {
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
@@ -38,11 +38,11 @@ void create_relative_abundances(int num_rows, int num_cols, int matrix_absolute_
     }
 }
 
-void create_matrix_individuals(char *vertebrates, double matrix_individuals[][NUM_BACTERIAL_GENUS])
+void create_matrix_individuals(char *vertebrates, double **matrix_individuals)
 {
     FILE *f_vertebrates = fopen(vertebrates, "r");
     char line[10000], absolute_abundances_individual[10000], *absolute_abundance;
-    int matrix_absolute_abundances[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
+    int **matrix_absolute_abundances;
     int num_bacterial_species_per_individual[NUM_INDIVIDUALS] = {0};
     int row, col = 0;
 
@@ -50,6 +50,11 @@ void create_matrix_individuals(char *vertebrates, double matrix_individuals[][NU
         printf("Error in opening the file %s.", vertebrates);
     }
     else {
+        matrix_absolute_abundances = (int **) malloc(NUM_INDIVIDUALS * sizeof(int *));
+        for (row = 0; row < NUM_INDIVIDUALS; row++) {
+            matrix_absolute_abundances[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
+        }
+
         fgets(line, sizeof(line), f_vertebrates);       /* Removed from first row. */
         while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
             sscanf(line, "%*s %[^\n]", absolute_abundances_individual);     /* Removed from first column. */
@@ -66,6 +71,12 @@ void create_matrix_individuals(char *vertebrates, double matrix_individuals[][NU
         }
         create_relative_abundances(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_absolute_abundances,
                                    matrix_individuals, num_bacterial_species_per_individual);
+
+        for (row = 0; row < NUM_INDIVIDUALS; row++) {
+            free(matrix_absolute_abundances[row]);
+        }
+        free(matrix_absolute_abundances);
+
         fclose(f_vertebrates);
     }
 }
@@ -127,13 +138,13 @@ void get_species_sample_types(char *metadata, int num_individuals, Individual *i
     }
 }
 
-void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_vertebrates[][NUM_BACTERIAL_GENUS])
+void create_matrix_vertebrates(char *vertebrates, char *metadata, double **matrix_vertebrates)
 {
     FILE *f_vertebrates = fopen(vertebrates, "r");
     Individual *individuals = (Individual *) malloc(NUM_INDIVIDUALS * sizeof(Individual));
     char *absolute_abundance, absolute_abundances_genus[10000], line[10000];
-    int matrix_absolute_abundances[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0},
-            num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0}, pos_ant, pos, row, col = 0;
+    int **matrix_absolute_abundances, num_bacterial_species_per_vertebrate[NUM_VERTEBRATES] = {0};
+    int pos_ant, pos, row, col = 0;
 
     if (f_vertebrates == NULL) {
         printf("Error in opening the file %s.", vertebrates);
@@ -141,6 +152,11 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
     else {
         get_individuals(f_vertebrates, NUM_INDIVIDUALS, individuals);
         get_species_sample_types(metadata, NUM_INDIVIDUALS, individuals);
+
+        matrix_absolute_abundances = (int **) malloc(NUM_VERTEBRATES * sizeof(int *));
+        for (row = 0; row < NUM_VERTEBRATES; row++) {
+            matrix_absolute_abundances[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
+        }
 
         while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
             sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     /* Removed from first column. */
@@ -163,12 +179,17 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double matrix_
         free(individuals);
         create_relative_abundances(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_absolute_abundances,
                                    matrix_vertebrates, num_bacterial_species_per_vertebrate);
+
+        for (row = 0; row < NUM_VERTEBRATES; row++) {
+            free(matrix_absolute_abundances[row]);
+        }
+        free(matrix_absolute_abundances);
+
         fclose(f_vertebrates);
     }
 }
 
-void discretize_matrix(int num_rows, int num_cols, double matrix[][num_cols],
-                       int binary_matrix[][num_cols], double threshold)
+void discretize_matrix(int num_rows, int num_cols, double **matrix, int **binary_matrix, double threshold)
 {
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
@@ -182,7 +203,7 @@ void discretize_matrix(int num_rows, int num_cols, double matrix[][num_cols],
     }
 }
 
-double calculate_nested_value(int num_rows, int num_cols, int matrix[][num_cols])
+double calculate_nested_value(int num_rows, int num_cols, int **matrix)
 {
     int first_isocline, second_isocline, third_isocline, fourth_isocline;
     int first_row, second_row, row, first_col, second_col, col, first_acum, second_acum;
@@ -257,7 +278,7 @@ double calculate_nested_value(int num_rows, int num_cols, int matrix[][num_cols]
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-double calculate_nested_value_optimized(int num_rows, int num_cols, int matrix[][num_cols])
+double calculate_nested_value_optimized(int num_rows, int num_cols, int **matrix)
 {
     int sum_rows[NUM_INDIVIDUALS] = {0};
     // int sum_rows[NUM_VERTEBRATES] = {0};
@@ -316,7 +337,7 @@ double calculate_nested_value_optimized(int num_rows, int num_cols, int matrix[]
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-int count_ones_binary_matrix(int num_rows, int num_cols, int matrix[][num_cols])
+int count_ones_binary_matrix(int num_rows, int num_cols, int **matrix)
 {
     int num_ones = 0;
 
@@ -328,7 +349,7 @@ int count_ones_binary_matrix(int num_rows, int num_cols, int matrix[][num_cols])
     return num_ones;
 }
 
-void initialize_randomized_matrix(int num_rows, int num_cols, int randomized_matrix[][num_cols])
+void initialize_randomized_matrix(int num_rows, int num_cols, int **randomized_matrix)
 {
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
@@ -337,7 +358,7 @@ void initialize_randomized_matrix(int num_rows, int num_cols, int randomized_mat
     }
 }
 
-void generate_randomized_matrix(int num_rows, int num_cols, int num_ones, int randomized_matrix[][num_cols])
+void generate_randomized_matrix(int num_rows, int num_cols, int num_ones, int **randomized_matrix)
 {
     int cont_ones, pos, num_elements = num_rows * num_cols;
 
@@ -351,18 +372,25 @@ void generate_randomized_matrix(int num_rows, int num_cols, int num_ones, int ra
     }
 }
 
-void generate_nested_values_randomized(int num_rows, int num_cols, int matrix[][num_cols],
-                                       int num_randomized_matrices, double nested_values_randomized[])
+void generate_nested_values_randomized(int num_rows, int num_cols, int **matrix, int num_randomized_matrices,
+                                       double nested_values_randomized[])
 {
-    int randomized_matrix[num_rows][num_cols];
-    int num_ones = count_ones_binary_matrix(num_rows, num_cols, matrix);
+    int **randomized_matrix, num_ones = count_ones_binary_matrix(num_rows, num_cols, matrix);
 
+    randomized_matrix = (int **) malloc(num_rows * sizeof(int *));
+    for (int row = 0; row < num_rows; row++) {
+        randomized_matrix[row] = (int *) malloc(num_cols * sizeof(int));
+    }
     for (int pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_randomized_matrix(num_rows, num_cols, randomized_matrix);
         generate_randomized_matrix(num_rows, num_cols, num_ones, randomized_matrix);
         nested_values_randomized[pos] = calculate_nested_value(num_rows, num_cols, randomized_matrix);
         // nested_values_randomized[pos] = calculate_nested_value_optimized(num_rows, num_cols, randomized_matrix);
     }
+    for (int row = 0; row < num_rows; row++) {
+        free(randomized_matrix[row]);
+    }
+    free(randomized_matrix);
 }
 
 int sort(double array[], int first, int last)
@@ -419,7 +447,7 @@ int get_index(double nested_values[], int num_elements, double nested_value)
     return pos;
 }
 
-Nested_elements nested_test(int num_rows, int num_cols, int matrix[][num_cols], int num_randomized_matrices)
+Nested_elements nested_test(int num_rows, int num_cols, int **matrix, int num_randomized_matrices)
 {
     Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
@@ -446,12 +474,32 @@ Nested_elements nested_test(int num_rows, int num_cols, int matrix[][num_cols], 
 
 int main(int argc, char * argv[])
 {
+    // double **matrix_individuals;
+    double **matrix_vertebrates;
+    // int **binary_matrix_individuals;
+    int **binary_matrix_vertebrates;
     // Nested_elements nested_elements;
-    // double matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
-    double matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS] = {0};
-    // int binary_matrix_individuals[NUM_INDIVIDUALS][NUM_BACTERIAL_GENUS];
-    int binary_matrix_vertebrates[NUM_VERTEBRATES][NUM_BACTERIAL_GENUS];
     // double nested_value;
+
+    /*matrix_individuals = (double **) malloc(NUM_INDIVIDUALS * sizeof(double *));
+    for (int row = 0; row < NUM_INDIVIDUALS; row++) {
+        matrix_individuals[row] = (double *) malloc(NUM_BACTERIAL_GENUS * sizeof(double));
+    }*/
+
+    matrix_vertebrates = (double **) malloc(NUM_VERTEBRATES * sizeof(double *));
+    for (int row = 0; row < NUM_VERTEBRATES; row++) {
+        matrix_vertebrates[row] = (double *) malloc(NUM_BACTERIAL_GENUS * sizeof(double));
+    }
+
+    /*binary_matrix_individuals = (int **) malloc(NUM_INDIVIDUALS * sizeof(int *));
+    for (int row = 0; row < NUM_INDIVIDUALS; row++) {
+        binary_matrix_individuals[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
+    }*/
+
+    binary_matrix_vertebrates = (int **) malloc(NUM_VERTEBRATES * sizeof(int *));
+    for (int row = 0; row < NUM_VERTEBRATES; row++) {
+        binary_matrix_vertebrates[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
+    }
 
     // srand(time(NULL));
 
@@ -468,6 +516,16 @@ int main(int argc, char * argv[])
 
     // discretize_matrix(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, matrix_individuals, binary_matrix_individuals, THRESHOLD);
     discretize_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, matrix_vertebrates, binary_matrix_vertebrates, THRESHOLD);
+
+    /*for (int row = 0; row < NUM_INDIVIDUALS; row++) {
+        free(matrix_individuals[row]);
+    }
+    free(matrix_individuals);*/
+
+    for (int row = 0; row < NUM_VERTEBRATES; row++) {
+        free(matrix_vertebrates[row]);
+    }
+    free(matrix_vertebrates);
 
     for (int i = 0; i < 1; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
@@ -486,6 +544,16 @@ int main(int argc, char * argv[])
     // nested_elements = nested_test(NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, binary_matrix_individuals, 1000);
     // nested_elements = nested_test(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, binary_matrix_vertebrates, 1000);
     // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+
+    /*for (int row = 0; row < NUM_INDIVIDUALS; row++) {
+        free(binary_matrix_individuals[row]);
+    }
+    free(binary_matrix_individuals);*/
+
+    for (int row = 0; row < NUM_VERTEBRATES; row++) {
+        free(binary_matrix_vertebrates[row]);
+    }
+    free(binary_matrix_vertebrates);
 
     return 0;
 }
