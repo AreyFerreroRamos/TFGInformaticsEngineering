@@ -514,7 +514,7 @@ int main(int argc, char * argv[])
     double **abundances_matrix;
     int **binary_matrix, num_rows, num_cols;
     // Nested_elements nested_elements;
-    // double nested_value;
+    double nested_value;
     
     // srand(time(NULL));
 
@@ -532,13 +532,6 @@ int main(int argc, char * argv[])
         create_matrix_vertebrates(argv[1], argv[2], abundances_matrix);
     }
 
-    for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < num_cols; j++) {
-            printf(" %f ", abundances_matrix[i][j]);
-        }
-        printf("\n");
-    }
-
     binary_matrix = (int **) malloc(num_rows * sizeof(int *));
     for (int row = 0; row < num_rows; row++) {
         binary_matrix[row] = (int *) malloc(num_cols * sizeof(int));
@@ -551,21 +544,11 @@ int main(int argc, char * argv[])
     }
     free(abundances_matrix);
 
-    for (int i = 0; i < 1; i++) {
-        for (int j = 0; j < num_cols; j++) {
-            printf("%i ", binary_matrix[i][j]);
-        }
-        printf("\n");
-    }
+    nested_value = calculate_nested_value(binary_matrix, num_rows, num_cols);
+    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
+    printf("\nNested value: %f\n", nested_value);
 
-    // nested_value = calculate_nested_value(binary_matrix_individuals, NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS);
-    // nested_value = calculate_nested_value(binary_matrix_vertebrates, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
-    // nested_value = calculate_nested_value_optimized(binary_matrix_individuals, NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS);
-    // nested_value = calculate_nested_value_optimized(binary_matrix_vertebrates, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
-    // printf("\n%.2f\n", nested_value);
-
-    // nested_elements = nested_test(binary_matrix_individuals, NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, 1000);
-    // nested_elements = nested_test(binary_matrix_vertebrates, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, 1000);
+    // nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
     // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
     for (int row = 0; row < num_rows; row++) {
