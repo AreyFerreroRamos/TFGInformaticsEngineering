@@ -492,63 +492,47 @@ Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_ra
 
 int main(int argc, char * argv[])
 {
-    // double **matrix_individuals;
-    double **matrix_vertebrates;
-    // int **binary_matrix_individuals;
-    int **binary_matrix_vertebrates;
+    double **abundances_matrix;
+    int **binary_matrix, num_rows = atoi(argv[3]);
     // Nested_elements nested_elements;
     // double nested_value;
     
     // srand(time(NULL));
 
-    /*matrix_individuals = (double **) malloc(NUM_INDIVIDUALS * sizeof(double *));
-    for (int row = 0; row < NUM_INDIVIDUALS; row++) {
-        matrix_individuals[row] = (double *) malloc(NUM_BACTERIAL_GENUS * sizeof(double));
-    }*/
-
-    matrix_vertebrates = (double **) malloc(NUM_VERTEBRATES * sizeof(double *));
-    for (int row = 0; row < NUM_VERTEBRATES; row++) {
-        matrix_vertebrates[row] = (double *) malloc(NUM_BACTERIAL_GENUS * sizeof(double));
+    abundances_matrix = (double **) malloc( num_rows * sizeof(double *));
+    for (int row = 0; row < num_rows; row++) {
+        abundances_matrix[row] = (double *) malloc(NUM_BACTERIAL_GENUS * sizeof(double));
     }
 
-    // create_matrix_individuals(argv[1], matrix_individuals);
-    create_matrix_vertebrates(argv[1], argv[2], matrix_vertebrates);
+    if (num_rows == 644) {
+        create_matrix_individuals(argv[1], abundances_matrix);
+    }
+    else {
+        create_matrix_vertebrates(argv[1], argv[2], abundances_matrix);
+    }
 
     for (int i = 0; i < 1; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
-            // printf(" %f ", matrix_individuals[i][j]);
-            printf("%f ", matrix_vertebrates[i][j]);
+            printf(" %f ", abundances_matrix[i][j]);
         }
         printf("\n");
     }
 
-    /*binary_matrix_individuals = (int **) malloc(NUM_INDIVIDUALS * sizeof(int *));
-    for (int row = 0; row < NUM_INDIVIDUALS; row++) {
-        binary_matrix_individuals[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
-    }*/
-
-    binary_matrix_vertebrates = (int **) malloc(NUM_VERTEBRATES * sizeof(int *));
-    for (int row = 0; row < NUM_VERTEBRATES; row++) {
-        binary_matrix_vertebrates[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
+    binary_matrix = (int **) malloc(num_rows * sizeof(int *));
+    for (int row = 0; row < num_rows; row++) {
+        binary_matrix[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
     }
 
-    // discretize_matrix(matrix_individuals, binary_matrix_individuals, NUM_INDIVIDUALS, NUM_BACTERIAL_GENUS, THRESHOLD);
-    discretize_matrix(matrix_vertebrates, binary_matrix_vertebrates, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, THRESHOLD);
+    discretize_matrix(abundances_matrix, binary_matrix, num_rows, NUM_BACTERIAL_GENUS, THRESHOLD);
 
-    /*for (int row = 0; row < NUM_INDIVIDUALS; row++) {
-        free(matrix_individuals[row]);
+    for (int row = 0; row < num_rows; row++) {
+        free(abundances_matrix[row]);
     }
-    free(matrix_individuals);*/
-
-    for (int row = 0; row < NUM_VERTEBRATES; row++) {
-        free(matrix_vertebrates[row]);
-    }
-    free(matrix_vertebrates);
+    free(abundances_matrix);
 
     for (int i = 0; i < 1; i++) {
         for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
-            // printf("%i ", binary_matrix_individuals[i][j]);
-            printf("%i ", binary_matrix_vertebrates[i][j]);
+            printf("%i ", binary_matrix[i][j]);
         }
         printf("\n");
     }
@@ -563,15 +547,10 @@ int main(int argc, char * argv[])
     // nested_elements = nested_test(binary_matrix_vertebrates, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS, 1000);
     // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
-    /*for (int row = 0; row < NUM_INDIVIDUALS; row++) {
-        free(binary_matrix_individuals[row]);
+    for (int row = 0; row < num_rows; row++) {
+        free(binary_matrix[row]);
     }
-    free(binary_matrix_individuals);*/
-
-    for (int row = 0; row < NUM_VERTEBRATES; row++) {
-        free(binary_matrix_vertebrates[row]);
-    }
-    free(binary_matrix_vertebrates);
+    free(binary_matrix);
 
     return 0;
 }
