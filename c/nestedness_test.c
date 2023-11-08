@@ -158,6 +158,12 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double **matri
             matrix_absolute_abundances[row] = (int *) malloc(NUM_BACTERIAL_GENUS * sizeof(int));
         }
 
+        for (int i = 0; i < NUM_VERTEBRATES; i++) {
+            for (int j = 0; j < NUM_BACTERIAL_GENUS; j++) {
+                matrix_absolute_abundances[i][j] = 0;
+            }
+        }
+
         while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
             sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     /* Removed from first column. */
 
