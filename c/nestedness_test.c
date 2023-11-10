@@ -2,7 +2,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdbool.h>
-// # include <time.h>
+# include <time.h>
 
 # define NUM_INDIVIDUALS 644
 # define NUM_VERTEBRATES 50
@@ -550,10 +550,9 @@ int main(int argc, char * argv[])
 {
     double **abundances_matrix;
     int **binary_matrix, num_rows, num_cols;
-    double nested_value;
-    // Nested_elements nested_elements;
+    Nested_elements nested_elements;
 
-    // srand(time(NULL));
+    srand(time(NULL));
 
     select_matrix(argv[3], &num_rows, &num_cols);
 
@@ -567,12 +566,8 @@ int main(int argc, char * argv[])
 
     free_memory_doubles_matrix(abundances_matrix, num_rows);
 
-    nested_value = calculate_nested_value(binary_matrix, num_rows, num_cols);
-    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
-    printf("\nNested value: %f\n", nested_value);
-
-    // nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
-    // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
+    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
     free_memory_integers_matrix(binary_matrix, num_rows);
 
