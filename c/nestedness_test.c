@@ -267,6 +267,16 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double **matri
     }
 }
 
+void create_matrix(char *name_matrix, char *vertebrates, char *metadata, double **abundances_matrix)
+{
+    if (strcmp(name_matrix, "individuals") == 0) {
+        create_matrix_individuals(vertebrates, abundances_matrix);
+    }
+    else if (strcmp(name_matrix, "vertebrates") == 0) {
+        create_matrix_vertebrates(vertebrates, metadata, abundances_matrix);
+    }
+}
+
 void discretize_matrix(double **matrix, int **binary_matrix, int num_rows, int num_cols, double threshold)
 {
     for (int row = 0; row < num_rows; row++) {
@@ -549,12 +559,7 @@ int main(int argc, char * argv[])
 
     abundances_matrix = allocate_memory_doubles_matrix(num_rows, num_cols);
 
-    if (strcmp(argv[3], "individuals") == 0) {
-        create_matrix_individuals(argv[1], abundances_matrix);
-    }
-    else if (strcmp(argv[3], "vertebrates") == 0) {
-        create_matrix_vertebrates(argv[1], argv[2], abundances_matrix);
-    }
+    create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
 
     binary_matrix = allocate_memory_integers_matrix(num_rows, num_cols);
 
