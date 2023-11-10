@@ -33,26 +33,6 @@ void select_matrix(char *name_matrix, int *num_rows, int *num_cols)
     }
 }
 
-double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
-{
-    double **matrix = (double **) malloc(num_rows * sizeof(double *));
-
-    for (int row = 0; row < num_rows; row++) {
-        matrix[row] = (double *) malloc(num_cols * sizeof(double));
-    }
-    return matrix;
-}
-
-int** allocate_memory_integers_matrix(int num_rows, int num_cols)
-{
-    int **matrix = (int **) malloc(num_rows * sizeof(int *));
-
-    for (int row = 0; row < num_rows; row++) {
-        matrix[row] = (int *) malloc(num_cols * sizeof(int));
-    }
-    return matrix;
-}
-
 void free_memory_doubles_matrix(double **matrix, int num_rows)
 {
     for (int row = 0; row < num_rows; row++) {
@@ -67,6 +47,52 @@ void free_memory_integers_matrix(int **matrix, int num_rows)
         free(matrix[row]);
     }
     free(matrix);
+}
+
+double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
+{
+    double **matrix = (double **) malloc(num_rows * sizeof(double *));
+
+    if (matrix != NULL) {
+        for (int row = 0; row < num_rows; row++) {
+            matrix[row] = (double *) malloc(num_cols * sizeof(double));
+
+            if (matrix[row] == NULL) {
+                free_memory_doubles_matrix(matrix, row);
+
+                printf("Failed to allocate dynamic memory to the matrix row %i.\n", row);
+                return NULL;
+            }
+        }
+    }
+    else {
+        printf("Failed to allocate the dynamic memory to the matrix.\n");
+        return NULL;
+    }
+    return matrix;
+}
+
+int** allocate_memory_integers_matrix(int num_rows, int num_cols)
+{
+    int **matrix = (int **) malloc(num_rows * sizeof(int *));
+
+    if (matrix != NULL) {
+        for (int row = 0; row < num_rows; row++) {
+            matrix[row] = (int *) malloc(num_cols * sizeof(int));
+
+            if (matrix[row] == NULL) {
+                free_memory_integers_matrix(matrix, row);
+
+                printf("Failed to allocate the dynamic memory to the matrix row %i\n", row);
+                return NULL;
+            }
+        }
+    }
+    else {
+        printf("Failed to allocate the dynamic memory to the matrix.\n");
+        return NULL;
+    }
+    return matrix;
 }
 
 void initialize_vector(int *vector, int num_elements)
