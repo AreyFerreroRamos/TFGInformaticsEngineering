@@ -2,7 +2,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdbool.h>
-# include <time.h>
+// # include <time.h>
 
 # define NUM_INDIVIDUALS 644
 # define NUM_VERTEBRATES 50
@@ -33,12 +33,13 @@ void select_matrix(char *name_matrix, int *num_rows, int *num_cols)
     }
 }
 
-void allocate_memory_doubles_matrix(double **matrix, int num_rows, int num_cols)
+double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
 {
-    matrix = (double **) malloc(num_rows * sizeof(double *));
+    double **matrix = (double **) malloc(num_rows * sizeof(double *));
     for (int row = 0; row < num_rows; row++) {
         matrix[row] = (double *) malloc(num_cols * sizeof(double));
     }
+    return matrix;
 }
 
 void allocate_memory_integers_matrix(int **matrix, int num_rows, int num_cols)
@@ -47,6 +48,14 @@ void allocate_memory_integers_matrix(int **matrix, int num_rows, int num_cols)
     for (int row = 0; row < num_rows; row++) {
         matrix[row] = (int *) malloc(num_cols * sizeof(int));
     }
+}
+
+void free_memory_doubles_matrix(double **matrix, int num_rows)
+{
+    for (int row = 0; row < num_rows; row++) {
+        free(matrix[row]);
+    }
+    free(matrix);
 }
 
 void initialize_vector(int *vector, int num_elements)
@@ -513,16 +522,14 @@ int main(int argc, char * argv[])
 {
     double **abundances_matrix;
     int **binary_matrix, num_rows, num_cols;
-    Nested_elements nested_elements;
+    double nested_value;
+    // Nested_elements nested_elements;
 
-    srand(time(NULL));
+    // srand(time(NULL));
 
     select_matrix(argv[3], &num_rows, &num_cols);
 
-    abundances_matrix = (double **) malloc( num_rows * sizeof(double *));
-    for (int row = 0; row < num_rows; row++) {
-        abundances_matrix[row] = (double *) malloc(num_cols * sizeof(double));
-    }
+    abundances_matrix = allocate_memory_doubles_matrix(num_rows, num_cols);
 
     if (strcmp(argv[3], "individuals") == 0) {
         create_matrix_individuals(argv[1], abundances_matrix);
@@ -538,13 +545,14 @@ int main(int argc, char * argv[])
 
     discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
-    for (int row = 0; row < num_rows; row++) {
-        free(abundances_matrix[row]);
-    }
-    free(abundances_matrix);
+    free_memory_doubles_matrix(abundances_matrix, num_rows);
 
-    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
-    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+    nested_value = calculate_nested_value(binary_matrix, num_rows, num_cols);
+    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
+    printf("\nNested value: %f\n", nested_value);
+
+    // nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
+    // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
     for (int row = 0; row < num_rows; row++) {
         free(binary_matrix[row]);
