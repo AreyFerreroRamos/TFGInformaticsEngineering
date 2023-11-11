@@ -461,8 +461,7 @@ void generate_nested_values_randomized(int **matrix, int num_rows, int num_cols,
     for (int pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_matrix(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
-        nested_values_randomized[pos] = calculate_nested_value(randomized_matrix, num_rows, num_cols);
-        // nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
+        nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
     }
     free_memory_integers_matrix(randomized_matrix, num_rows);
 }
@@ -531,8 +530,7 @@ Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_ra
                                       nested_values);
 
         /* Calculate and store the nested value of the real matrix. */
-    nested_elements.nested_value = calculate_nested_value(matrix, num_rows, num_cols);
-    // nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
+    nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
     nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
         /* Sort the list of nested values. */
