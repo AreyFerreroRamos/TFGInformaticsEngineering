@@ -95,12 +95,10 @@ int** allocate_memory_integers_matrix(int num_rows, int num_cols)
     return matrix;
 }
 
-void initialize_matrix(int **matrix, int num_rows, int num_cols)
+void initialize_matrix_zeros(int **matrix, int num_rows, int num_cols)
 {
     for (int row = 0; row < num_rows; row++) {
-        for (int col = 0; col < num_cols; col++) {
-            matrix[row][col] = 0;
-        }
+        memset(matrix[row], 0, num_cols * sizeof(int));
     }
 }
 
@@ -230,7 +228,7 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double **matri
 
         matrix_absolute_abundances = allocate_memory_integers_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
 
-        initialize_matrix(matrix_absolute_abundances, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
+        initialize_matrix_zeros(matrix_absolute_abundances, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
 
         while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
             sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     /* Removed from first column. */
@@ -453,7 +451,7 @@ void generate_nested_values_randomized(int **matrix, int num_rows, int num_cols,
             , num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
     for (int pos = 0; pos < num_randomized_matrices; pos++) {
-        initialize_matrix(randomized_matrix, num_rows, num_cols);
+        initialize_matrix_zeros(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
         nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
     }
