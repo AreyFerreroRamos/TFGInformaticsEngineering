@@ -438,7 +438,7 @@ int count_ones_binary_matrix(int **matrix, int num_rows, int num_cols)
     return num_ones;
 }
 
-void generate_randomized_matrix( int **randomized_matrix, int num_rows, int num_cols, int num_ones)
+void generate_randomized_matrix(int **randomized_matrix, int num_rows, int num_cols, int num_ones)
 {
     int cont_ones, pos, num_elements = num_rows * num_cols;
 
@@ -506,18 +506,28 @@ void quicksort(double array[], int first, int last)
 
 int get_index(double nested_values[], int num_elements, double nested_value)
 {
-    int pos = 0;
+    int half, first = 0, last = num_elements - 1;
     bool found = false;
 
-    while ((! found) && (pos < num_elements)) {
-        if (nested_values[pos] == nested_value) {
-            found = true;
+    while ((! found) && (first <= last)) {
+        half = (first + last) / 2;
+
+        if (nested_values[half] == nested_value) {
+            found = true;       /* Found the value at the previous calculated index. */
+        }
+        else if (nested_values[half] < nested_value) {
+            first = half + 1;       /* Search in the right half. */
         }
         else {
-            pos++;
+            last = half - 1;        /* Search in the left half. */
         }
     }
-    return pos;
+    if (found) {
+        return half;
+    }
+    else {
+        return -1;      /* Value not found. */
+    }
 }
 
 Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_randomized_matrices)
