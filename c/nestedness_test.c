@@ -95,13 +95,6 @@ int** allocate_memory_integers_matrix(int num_rows, int num_cols)
     return matrix;
 }
 
-void initialize_vector(int *vector, int num_elements)
-{
-    for (int pos = 0; pos < num_elements; pos++) {
-        vector[pos] = 0;
-    }
-}
-
 void initialize_matrix(int **matrix, int num_rows, int num_cols)
 {
     for (int row = 0; row < num_rows; row++) {
@@ -368,12 +361,11 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
 
 double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols)
 {
-    int *sum_rows = (int *) malloc(num_rows * sizeof(int));
-    int *sum_cols = (int *) malloc(num_cols * sizeof(int));
+    int *sum_rows = (int *) calloc(num_rows, sizeof(int));
+    int *sum_cols = (int *) calloc(num_cols, sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
         /* Calculate and save the number of interactions of every row. */
-    initialize_vector(sum_rows, num_rows);
     for (row = 0; row < num_rows; row++) {
         for (col = 0; col < num_cols; col++) {
             sum_rows[row] += matrix[row][col];
@@ -381,7 +373,6 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
     }
 
         /* Calculate and save the number of interactions of every column. */
-    initialize_vector(sum_cols, num_cols);
     for (col = 0; col < num_cols; col++) {
         for (row = 0; row < num_rows; row++) {
             sum_cols[col] += matrix[row][col];
@@ -421,6 +412,9 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
             }
         }
     }
+
+    free(sum_rows);
+    free(sum_cols);
 
         /* Calculate and return the nested value of the matrix. */
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
