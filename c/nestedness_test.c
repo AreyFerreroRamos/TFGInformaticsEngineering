@@ -551,6 +551,7 @@ int main(int argc, char * argv[])
     double **abundances_matrix;
     int **binary_matrix, num_rows, num_cols;
     Nested_elements nested_elements;
+    // double nested_value;
 
     srand(time(NULL));
 
@@ -565,6 +566,9 @@ int main(int argc, char * argv[])
     discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
     free_memory_doubles_matrix(abundances_matrix, num_rows);
+
+    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
+    // printf("Nested value: %f\n", nested_value);
 
     nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
     printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
