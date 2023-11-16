@@ -140,6 +140,18 @@ void initialize_boolean_matrix_zeros(bool **matrix, int num_rows, int num_cols)
     }
 }
 
+bool** transpose_matrix(bool** matrix, int num_rows, int num_cols)
+{
+    bool **transposed_matrix = allocate_memory_boolean_matrix(num_cols, num_rows);
+
+    for (int row = 0; row < num_rows; row++) {
+        for (int col = 0; col < num_cols; col++) {
+            transposed_matrix[col][row] = matrix[row][col];
+        }
+    }
+    return transposed_matrix;
+}
+
 void create_relative_abundances(int **matrix_absolute_abundances, double **matrix_relative_abundances,
                                 int num_rows, int num_cols, int num_bacterial_species[])
 {
@@ -397,6 +409,7 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
 
 double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_cols)
 {
+    bool **transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
@@ -411,7 +424,7 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
         /* Calculate and save the number of interactions of every column. */
     for (col = 0; col < num_cols; col++) {
         for (row = 0; row < num_rows; row++) {
-            sum_cols[col] += matrix[row][col];
+            sum_cols[col] += transposed_matrix[col][row];
         }
     }
 
@@ -438,7 +451,7 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
     for (int first_col = 0; first_col < num_cols - 1; first_col++) {
         for (int second_col = first_col + 1; second_col < num_cols; second_col++) {
             for (row = 0; row < num_rows; row++) {
-                second_isocline += matrix[row][first_col] & matrix[row][second_col];
+                second_isocline += transposed_matrix[first_col][row] & transposed_matrix[second_col][row];
             }
             if (sum_cols[first_col] < sum_cols[second_col]) {
                 fourth_isocline += sum_cols[first_col];
@@ -449,6 +462,7 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
         }
     }
 
+    free_memory_boolean_matrix(transposed_matrix, num_cols);
     free(sum_rows);
     free(sum_cols);
 
