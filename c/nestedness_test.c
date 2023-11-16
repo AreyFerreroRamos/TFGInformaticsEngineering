@@ -49,6 +49,14 @@ void free_memory_integers_matrix(int **matrix, int num_rows)
     free(matrix);
 }
 
+void free_memory_boolean_matrix(bool **matrix, int num_rows)
+{
+    for (int row = 0; row < num_rows; row++) {
+        free(matrix[row]);
+    }
+    free(matrix);
+}
+
 double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
 {
     double **matrix = (double **) malloc(num_rows * sizeof(double *));
@@ -74,7 +82,7 @@ double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
 
 int** allocate_memory_integers_matrix(int num_rows, int num_cols)
 {
-    int **matrix = (int **) malloc(num_rows * sizeof(int *));
+    int **matrix = (int **) malloc(num_rows * sizeof(bool *));
 
     if (matrix != NULL) {
         for (int row = 0; row < num_rows; row++) {
@@ -95,10 +103,40 @@ int** allocate_memory_integers_matrix(int num_rows, int num_cols)
     return matrix;
 }
 
-void initialize_matrix_zeros(int **matrix, int num_rows, int num_cols)
+bool** allocate_memory_boolean_matrix(int num_rows, int num_cols)
+{
+    bool **matrix = (bool **) malloc(num_rows * sizeof(bool *));
+
+    if (matrix != NULL) {
+        for (int row = 0; row < num_rows; row++) {
+            matrix[row] = (bool *) malloc(num_cols * sizeof(bool));
+
+            if (matrix[row] == NULL) {
+                free_memory_boolean_matrix(matrix, row);
+
+                printf("Failed to allocate the dynamic memory to the matrix row %i\n", row);
+                return NULL;
+            }
+        }
+    }
+    else {
+        printf("Failed to allocate the dynamic memory to the matrix.\n");
+        return NULL;
+    }
+    return matrix;
+}
+
+void initialize_integers_matrix_zeros(int **matrix, int num_rows, int num_cols)
 {
     for (int row = 0; row < num_rows; row++) {
         memset(matrix[row], 0, num_cols * sizeof(int));
+    }
+}
+
+void initialize_boolean_matrix_zeros(bool **matrix, int num_rows, int num_cols)
+{
+    for (int row = 0; row < num_rows; row++) {
+        memset(matrix[row], 0, num_cols * sizeof(bool));
     }
 }
 
@@ -228,7 +266,7 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double **matri
 
         matrix_absolute_abundances = allocate_memory_integers_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
 
-        initialize_matrix_zeros(matrix_absolute_abundances, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
+        initialize_integers_matrix_zeros(matrix_absolute_abundances, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
 
         while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
             sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     /* Removed from first column. */
@@ -268,15 +306,15 @@ void create_matrix(char *name_matrix, char *vertebrates, char *metadata, double 
     }
 }
 
-void discretize_matrix(double **matrix, int **binary_matrix, int num_rows, int num_cols, double threshold)
+void discretize_matrix(double **matrix, bool **binary_matrix, int num_rows, int num_cols, double threshold)
 {
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
             if (matrix[row][col] > threshold) {
-                binary_matrix[row][col] = 1;
+                binary_matrix[row][col] = true;
             }
             else {
-                binary_matrix[row][col] = 0;
+                binary_matrix[row][col] = false;
             }
         }
     }
@@ -357,7 +395,7 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols)
+double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_cols)
 {
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
@@ -418,7 +456,7 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-int count_ones_binary_matrix(int **matrix, int num_rows, int num_cols)
+int count_ones_binary_matrix(bool **matrix, int num_rows, int num_cols)
 {
     int num_ones = 0;
 
@@ -430,32 +468,31 @@ int count_ones_binary_matrix(int **matrix, int num_rows, int num_cols)
     return num_ones;
 }
 
-void generate_randomized_matrix(int **randomized_matrix, int num_rows, int num_cols, int num_ones)
+void generate_randomized_matrix(bool **randomized_matrix, int num_rows, int num_cols, int num_ones)
 {
-    int cont_ones, pos, num_elements = num_rows * num_cols;
+    int pos, cont_ones = 0, num_elements = num_rows * num_cols;
 
-    cont_ones = 0;
     while (cont_ones < num_ones) {
         pos = rand() % num_elements;
-        if (randomized_matrix[pos / num_cols][pos % num_cols] != 1) {
-            randomized_matrix[pos / num_cols][pos % num_cols] = 1;
+        if (! randomized_matrix[pos / num_cols][pos % num_cols]) {
+            randomized_matrix[pos / num_cols][pos % num_cols] = true;
             cont_ones++;
         }
     }
 }
 
-void generate_nested_values_randomized(int **matrix, int num_rows, int num_cols, int num_randomized_matrices,
+void generate_nested_values_randomized(bool **matrix, int num_rows, int num_cols, int num_randomized_matrices,
                                        double nested_values_randomized[])
 {
-    int **randomized_matrix = allocate_memory_integers_matrix(num_rows, num_cols)
-            , num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
+    bool **randomized_matrix = allocate_memory_boolean_matrix(num_rows, num_cols);
+    int num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
     for (int pos = 0; pos < num_randomized_matrices; pos++) {
-        initialize_matrix_zeros(randomized_matrix, num_rows, num_cols);
+        initialize_boolean_matrix_zeros(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
         nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
     }
-    free_memory_integers_matrix(randomized_matrix, num_rows);
+    free_memory_boolean_matrix(randomized_matrix, num_rows);
 }
 
 int sort(double array[], int first, int last)
@@ -522,7 +559,7 @@ int get_index(double nested_values[], int num_elements, double nested_value)
     }
 }
 
-Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_randomized_matrices)
+Nested_elements nested_test(bool **matrix, int num_rows, int num_cols, int num_randomized_matrices)
 {
     Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
@@ -549,7 +586,8 @@ Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_ra
 int main(int argc, char * argv[])
 {
     double **abundances_matrix;
-    int **binary_matrix, num_rows, num_cols;
+    int num_rows, num_cols;
+    bool **binary_matrix;
     Nested_elements nested_elements;
     // double nested_value;
 
@@ -561,7 +599,7 @@ int main(int argc, char * argv[])
 
     create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
 
-    binary_matrix = allocate_memory_integers_matrix(num_rows, num_cols);
+    binary_matrix = allocate_memory_boolean_matrix(num_rows, num_cols);
 
     discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
@@ -573,7 +611,7 @@ int main(int argc, char * argv[])
     nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
     printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
-    free_memory_integers_matrix(binary_matrix, num_rows);
+    free_memory_boolean_matrix(binary_matrix, num_rows);
 
     return 0;
 }
