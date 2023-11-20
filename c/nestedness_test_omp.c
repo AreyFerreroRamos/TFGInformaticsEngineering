@@ -3,6 +3,7 @@
 # include <string.h>
 # include <stdbool.h>
 # include <time.h>
+# include <omp.h>
 
 # define NUM_INDIVIDUALS 644
 # define NUM_VERTEBRATES 50
@@ -499,9 +500,10 @@ void generate_nested_values_randomized(bool **matrix, int num_rows, int num_cols
                                        double nested_values_randomized[])
 {
     bool **randomized_matrix = allocate_memory_boolean_matrix(num_rows, num_cols);
-    int num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
+    int pos, num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
-    for (int pos = 0; pos < num_randomized_matrices; pos++) {
+    #pragma omp parallel for private(post, randomized_matrix) shared(num_randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(dynamic)
+    for (pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_boolean_matrix_zeros(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
         nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
@@ -604,6 +606,7 @@ int main(int argc, char * argv[])
     bool **binary_matrix;
     Nested_elements nested_elements;
 
+    omp_set_num_threads(atoi(argv[5]));
     srand(time(NULL));
 
     select_matrix(argv[3], &num_rows, &num_cols);
