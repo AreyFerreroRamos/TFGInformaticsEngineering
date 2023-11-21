@@ -502,7 +502,7 @@ void generate_nested_values_randomized(bool **matrix, int num_rows, int num_cols
     bool **randomized_matrix = allocate_memory_boolean_matrix(num_rows, num_cols);
     int pos, num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
-    #pragma omp parallel for private(post, randomized_matrix) shared(num_randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(dynamic)
+    #pragma omp parallel for private(pos, randomized_matrix) shared(num_randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(dynamic)
     for (pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_boolean_matrix_zeros(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
