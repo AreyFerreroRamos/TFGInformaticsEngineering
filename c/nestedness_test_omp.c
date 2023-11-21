@@ -450,7 +450,7 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
 
         /* Calculate the sum of the number of shared interactions between columns
            and the sum of the minimum of pairs of the number of interactions of columns. */
-    #pragma omp parallel for private(first_col, second_col, row) shared(ext_num_cols, num_cols, num_rows, transposed_matrix, sum_cols) reduction(+:second_isocline, fourth_isocline) default(none) schedule(static)
+    // #pragma omp parallel for private(first_col, second_col, row) shared(ext_num_cols, num_cols, num_rows, transposed_matrix, sum_cols) reduction(+:second_isocline, fourth_isocline) default(none) schedule(static)
     for (first_col = 0; first_col < ext_num_cols; first_col++) {
         for (second_col = first_col + 1; second_col < num_cols; second_col++) {
             for (row = 0; row < num_rows; row++) {
@@ -501,16 +501,21 @@ void generate_randomized_matrix(bool **randomized_matrix, int num_rows, int num_
 void generate_nested_values_randomized(bool **matrix, int num_rows, int num_cols, int num_randomized_matrices,
                                        double nested_values_randomized[])
 {
-    bool **randomized_matrix = allocate_memory_boolean_matrix(num_rows, num_cols);
+    bool **randomized_matrix[5];
     int pos, num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
-    // #pragma omp parallel for private(pos, randomized_matrix) shared(num_randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(dynamic)
-    for (pos = 0; pos < num_randomized_matrices; pos++) {
-        initialize_boolean_matrix_zeros(randomized_matrix, num_rows, num_cols);
-        generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
-        nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
+    for (pos = 0; pos < 5; pos++) {
+        randomized_matrix[pos] = allocate_memory_boolean_matrix(num_rows, num_cols);
     }
-    free_memory_boolean_matrix(randomized_matrix, num_rows);
+    #pragma omp parallel for private(pos) shared(num_randomized_matrices, randomized_matrix, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(static)
+    for (pos = 0; pos < num_randomized_matrices; pos++) {
+        initialize_boolean_matrix_zeros(randomized_matrix[omp_get_thread_num()], num_rows, num_cols);
+        generate_randomized_matrix(randomized_matrix[omp_get_thread_num()], num_rows, num_cols, num_ones);
+        nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix[omp_get_thread_num()], num_rows, num_cols);
+    }
+    for (pos = 0; pos < 5; pos++) {
+        free_memory_boolean_matrix(randomized_matrix[pos], num_rows);
+    }
 }
 
 int sort(double array[], int first, int last)
