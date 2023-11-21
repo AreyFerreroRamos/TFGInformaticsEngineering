@@ -416,7 +416,6 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
         /* Calculate and save the number of interactions of every row. */
-    #pragma omp parallel for private(row, col) shared(num_rows, num_cols, matrix, sum_rows) default(none) schedule(static)
     for (row = 0; row < num_rows; row++) {
         for (col = 0; col < num_cols; col++) {
             sum_rows[row] += matrix[row][col];
@@ -424,6 +423,7 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
     }
 
         /* Calculate and save the number of interactions of every column. */
+    #pragma omp parallel for private(col, row) shared(num_cols, num_rows, transposed_matrix, sum_cols) default(none) schedule(static)
     for (col = 0; col < num_cols; col++) {
         for (row = 0; row < num_rows; row++) {
             sum_cols[col] += transposed_matrix[col][row];
