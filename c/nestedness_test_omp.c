@@ -58,6 +58,13 @@ void free_memory_boolean_matrix(bool **matrix, int num_rows)
     free(matrix);
 }
 
+void free_memory_randomized_matrices(bool **randomized_matrices[], int num_rows, int num_matrices)
+{
+    for (int pos = 0; pos < num_matrices; pos++) {
+        free_memory_boolean_matrix(randomized_matrices[pos], num_rows);
+    }
+}
+
 double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
 {
     double **matrix = (double **) malloc(num_rows * sizeof(double *));
@@ -125,6 +132,13 @@ bool** allocate_memory_boolean_matrix(int num_rows, int num_cols)
         return NULL;
     }
     return matrix;
+}
+
+void allocate_memory_randomized_matrices(bool **randomized_matrices[], int num_rows, int num_cols, int num_matrices)
+{
+    for (int pos = 0; pos < num_matrices; pos++) {
+        randomized_matrices[pos] = allocate_memory_boolean_matrix(num_rows, num_cols);
+    }
 }
 
 void initialize_integers_matrix_zeros(int **matrix, int num_rows, int num_cols)
@@ -501,21 +515,19 @@ void generate_randomized_matrix(bool **randomized_matrix, int num_rows, int num_
 void generate_nested_values_randomized(bool **matrix, int num_rows, int num_cols, int num_randomized_matrices,
                                        double nested_values_randomized[])
 {
-    bool **randomized_matrix[5];
+    bool **randomized_matrices[omp_get_max_threads()];
     int pos, num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
-    for (pos = 0; pos < 5; pos++) {
-        randomized_matrix[pos] = allocate_memory_boolean_matrix(num_rows, num_cols);
-    }
-    #pragma omp parallel for private(pos) shared(num_randomized_matrices, randomized_matrix, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(static)
+    allocate_memory_randomized_matrices(randomized_matrices, num_rows, num_cols, omp_get_max_threads());
+
+    #pragma omp parallel for private(pos) shared(num_randomized_matrices, randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(static)
     for (pos = 0; pos < num_randomized_matrices; pos++) {
-        initialize_boolean_matrix_zeros(randomized_matrix[omp_get_thread_num()], num_rows, num_cols);
-        generate_randomized_matrix(randomized_matrix[omp_get_thread_num()], num_rows, num_cols, num_ones);
-        nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix[omp_get_thread_num()], num_rows, num_cols);
+        initialize_boolean_matrix_zeros(randomized_matrices[omp_get_thread_num()], num_rows, num_cols);
+        generate_randomized_matrix(randomized_matrices[omp_get_thread_num()], num_rows, num_cols, num_ones);
+        nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrices[omp_get_thread_num()],
+                                                                         num_rows, num_cols);
     }
-    for (pos = 0; pos < 5; pos++) {
-        free_memory_boolean_matrix(randomized_matrix[pos], num_rows);
-    }
+    free_memory_randomized_matrices(randomized_matrices, num_rows, omp_get_max_threads());
 }
 
 int sort(double array[], int first, int last)
