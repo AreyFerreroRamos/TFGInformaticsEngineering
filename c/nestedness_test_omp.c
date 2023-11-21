@@ -416,6 +416,7 @@ double calculate_nested_value_optimized(bool **matrix, int num_rows, int num_col
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
         /* Calculate and save the number of interactions of every row. */
+    #pragma omp parallel for private(row, col) shared(num_rows, num_cols, matrix, sum_rows) default(none) schedule(static)
     for (row = 0; row < num_rows; row++) {
         for (col = 0; col < num_cols; col++) {
             sum_rows[row] += matrix[row][col];
@@ -502,7 +503,7 @@ void generate_nested_values_randomized(bool **matrix, int num_rows, int num_cols
     bool **randomized_matrix = allocate_memory_boolean_matrix(num_rows, num_cols);
     int pos, num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
-    #pragma omp parallel for private(pos, randomized_matrix) shared(num_randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(dynamic)
+    // #pragma omp parallel for private(pos, randomized_matrix) shared(num_randomized_matrices, num_rows, num_cols, num_ones, nested_values_randomized) default(none) schedule(dynamic)
     for (pos = 0; pos < num_randomized_matrices; pos++) {
         initialize_boolean_matrix_zeros(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
@@ -604,6 +605,7 @@ int main(int argc, char * argv[])
     double **abundances_matrix;
     int num_rows, num_cols;
     bool **binary_matrix;
+    // double nested_value;
     Nested_elements nested_elements;
 
     omp_set_num_threads(atoi(argv[5]));
@@ -620,6 +622,9 @@ int main(int argc, char * argv[])
     discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
     free_memory_doubles_matrix(abundances_matrix, num_rows);
+
+    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
+    // printf("\nNested value: %f\n", nested_value);
 
     nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
     printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
