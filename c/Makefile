@@ -2,7 +2,7 @@ nestedness_test: nestedness_test.c
 	gcc -O3 nestedness_test.c -o nestedness_test
 
 omp: nestedness_test_omp.c
-	gcc -fopenmp -O3 nestedness_test_omp.c -o nestedness_test_parallel
+	gcc -O3 -fopenmp nestedness_test_omp.c -o nestedness_test_parallel
 
 run: nestedness_test
 	./nestedness_test ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001
