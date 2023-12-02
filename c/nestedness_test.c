@@ -49,6 +49,14 @@ void free_memory_integers_matrix(int **matrix, int num_rows)
     free(matrix);
 }
 
+void free_memory_shorts_matrix(short **matrix, int num_rows)
+{
+    for (int row = 0; row < num_rows; row++) {
+        free(matrix[row]);
+    }
+    free(matrix);
+}
+
 double** allocate_memory_doubles_matrix(int num_rows, int num_cols)
 {
     double **matrix = (double **) malloc(num_rows * sizeof(double *));
@@ -95,10 +103,40 @@ int** allocate_memory_integers_matrix(int num_rows, int num_cols)
     return matrix;
 }
 
-void initialize_matrix_zeros(int **matrix, int num_rows, int num_cols)
+short** allocate_memory_shorts_matrix(int num_rows, int num_cols)
+{
+    short **matrix = (short **) malloc(num_rows * sizeof(short *));
+
+    if (matrix != NULL) {
+        for (int row = 0; row < num_rows; row++) {
+            matrix[row] = (short *) malloc(num_cols * sizeof(short));
+
+            if (matrix[row] == NULL) {
+                free_memory_shorts_matrix(matrix, row);
+
+                printf("Failed to allocate the dynamic memory to the matrix row %i\n", row);
+                return NULL;
+            }
+        }
+    }
+    else {
+        printf("Failed to allocate the dynamic memory to the matrix.\n");
+        return NULL;
+    }
+    return matrix;
+}
+
+void initialize_matrix_integers_zeros(int **matrix, int num_rows, int num_cols)
 {
     for (int row = 0; row < num_rows; row++) {
         memset(matrix[row], 0, num_cols * sizeof(int));
+    }
+}
+
+void initialize_matrix_shorts_zeros(short **matrix, int num_rows, int num_cols)
+{
+    for (int row = 0; row < num_rows; row++) {
+        memset(matrix[row], 0, num_cols * sizeof(short));
     }
 }
 
@@ -228,7 +266,7 @@ void create_matrix_vertebrates(char *vertebrates, char *metadata, double **matri
 
         matrix_absolute_abundances = allocate_memory_integers_matrix(NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
 
-        initialize_matrix_zeros(matrix_absolute_abundances, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
+        initialize_matrix_integers_zeros(matrix_absolute_abundances, NUM_VERTEBRATES, NUM_BACTERIAL_GENUS);
 
         while (fgets(line, sizeof(line), f_vertebrates) != NULL) {
             sscanf(line, "%*s %[^\n]", absolute_abundances_genus);     /* Removed from first column. */
@@ -268,7 +306,7 @@ void create_matrix(char *name_matrix, char *vertebrates, char *metadata, double 
     }
 }
 
-void discretize_matrix(double **matrix, int **binary_matrix, int num_rows, int num_cols, double threshold)
+void discretize_matrix(double **matrix, short **binary_matrix, int num_rows, int num_cols, double threshold)
 {
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
@@ -357,7 +395,7 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols)
+double calculate_nested_value_optimized(short **matrix, int num_rows, int num_cols)
 {
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
@@ -382,15 +420,16 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
         /* Calculate the sum of the number of shared interactions between rows
            and the sum of the minimum of pairs of interactions of rows. */
     for (int first_row = 0; first_row < num_rows - 1; first_row++) {
-        for (int second_row = first_row + 1; second_row < num_rows; second_row++) {
-            for (col = 0; col < num_cols; col++) {
-                first_isocline += matrix[first_row][col] & matrix[second_row][col];
-            }
-            if (sum_rows[first_row] < sum_rows[second_row]) {
-                third_isocline += sum_rows[first_row];
-            }
-            else {
-                third_isocline += sum_rows[second_row];
+        for (int second_row = 0; second_row < num_rows; second_row++) {
+            if (first_row < second_row) {
+                for (col = 0; col < num_cols; col++) {
+                    first_isocline += matrix[first_row][col] & matrix[second_row][col];
+                }
+                if (sum_rows[first_row] < sum_rows[second_row]) {
+                    third_isocline += sum_rows[first_row];
+                } else {
+                    third_isocline += sum_rows[second_row];
+                }
             }
         }
     }
@@ -398,15 +437,16 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
         /* Calculate the sum of the number of shared interactions between columns
            and the sum of the minimum of pairs of the number of interactions of columns. */
     for (int first_col = 0; first_col < num_cols - 1; first_col++) {
-        for (int second_col = first_col + 1; second_col < num_cols; second_col++) {
-            for (row = 0; row < num_rows; row++) {
-                second_isocline += matrix[row][first_col] & matrix[row][second_col];
-            }
-            if (sum_cols[first_col] < sum_cols[second_col]) {
-                fourth_isocline += sum_cols[first_col];
-            }
-            else {
-                fourth_isocline += sum_cols[second_col];
+        for (int second_col = 0; second_col < num_cols; second_col++) {
+            if (first_col < second_col) {
+                for (row = 0; row < num_rows; row++) {
+                    second_isocline += matrix[row][first_col] & matrix[row][second_col];
+                }
+                if (sum_cols[first_col] < sum_cols[second_col]) {
+                    fourth_isocline += sum_cols[first_col];
+                } else {
+                    fourth_isocline += sum_cols[second_col];
+                }
             }
         }
     }
@@ -418,7 +458,7 @@ double calculate_nested_value_optimized(int **matrix, int num_rows, int num_cols
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
 
-int count_ones_binary_matrix(int **matrix, int num_rows, int num_cols)
+int count_ones_binary_matrix(short **matrix, int num_rows, int num_cols)
 {
     int num_ones = 0;
 
@@ -430,7 +470,7 @@ int count_ones_binary_matrix(int **matrix, int num_rows, int num_cols)
     return num_ones;
 }
 
-void generate_randomized_matrix(int **randomized_matrix, int num_rows, int num_cols, int num_ones)
+void generate_randomized_matrix(short **randomized_matrix, int num_rows, int num_cols, int num_ones)
 {
     int cont_ones, pos, num_elements = num_rows * num_cols;
 
@@ -444,18 +484,18 @@ void generate_randomized_matrix(int **randomized_matrix, int num_rows, int num_c
     }
 }
 
-void generate_nested_values_randomized(int **matrix, int num_rows, int num_cols, int num_randomized_matrices,
+void generate_nested_values_randomized(short **matrix, int num_rows, int num_cols, int num_randomized_matrices,
                                        double nested_values_randomized[])
 {
-    int **randomized_matrix = allocate_memory_integers_matrix(num_rows, num_cols)
+    short **randomized_matrix = allocate_memory_shorts_matrix(num_rows, num_cols)
             , num_ones = count_ones_binary_matrix(matrix, num_rows, num_cols);
 
     for (int pos = 0; pos < num_randomized_matrices; pos++) {
-        initialize_matrix_zeros(randomized_matrix, num_rows, num_cols);
+        initialize_matrix_shorts_zeros(randomized_matrix, num_rows, num_cols);
         generate_randomized_matrix(randomized_matrix, num_rows, num_cols, num_ones);
         nested_values_randomized[pos] = calculate_nested_value_optimized(randomized_matrix, num_rows, num_cols);
     }
-    free_memory_integers_matrix(randomized_matrix, num_rows);
+    free_memory_shorts_matrix(randomized_matrix, num_rows);
 }
 
 int sort(double array[], int first, int last)
@@ -522,7 +562,7 @@ int get_index(double nested_values[], int num_elements, double nested_value)
     }
 }
 
-Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_randomized_matrices)
+Nested_elements nested_test(short **matrix, int num_rows, int num_cols, int num_randomized_matrices)
 {
     Nested_elements nested_elements;
     double nested_values[num_randomized_matrices + 1];
@@ -549,7 +589,8 @@ Nested_elements nested_test(int **matrix, int num_rows, int num_cols, int num_ra
 int main(int argc, char * argv[])
 {
     double **abundances_matrix;
-    int **binary_matrix, num_rows, num_cols;
+    short **binary_matrix;
+    int num_rows, num_cols;
     Nested_elements nested_elements;
     // double nested_value;
 
@@ -561,7 +602,7 @@ int main(int argc, char * argv[])
 
     create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
 
-    binary_matrix = allocate_memory_integers_matrix(num_rows, num_cols);
+    binary_matrix = allocate_memory_shorts_matrix(num_rows, num_cols);
 
     discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
@@ -573,7 +614,7 @@ int main(int argc, char * argv[])
     nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
     printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
-    free_memory_integers_matrix(binary_matrix, num_rows);
+    free_memory_shorts_matrix(binary_matrix, num_rows);
 
     return 0;
 }
