@@ -413,11 +413,10 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
     short **transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
-    int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
+    int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col, first_row, second_row, total_rows;
 
         /* Calculate and save the number of interactions of every row and
            calculate and save the number of interactions of every column. */
-    #pragma omp parallel for private(row, col) shared(num_rows, num_cols, matrix, transposed_matrix, sum_rows) reduction(+:sum_cols[:num_cols]) default(none) schedule(static)
     for (row = 0; row < num_rows; row++) {
         for (col = 0; col < num_cols; col++) {
             sum_rows[row] += matrix[row][col];
@@ -426,20 +425,20 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
     }
 
     first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
+    total_rows = num_rows - 1;
 
         /* Calculate the sum of the number of shared interactions between rows
            and the sum of the minimum of pairs of interactions of rows. */
-    for (int first_row = 0; first_row < num_rows - 1; first_row++) {
-        for (int second_row = 0; second_row < num_rows; second_row++) {
-            if (first_row < second_row) {
-                for (col = 0; col < num_cols; col++) {
-                    first_isocline += matrix[first_row][col] & matrix[second_row][col];
-                }
-                if (sum_rows[first_row] < sum_rows[second_row]) {
-                    third_isocline += sum_rows[first_row];
-                } else {
-                    third_isocline += sum_rows[second_row];
-                }
+    #pragma omp parallel for private(first_row, second_row, col) shared(total_rows, num_rows, num_cols, matrix, sum_rows) reduction(+:first_isocline, third_isocline) default(none) schedule(static, 1)
+    for (first_row = 0; first_row < total_rows; first_row++) {
+        for (second_row = first_row + 1; second_row < num_rows; second_row++) {
+            for (col = 0; col < num_cols; col++) {
+                first_isocline += matrix[first_row][col] & matrix[second_row][col];
+            }
+            if (sum_rows[first_row] < sum_rows[second_row]) {
+                third_isocline += sum_rows[first_row];
+            } else {
+                third_isocline += sum_rows[second_row];
             }
         }
     }
