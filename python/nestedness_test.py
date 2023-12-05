@@ -233,16 +233,18 @@ def nestedness_optimized(matrix):
     # and the sum of the minimum of pairs of interactions of rows.
     for first_row in range(matrix.shape[0] - 1):
         for second_row in range(first_row + 1, matrix.shape[0]):
-            first_isocline += sum(
-                [first and second for first, second in zip(matrix[first_row, :], matrix[second_row, :])])
+            for col in range(matrix.shape[1]):
+                if matrix[first_row, col] == 1 and matrix[second_row, col] == 1:
+                    first_isocline += 1
             third_isocline += min(sum_rows[first_row], sum_rows[second_row])
 
     # Calculate the sum of the number of shared interactions between columns
     # and the sum of the minimum of pairs of the number of interactions of columns.
     for first_col in range(matrix.shape[1] - 1):
         for second_col in range(first_col + 1, matrix.shape[1]):
-            second_isocline += sum(
-                [first and second for first, second in zip(matrix[:, first_col], matrix[:, second_col])])
+            for row in range(matrix.shape[0]):
+                if matrix[row, first_col] == 1 and matrix[row, second_col] == 1:
+                    second_isocline += 1
             fourth_isocline += min(sum_cols[first_col], sum_cols[second_col])
 
     # Calculate and return the nestedness value of the matrix.
@@ -267,7 +269,7 @@ def generate_nested_values_randomized(matrix, num_randomized_matrices):
     for i in range(num_randomized_matrices):
         randomized_matrix = np.zeros((matrix.shape[0], matrix.shape[1]), dtype=int)
         randomized_matrix.ravel()[np.random.choice(matrix.shape[0] * matrix.shape[1], num_ones, replace=False)] = 1
-        nested_values_randomized.append(nestedness(randomized_matrix))
+        nested_values_randomized.append(nestedness_optimized(randomized_matrix))
 
     return nested_values_randomized
 
@@ -281,7 +283,7 @@ def nestedness_test(matrix, num_randomized_matrices):
     nested_values = generate_nested_values_randomized(matrix, num_randomized_matrices)
 
     # Calculate the nestedness value of the real matrix.
-    nested_value = nestedness(matrix)
+    nested_value = nestedness_optimized(matrix)
     nested_values.append(nested_value)
 
     # Sort the list of nestedness values.
@@ -314,5 +316,6 @@ elif len(sys.argv[4].split()) >= 2:
             sys.argv[4].split()[0] + ' ' + sys.argv[4].split()[1], sys.argv[3]), 'Captivity', df_vertebrates, df_metadata)
 
 discretize_matrix(abundances_matrix, 0.0001)
+
 nested_abundances_matrix, p_value = nestedness_test(abundances_matrix, int(sys.argv[5]))
 print(nested_abundances_matrix, p_value)
