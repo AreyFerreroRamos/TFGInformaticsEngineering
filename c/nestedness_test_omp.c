@@ -410,81 +410,66 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
 
 double calculate_nested_value_optimized(short **matrix, int num_rows, int num_cols)
 {
+    short **transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
+    int *sum_rows = (int *) calloc(num_rows, sizeof(int));
+    int *sum_cols = (int *) calloc(num_cols, sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
 
-    #pragma omp parallel
-    {
-        #pragma omp sections
-        {
-            #pragma omp section
-            {
-                int *sum_rows = (int *) calloc(num_rows, sizeof(int));
+        /* Calculate and save the number of interactions of every row. */
+    #pragma omp parallel for private(row, col) shared(num_rows, num_cols, matrix, sum_rows) default(none) schedule(static)
+    for (row = 0; row < num_rows; row++) {
+        for (col = 0; col < num_cols; col++) {
+            sum_rows[row] += matrix[row][col];
+        }
+    }
 
-                    /* Calculate and save the number of interactions of every row. */
-                for (row = 0; row < num_rows; row++) {
-                    for (col = 0; col < num_cols; col++) {
-                        sum_rows[row] += matrix[row][col];
-                    }
-                }
+        /* Calculate and save the number of interactions of every column. */
+    for (col = 0; col < num_cols; col++) {
+        for (row = 0; row < num_rows; row++) {
+            sum_cols[col] += transposed_matrix[col][row];
+        }
+    }
 
-                first_isocline = third_isocline = 0;
+    first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
 
-                /* Calculate the sum of the number of shared interactions between rows
-                   and the sum of the minimum of pairs of interactions of rows. */
-                for (int first_row = 0; first_row < num_rows - 1; first_row++) {
-                    for (int second_row = 0; second_row < num_rows; second_row++) {
-                        if (first_row < second_row) {
-                            for (col = 0; col < num_cols; col++) {
-                                first_isocline += matrix[first_row][col] & matrix[second_row][col];
-                            }
-                            if (sum_rows[first_row] < sum_rows[second_row]) {
-                                third_isocline += sum_rows[first_row];
-                            } else {
-                                third_isocline += sum_rows[second_row];
-                            }
-                        }
-                    }
-                }
-
-                free(sum_rows);
-            }
-
-            #pragma omp section
-            {
-                short **transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
-                int *sum_cols = (int *) calloc(num_cols, sizeof(int));
-
-                    /* Calculate and save the number of interactions of every column. */
+        /* Calculate the sum of the number of shared interactions between rows
+           and the sum of the minimum of pairs of interactions of rows. */
+    for (int first_row = 0; first_row < num_rows - 1; first_row++) {
+        for (int second_row = 0; second_row < num_rows; second_row++) {
+            if (first_row < second_row) {
                 for (col = 0; col < num_cols; col++) {
-                    for (row = 0; row < num_rows; row++) {
-                        sum_cols[col] += transposed_matrix[col][row];
-                    }
+                    first_isocline += matrix[first_row][col] & matrix[second_row][col];
                 }
-
-                second_isocline = fourth_isocline = 0;
-
-                    /* Calculate the sum of the number of shared interactions between columns
-                       and the sum of the minimum of pairs of the number of interactions of columns. */
-                for (int first_col = 0; first_col < num_cols - 1; first_col++) {
-                    for (int second_col = 0; second_col < num_cols; second_col++) {
-                        if (first_col < second_col) {
-                            for (row = 0; row < num_rows; row++) {
-                                second_isocline += transposed_matrix[first_col][row] & transposed_matrix[second_col][row];
-                            }
-                            if (sum_cols[first_col] < sum_cols[second_col]) {
-                                fourth_isocline += sum_cols[first_col];
-                            } else {
-                                fourth_isocline += sum_cols[second_col];
-                            }
-                        }
-                    }
+                if (sum_rows[first_row] < sum_rows[second_row]) {
+                    third_isocline += sum_rows[first_row];
+                } else {
+                    third_isocline += sum_rows[second_row];
                 }
-
-                free_memory_shorts_matrix(transposed_matrix, num_cols);
-                free(sum_cols);
             }
         }
     }
+
+        /* Calculate the sum of the number of shared interactions between columns
+           and the sum of the minimum of pairs of the number of interactions of columns. */
+    for (int first_col = 0; first_col < num_cols - 1; first_col++) {
+        for (int second_col = 0; second_col < num_cols; second_col++) {
+            if (first_col < second_col) {
+                for (row = 0; row < num_rows; row++) {
+                    second_isocline += transposed_matrix[first_col][row] & transposed_matrix[second_col][row];
+                }
+                if (sum_cols[first_col] < sum_cols[second_col]) {
+                    fourth_isocline += sum_cols[first_col];
+                } else {
+                    fourth_isocline += sum_cols[second_col];
+                }
+            }
+        }
+    }
+
+    free_memory_shorts_matrix(transposed_matrix, num_cols);
+    free(sum_rows);
+    free(sum_cols);
+
         /* Calculate and return the nested value of the matrix. */
     return ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
 }
