@@ -3,11 +3,14 @@
 # include <string.h>
 # include <stdbool.h>
 # include <time.h>
-# include <omp.h>
+// # include <omp.h>
+# include "mpi.h"
 
 # define NUM_INDIVIDUALS 644
 # define NUM_VERTEBRATES 50
 # define NUM_BACTERIAL_GENUS 1056
+
+int rank_process, num_processes;
 
 typedef struct
 {
@@ -444,7 +447,7 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
 
         /* Calculate the sum of the number of shared interactions between columns
            and the sum of the minimum of pairs of the number of interactions of columns. */
-    #pragma omp parallel for private(first_col, second_col, row) shared(total_cols, num_cols, num_rows, transposed_matrix, sum_cols) reduction(+:second_isocline, fourth_isocline) default(none) schedule(dynamic)
+    // #pragma omp parallel for private(first_col, second_col, row) shared(total_cols, num_cols, num_rows, transposed_matrix, sum_cols) reduction(+:second_isocline, fourth_isocline) default(none) schedule(dynamic)
     for (first_col = 0; first_col < total_cols; first_col++) {
         for (second_col = 0; second_col < num_cols; second_col++) {
             if (first_col < second_col) {
@@ -581,17 +584,19 @@ Nested_elements nested_test(short **matrix, int num_rows, int num_cols, int num_
     generate_nested_values_randomized(matrix, num_rows, num_cols, num_randomized_matrices,
                                       nested_values);
 
-        /* Calculate and store the nested value of the real matrix. */
-    nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
-    nested_values[num_randomized_matrices] = nested_elements.nested_value;
+    if (rank_process == 0) {
+            /* Calculate and store the nested value of the real matrix. */
+        nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
+        nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
-        /* Sort the list of nested values. */
-    quicksort(nested_values, 0, num_randomized_matrices);
+            /* Sort the list of nested values. */
+        quicksort(nested_values, 0, num_randomized_matrices);
 
-        /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
-    nested_elements.p_value = ((double)(num_randomized_matrices - get_index(
-            nested_values,num_randomized_matrices + 1, nested_elements.nested_value))
-                    / (double) (num_randomized_matrices + 1));
+            /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
+        nested_elements.p_value = ((double) (num_randomized_matrices - get_index(
+                nested_values, num_randomized_matrices + 1, nested_elements.nested_value))
+                                   / (double) (num_randomized_matrices + 1));
+    }
 
     return nested_elements;
 }
@@ -602,30 +607,38 @@ int main(int argc, char * argv[])
     short **binary_matrix;
     int num_rows, num_cols;
     Nested_elements nested_elements;
-    // double nested_value;
 
-    omp_set_num_threads(atoi(argv[5]));
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank_process);
+    MPI_Comm_size(MPI_COMM_WORLD, &num_processes);
+
+    // omp_set_num_threads(atoi(argv[5]));
     srand(time(NULL));
 
-    select_matrix(argv[3], &num_rows, &num_cols);
+    if (rank_process == 0) {
+        select_matrix(argv[3], &num_rows, &num_cols);
 
-    abundances_matrix = allocate_memory_doubles_matrix(num_rows, num_cols);
+        abundances_matrix = allocate_memory_doubles_matrix(num_rows, num_cols);
 
-    create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
+        create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
 
-    binary_matrix = allocate_memory_shorts_matrix(num_rows, num_cols);
+        binary_matrix = allocate_memory_shorts_matrix(num_rows, num_cols);
 
-    discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
+        discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
-    free_memory_doubles_matrix(abundances_matrix, num_rows);
+        free_memory_doubles_matrix(abundances_matrix, num_rows);
+    }
 
-    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
-    // printf("Nested value: %f\n", nested_value);
+    MPI_Bcast(&num_rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&num_cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
-    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
-    free_memory_shorts_matrix(binary_matrix, num_rows);
+    if (rank_process == 0) {
+        printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+        free_memory_shorts_matrix(binary_matrix, num_rows);
+    }
 
+    MPI_Finalize();
     return 0;
 }
