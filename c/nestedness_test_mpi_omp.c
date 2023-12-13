@@ -594,11 +594,11 @@ Nested_elements nested_test(short **matrix, int num_rows, int num_cols, int num_
     MPI_Bcast(&num_randomized_matrices_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
-        fragments[0] = num_randomized_matrices_per_process + remainder;
         scroll[0] = 0;
+        fragments[0] = num_randomized_matrices_per_process + remainder;
         for (int pos = 1; pos < num_processes; pos++) {
-            fragments[pos] = num_randomized_matrices_per_process;
             scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
+            fragments[pos] = num_randomized_matrices_per_process;
         }
         num_randomized_matrices_per_process += remainder;
     }
