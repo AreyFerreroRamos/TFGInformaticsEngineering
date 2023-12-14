@@ -4,7 +4,7 @@
 # include <stdbool.h>
 # include <time.h>
 // # include <omp.h>
-# include "mpi.h"
+# include <mpi.h>
 
 # define NUM_INDIVIDUALS 644
 # define NUM_VERTEBRATES 50
@@ -584,6 +584,7 @@ int get_index(double nested_values[], int num_elements, double nested_value)
 Nested_elements nested_test(short **matrix, int num_rows, int num_cols, int num_randomized_matrices)
 {
     Nested_elements nested_elements;
+    double nested_values[num_randomized_matrices + 1];
     int fragments[num_processes], scroll[num_processes], num_randomized_matrices_per_process, remainder;
 
     if (rank_process == 0) {
@@ -603,19 +604,19 @@ Nested_elements nested_test(short **matrix, int num_rows, int num_cols, int num_
         num_randomized_matrices_per_process += remainder;
     }
 
-    double nested_values[num_randomized_matrices_per_process];
+    double nested_values_per_process[num_randomized_matrices_per_process];
 
         /* Generate as many randomized matrices from the real matrix as it is specified and calculate their nested values. */
     generate_nested_values_randomized(matrix, num_rows, num_cols, num_randomized_matrices_per_process,
-                                      nested_values);
+                                      nested_values_per_process);
 
-    MPI_Gatherv(nested_values, num_randomized_matrices_per_process, MPI_DOUBLE, nested_values, fragments, scroll,
-                MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Gatherv(nested_values_per_process, num_randomized_matrices_per_process, MPI_DOUBLE,
+                nested_values, fragments, scroll, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
             /* Calculate and store the nested value of the real matrix. */
         nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
-        nested_values[num_randomized_matrices - 1] = nested_elements.nested_value;
+        nested_values[num_randomized_matrices] = nested_elements.nested_value;
 
             /* Sort the list of nested values. */
         quicksort(nested_values, 0, num_randomized_matrices);
