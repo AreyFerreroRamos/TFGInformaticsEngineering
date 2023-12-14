@@ -8,7 +8,7 @@ mpi: nestedness_test_mpi.c
 	mpicc -O3 nestedness_test_mpi.c -o nestedness_test_mpi
 
 mpi_omp: nestedness_test_mpi_omp.c
-	mpicc -O3 nestedness_test_mpi_omp.c -o nestedness_test_mpi_omp
+	mpicc -O3 -fopenmp nestedness_test_mpi_omp.c -o nestedness_test_mpi_omp
 
 run: nestedness_test
 	./nestedness_test ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001
@@ -20,7 +20,7 @@ run_mpi: nestedness_test_mpi
 	mpirun -np 5 ./nestedness_test_mpi ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001
 
 run_mpi_omp: nestedness_test_mpi_omp
-	mpirun -np 5 ./nestedness_test_mpi_omp ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001
+	mpirun -np 5 ./nestedness_test_mpi_omp ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001 5
 
 clean:
 	rm -f nestedness_test

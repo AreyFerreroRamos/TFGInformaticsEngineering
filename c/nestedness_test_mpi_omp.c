@@ -3,7 +3,7 @@
 # include <string.h>
 # include <stdbool.h>
 # include <time.h>
-// # include <omp.h>
+# include <omp.h>
 # include <mpi.h>
 
 # define NUM_INDIVIDUALS 644
@@ -447,7 +447,7 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
 
         /* Calculate the sum of the number of shared interactions between columns
            and the sum of the minimum of pairs of the number of interactions of columns. */
-    // #pragma omp parallel for private(first_col, second_col, row) shared(total_cols, num_cols, num_rows, transposed_matrix, sum_cols) reduction(+:second_isocline, fourth_isocline) default(none) schedule(dynamic)
+    #pragma omp parallel for private(first_col, second_col, row) shared(total_cols, num_cols, num_rows, transposed_matrix, sum_cols) reduction(+:second_isocline, fourth_isocline) default(none) schedule(dynamic)
     for (first_col = 0; first_col < total_cols; first_col++) {
         for (second_col = 0; second_col < num_cols; second_col++) {
             if (first_col < second_col) {
@@ -641,7 +641,7 @@ int main(int argc, char * argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank_process);
     MPI_Comm_size(MPI_COMM_WORLD, &num_processes);
 
-    // omp_set_num_threads(atoi(argv[5]));
+    omp_set_num_threads(atoi(argv[5]));
     srand(time(NULL));
 
     if (rank_process == 0) {
