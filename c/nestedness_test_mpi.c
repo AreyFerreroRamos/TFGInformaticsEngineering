@@ -428,37 +428,61 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
     short *transposed_matrix_per_process = (short *) malloc(num_cols * num_rows * sizeof(short));
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
+    int *sum_cols_per_process = (int *) calloc(num_cols, sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
-    int num_rows_per_process, num_cols_per_process, remainder, scroll[num_processes], fragments[num_processes];
+    int num_rows_per_process, num_cols_per_process, remainder_rows, remainder_cols, scroll[num_processes], fragments[num_processes];
     double nested_value;
 
     if (rank_process == 0) {
         num_rows_per_process = num_rows / num_processes;
-        remainder = num_rows % num_processes;
+        remainder_rows = num_rows % num_processes;
     }
 
     MPI_Bcast(&num_rows_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
         scroll[0] = 0;
-        fragments[0] = (num_rows_per_process + remainder) * num_cols;
+        fragments[0] = (num_rows_per_process + remainder_rows) * num_cols;
 
         for (int pos = 1; pos < num_processes; pos++) {
             scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
             fragments[pos] = num_rows_per_process * num_cols;
         }
-        num_rows_per_process += remainder;
+        num_rows_per_process += remainder_rows;
 
         matrix_per_process = flatten_matrix(matrix, num_rows, num_cols);
     }
 
-    MPI_Scatterv(matrix_per_process, fragments, scroll, MPI_SHORT, matrix_per_process, num_rows_per_process * num_cols,
-                 MPI_SHORT, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(matrix_per_process, fragments, scroll, MPI_SHORT, matrix_per_process, num_rows_per_process * num_cols, MPI_SHORT, 0, MPI_COMM_WORLD);
+
+    if (rank_process == 0) {
+        num_cols_per_process = num_cols / num_processes;
+        remainder_cols = num_cols % num_processes;
+    }
+
+    MPI_Bcast(&num_cols_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (rank_process == 0) {
+        scroll[0] = 0;
+        fragments[0] = (num_cols_per_process + remainder_cols) * num_rows;
+
+        for (int pos = 1; pos < num_processes; pos++) {
+            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
+            fragments[pos] = num_cols_per_process * num_rows;
+        }
+        num_cols_per_process += remainder_cols;
+
+        transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
+        transposed_matrix_per_process = flatten_matrix(transposed_matrix, num_cols, num_rows);
+    }
+
+    MPI_Scatterv(transposed_matrix_per_process, fragments, scroll, MPI_SHORT, transposed_matrix_per_process, num_cols_per_process * num_rows, MPI_SHORT, 0, MPI_COMM_WORLD);
 
         /* Calculate and save the number of interactions of every row. */
     for (row = 0; row < num_rows_per_process; row++) {
         for (col = 0; col < num_cols; col++) {
             sum_rows[row] += matrix_per_process[row * num_cols + col];
+            sum_cols_per_process[col] += transposed_matrix_per_process[col * num_rows + row];
         }
     }
 
@@ -466,7 +490,7 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
         scroll[0] = 0;
         fragments[0] = num_rows_per_process;
 
-        num_rows_per_process -= remainder;
+        num_rows_per_process -= remainder_rows;
 
         for (int pos = 1; pos < num_processes; pos++) {
             scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
@@ -476,51 +500,17 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
 
     MPI_Gatherv(sum_rows, num_rows_per_process, MPI_INT, sum_rows, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
 
-    if (rank_process == 0) {
-        transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
-
-        num_cols_per_process = num_cols / num_processes;
-        remainder = num_cols % num_processes;
-    }
-
-    MPI_Bcast(&num_cols_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Reduce(sum_cols_per_process, sum_cols, num_cols, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    free(sum_cols_per_process);
 
     if (rank_process == 0) {
-        scroll[0] = 0;
-        fragments[0] = (num_cols_per_process + remainder) * num_rows;
-
-        for (int pos = 1; pos < num_processes; pos++) {
-            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_cols_per_process * num_rows;
+        for (int i = 0; i < num_rows; i++) {
+            printf("Process %i: sum_rows[%i] = %i\n", rank_process, i, sum_rows[i]);
         }
-        num_cols_per_process += remainder;
-
-        transposed_matrix_per_process = flatten_matrix(transposed_matrix, num_cols, num_rows);
-    }
-
-    MPI_Scatterv(transposed_matrix_per_process, fragments, scroll, MPI_SHORT, transposed_matrix_per_process,
-                 num_cols_per_process * num_rows, MPI_SHORT, 0, MPI_COMM_WORLD);
-
-        /* Calculate and save the number of interactions of every column. */
-    for (col = 0; col < num_cols_per_process; col++) {
-        for (row = 0; row < num_rows; row++) {
-            sum_cols[col] += transposed_matrix_per_process[col * num_rows + row];
+        for (int i = 0; i < num_cols; i++) {
+            printf("Process %i: sum_cols[%i] = %i\n", rank_process, i, sum_cols[i]);
         }
     }
-
-    if (rank_process == 0) {
-        scroll[0] = 0;
-        fragments[0] = num_cols_per_process;
-
-        num_cols_per_process -= remainder;
-
-        for (int pos = 1; pos < num_processes; pos++) {
-            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_cols_per_process;
-        }
-    }
-
-    MPI_Gatherv(sum_cols, num_cols_per_process, MPI_INT, sum_cols, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
         first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
@@ -711,8 +701,8 @@ int main(int argc, char * argv[])
     double **abundances_matrix;
     short **binary_matrix;
     int num_rows, num_cols;
-    // double nested_value;
-    Nested_elements nested_elements;
+    double nested_value;
+    // Nested_elements nested_elements;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank_process);
@@ -735,12 +725,12 @@ int main(int argc, char * argv[])
     MPI_Bcast(&num_rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&num_cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
-    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
+    nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
+    // nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
 
     if (rank_process == 0) {
-        // printf("\nNested value: %f\n", nested_value);
-        printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+        printf("\nNested value: %f\n", nested_value);
+        // printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
 
         free_memory_shorts_matrix(binary_matrix, num_rows);
     }
