@@ -501,11 +501,8 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
     MPI_Gatherv(sum_rows, num_rows_per_process, MPI_INT, sum_rows, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
-        for (int i = 0; i < num_rows_per_process; i++) {
-            printf("Process %i: sum_rows[%i] = %i\n", rank_process, i, sum_rows[i]);
-        }
         for (int i = 0; i < num_cols_per_process; i++) {
-            printf("Process %i: sum_cols[%i] = %i\n", rank_process, i, sum_cols[i]);
+            printf("Process %i: sum_cols[%i] = %i\n", rank_process, i, sum_cols_per_process[i]);
         }
     }
 
