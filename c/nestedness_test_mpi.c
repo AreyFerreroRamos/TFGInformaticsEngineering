@@ -521,12 +521,12 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
         }
 
         free_memory_shorts_matrix(transposed_matrix, num_cols);
-        free(sum_cols);
 
             /* Calculate the nested value of the matrix. */
         nested_value = ((double)(first_isocline + second_isocline) / (double)(third_isocline + fourth_isocline));
     }
     free(sum_rows);
+    free(sum_cols);
 
     return nested_value;
 }
@@ -680,9 +680,10 @@ int main(int argc, char * argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &num_processes);
 
     srand(time(NULL));
-    select_matrix(argv[3], &num_rows, &num_cols);
 
     if (rank_process == 0) {
+        select_matrix(argv[3], &num_rows, &num_cols);
+
         abundances_matrix = allocate_memory_doubles_matrix(num_rows, num_cols);
         create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
 
@@ -691,6 +692,9 @@ int main(int argc, char * argv[])
 
         free_memory_doubles_matrix(abundances_matrix, num_rows);
     }
+
+    MPI_Bcast(&num_rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&num_cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
     nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
