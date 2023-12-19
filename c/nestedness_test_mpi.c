@@ -423,64 +423,65 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
 
 double calculate_nested_value_optimized(short **matrix, int num_rows, int num_cols)
 {
-    short *matrix_per_process = (short *) malloc(num_rows * num_cols * sizeof(short));
+    short **transposed_matrix;
+    short *transposed_matrix_per_process = (short *) malloc(num_cols * num_rows * sizeof(short));
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
-    int num_rows_per_process, remainder, scroll[num_processes], fragments[num_processes];
+    int num_cols_per_process, remainder, scroll[num_processes], fragments[num_processes];
     double nested_value;
 
     if (rank_process == 0) {
-        num_rows_per_process = num_rows / num_processes;
-        remainder = num_rows % num_processes;
+        transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
+
+        num_cols_per_process = num_cols / num_processes;
+        remainder = num_cols % num_processes;
     }
 
-    MPI_Bcast(&num_rows_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&num_cols_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
         scroll[0] = 0;
-        fragments[0] = (num_rows_per_process + remainder) * num_cols;
+        fragments[0] = (num_cols_per_process + remainder) * num_rows;
 
         for (int pos = 1; pos < num_processes; pos++) {
             scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_rows_per_process * num_cols;
+            fragments[pos] = num_cols_per_process * num_rows;
         }
-        num_rows_per_process += remainder;
+        num_cols_per_process += remainder;
 
-        matrix_per_process = flatten_matrix(matrix, num_rows, num_cols);
+        transposed_matrix_per_process = flatten_matrix(transposed_matrix, num_cols, num_rows);
     }
 
-    MPI_Scatterv(matrix_per_process, fragments, scroll, MPI_SHORT, matrix_per_process, num_rows_per_process * num_cols,
-                 MPI_SHORT, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(transposed_matrix_per_process, fragments, scroll, MPI_SHORT, transposed_matrix_per_process,
+                 num_cols_per_process * num_rows, MPI_SHORT, 0, MPI_COMM_WORLD);
 
-        /* Calculate and save the number of interactions of every row. */
-    for (row = 0; row < num_rows_per_process; row++) {
-        for (col = 0; col < num_cols; col++) {
-            sum_rows[row] += matrix_per_process[row * num_cols + col];
+        /* Calculate and save the number of interactions of every column. */
+    for (col = 0; col < num_cols_per_process; col++) {
+        for (row = 0; row < num_rows; row++) {
+            sum_cols[col] += transposed_matrix_per_process[col * num_rows + row];
         }
     }
 
     if (rank_process == 0) {
         scroll[0] = 0;
-        fragments[0] = num_rows_per_process;
+        fragments[0] = num_cols_per_process;
 
-        num_rows_per_process -= remainder;
+        num_cols_per_process -= remainder;
 
         for (int pos = 1; pos < num_processes; pos++) {
             scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_rows_per_process;
+            fragments[pos] = num_cols_per_process;
         }
     }
 
-    MPI_Gatherv(sum_rows, num_rows_per_process, MPI_INT, sum_rows, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gatherv(sum_cols, num_cols_per_process, MPI_INT, sum_cols, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
-        short **transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
-
-            /* Calculate and save the number of interactions of every column. */
-        for (col = 0; col < num_cols; col++) {
-            for (row = 0; row < num_rows; row++) {
-                sum_cols[col] += transposed_matrix[col][row];
+            /* Calculate and save the number of interactions of every row. */
+        for (row = 0; row < num_rows; row++) {
+            for (col = 0; col < num_cols; col++) {
+                sum_rows[row] += matrix[row][col];
             }
         }
 
