@@ -452,7 +452,7 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
 
     if (rank_process == 0) {
         scroll[0] = 0;
-        fragments[0] = num_rows_per_process;
+        fragments[0] = num_rows_per_process + remainder;
 
         for (int pos = 1; pos < num_processes; pos++) {
             scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
