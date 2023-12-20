@@ -424,110 +424,65 @@ double calculate_nested_value(int **matrix, int num_rows, int num_cols)
 double calculate_nested_value_optimized(short **matrix, int num_rows, int num_cols)
 {
     short **transposed_matrix;
-    short *matrix_per_process = (short *) malloc(num_rows * num_cols * sizeof(short));
-    short *transposed_matrix_per_process = (short *) malloc(num_cols * num_rows * sizeof(short));
+    short *flattened_matrix = (short *) malloc(num_rows * num_cols * sizeof(short));
     int *sum_rows = (int *) calloc(num_rows, sizeof(int));
     int *sum_cols = (int *) calloc(num_cols, sizeof(int));
-    int *sum_cols_per_process = (int *) calloc(num_cols, sizeof(int));
     int first_isocline, second_isocline, third_isocline, fourth_isocline, row, col;
-    int num_rows_per_process, num_cols_per_process, remainder_rows, remainder_cols, scroll[num_processes], fragments[num_processes];
+    int first_isocline_per_process, third_isocline_per_process;
+    int num_rows_per_process, remainder, scroll[num_processes], fragments[num_processes];
     double nested_value;
 
     if (rank_process == 0) {
+        transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
+
+        /* Calculate and save the number of interactions of every row and
+           calculate and save the number of interactions of every column. */
+        for (row = 0; row < num_rows; row++) {
+            for (col = 0; col < num_cols; col++) {
+                sum_rows[row] += matrix[row][col];
+                sum_cols[col] += transposed_matrix[col][row];
+            }
+        }
+
         num_rows_per_process = num_rows / num_processes;
-        remainder_rows = num_rows % num_processes;
+        remainder = num_rows % num_processes;
+
+        flattened_matrix = flatten_matrix(matrix, num_rows, num_cols);
     }
 
     MPI_Bcast(&num_rows_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
-        scroll[0] = 0;
-        fragments[0] = (num_rows_per_process + remainder_rows) * num_cols;
-
-        for (int pos = 1; pos < num_processes; pos++) {
-            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_rows_per_process * num_cols;
-        }
-        num_rows_per_process += remainder_rows;
-
-        matrix_per_process = flatten_matrix(matrix, num_rows, num_cols);
+        num_rows_per_process += remainder;
     }
 
-    MPI_Scatterv(matrix_per_process, fragments, scroll, MPI_SHORT, matrix_per_process, num_rows_per_process * num_cols,
-                 MPI_SHORT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(flattened_matrix, num_rows * num_cols, MPI_SHORT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(sum_rows, num_rows, MPI_INT, 0, MPI_COMM_WORLD);
 
-    if (rank_process == 0) {
-        num_cols_per_process = num_cols / num_processes;
-        remainder_cols = num_cols % num_processes;
-    }
+    first_isocline_per_process = third_isocline_per_process = 0;
 
-    MPI_Bcast(&num_cols_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-    if (rank_process == 0) {
-        scroll[0] = 0;
-        fragments[0] = (num_cols_per_process + remainder_cols) * num_rows;
-
-        for (int pos = 1; pos < num_processes; pos++) {
-            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_cols_per_process * num_rows;
-        }
-        num_cols_per_process += remainder_cols;
-
-        transposed_matrix = transpose_matrix(matrix, num_rows, num_cols);
-        transposed_matrix_per_process = flatten_matrix(transposed_matrix, num_cols, num_rows);
-    }
-
-    MPI_Scatterv(transposed_matrix_per_process, fragments, scroll, MPI_SHORT, transposed_matrix_per_process,
-                 num_cols_per_process * num_rows, MPI_SHORT, 0, MPI_COMM_WORLD);
-
-        /* Calculate and save the number of interactions of every row. */
-    for (row = 0; row < num_rows; row++) {
-        for (col = 0; col < num_cols; col++) {
-            if (row < num_rows_per_process) {
-                sum_rows[row] += matrix_per_process[row * num_cols + col];
-            }
-            if (col < num_cols_per_process) {
-                sum_cols_per_process[col] += transposed_matrix_per_process[col * num_rows + row];
-            }
-        }
-    }
-
-    if (rank_process == 0) {
-        scroll[0] = 0;
-        fragments[0] = num_rows_per_process;
-
-        num_rows_per_process -= remainder_rows;
-
-        for (int pos = 1; pos < num_processes; pos++) {
-            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_rows_per_process;
-        }
-    }
-
-    MPI_Gatherv(sum_rows, num_rows_per_process, MPI_INT, sum_rows, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
-
-    MPI_Reduce(sum_cols_per_process, sum_cols, num_cols, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
-    free(sum_cols_per_process);
-
-    if (rank_process == 0) {
-        first_isocline = second_isocline = third_isocline = fourth_isocline = 0;
-
-            /* Calculate the sum of the number of shared interactions between rows
+    /* Calculate the sum of the number of shared interactions between rows
                and the sum of the minimum of pairs of interactions of rows. */
-        for (int first_row = 0; first_row < num_rows - 1; first_row++) {
-            for (int second_row = 0; second_row < num_rows; second_row++) {
-                if (first_row < second_row) {
-                    for (col = 0; col < num_cols; col++) {
-                        first_isocline += matrix[first_row][col] & matrix[second_row][col];
-                    }
-                    if (sum_rows[first_row] < sum_rows[second_row]) {
-                        third_isocline += sum_rows[first_row];
-                    } else {
-                        third_isocline += sum_rows[second_row];
-                    }
+    for (int first_row = rank_process * num_rows_per_process; first_row < rank_process * num_rows_per_process + num_rows_per_process; first_row++) {
+        for (int second_row = 0; second_row < num_rows; second_row++) {
+            if (first_row < second_row) {
+                for (col = 0; col < num_cols; col++) {
+                    first_isocline_per_process += flattened_matrix[first_row * num_cols + col] & flattened_matrix[second_row * num_cols + col];
+                }
+                if (sum_rows[first_row] < sum_rows[second_row]) {
+                    third_isocline_per_process += sum_rows[first_row];
+                } else {
+                    third_isocline_per_process += sum_rows[second_row];
                 }
             }
         }
+    }
+
+    MPI_Reduce(&first_isocline_per_process, &first_isocline, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&third_isocline_per_process, &third_isocline, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    if (rank_process == 0) {
+        second_isocline = fourth_isocline = 0;
 
             /* Calculate the sum of the number of shared interactions between columns
                and the sum of the minimum of pairs of the number of interactions of columns. */
