@@ -453,7 +453,8 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
         matrix_per_process = flatten_matrix(matrix, num_rows, num_cols);
     }
 
-    MPI_Scatterv(matrix_per_process, fragments, scroll, MPI_SHORT, matrix_per_process, num_rows_per_process * num_cols, MPI_SHORT, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(matrix_per_process, fragments, scroll, MPI_SHORT, matrix_per_process, num_rows_per_process * num_cols,
+                 MPI_SHORT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
         num_cols_per_process = num_cols / num_processes;
@@ -476,13 +477,18 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
         transposed_matrix_per_process = flatten_matrix(transposed_matrix, num_cols, num_rows);
     }
 
-    MPI_Scatterv(transposed_matrix_per_process, fragments, scroll, MPI_SHORT, transposed_matrix_per_process, num_cols_per_process * num_rows, MPI_SHORT, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(transposed_matrix_per_process, fragments, scroll, MPI_SHORT, transposed_matrix_per_process,
+                 num_cols_per_process * num_rows, MPI_SHORT, 0, MPI_COMM_WORLD);
 
         /* Calculate and save the number of interactions of every row. */
-    for (row = 0; row < num_rows_per_process; row++) {
+    for (row = 0; row < num_rows; row++) {
         for (col = 0; col < num_cols; col++) {
-            sum_rows[row] += matrix_per_process[row * num_cols + col];
-            sum_cols_per_process[col] += transposed_matrix_per_process[col * num_rows + row];
+            if (row < num_rows_per_process) {
+                sum_rows[row] += matrix_per_process[row * num_cols + col];
+            }
+            if (col < num_cols_per_process) {
+                sum_cols_per_process[col] += transposed_matrix_per_process[col * num_rows + row];
+            }
         }
     }
 
@@ -499,12 +505,6 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
     }
 
     MPI_Gatherv(sum_rows, num_rows_per_process, MPI_INT, sum_rows, fragments, scroll, MPI_INT, 0, MPI_COMM_WORLD);
-
-    if (rank_process == 0) {
-        for (int i = 0; i < num_cols_per_process; i++) {
-            printf("Process %i: sum_cols[%i] = %i\n", rank_process, i, sum_cols_per_process[i]);
-        }
-    }
 
     MPI_Reduce(sum_cols_per_process, sum_cols, num_cols, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
     free(sum_cols_per_process);
