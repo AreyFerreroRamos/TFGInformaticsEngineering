@@ -446,16 +446,25 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
 
         num_rows_per_process = num_rows / num_processes;
         remainder = num_rows % num_processes;
-
-        flattened_matrix = flatten_matrix(matrix, num_rows, num_cols);
     }
 
     MPI_Bcast(&num_rows_per_process, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank_process == 0) {
+        scroll[0] = 0;
+        fragments[0] = num_rows_per_process;
+
+        for (int pos = 1; pos < num_processes; pos++) {
+            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
+            fragments[pos] = num_rows_per_process;
+        }
         num_rows_per_process += remainder;
+
+        flattened_matrix = flatten_matrix(matrix, num_rows, num_cols);
     }
 
+    MPI_Bcast(scroll, num_processes, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(fragments, num_processes, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(flattened_matrix, num_rows * num_cols, MPI_SHORT, 0, MPI_COMM_WORLD);
     MPI_Bcast(sum_rows, num_rows, MPI_INT, 0, MPI_COMM_WORLD);
 
@@ -463,7 +472,7 @@ double calculate_nested_value_optimized(short **matrix, int num_rows, int num_co
 
     /* Calculate the sum of the number of shared interactions between rows
                and the sum of the minimum of pairs of interactions of rows. */
-    for (int first_row = rank_process * num_rows_per_process; first_row < rank_process * num_rows_per_process + num_rows_per_process; first_row++) {
+    for (int first_row = scroll[rank_process]; first_row < scroll[rank_process] + fragments[rank_process]; first_row++) {
         for (int second_row = 0; second_row < num_rows; second_row++) {
             if (first_row < second_row) {
                 for (col = 0; col < num_cols; col++) {
