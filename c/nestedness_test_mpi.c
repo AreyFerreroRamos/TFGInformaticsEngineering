@@ -143,18 +143,6 @@ void initialize_matrix_shorts_zeros(short **matrix, int num_rows, int num_cols)
     }
 }
 
-short* flatten_matrix(short **matrix, int num_rows, int num_cols)
-{
-    short *flattened_matrix = malloc(num_rows * num_cols * sizeof(short));
-
-    for (int row = 0; row < num_rows; row++) {
-        for (int col = 0; col < num_cols; col++) {
-            flattened_matrix[row * num_cols + col] = matrix[row][col];
-        }
-    }
-    return flattened_matrix;
-}
-
 short** transpose_matrix(short **matrix, int num_rows, int num_cols)
 {
     short **transposed_matrix = allocate_memory_shorts_matrix(num_cols, num_rows);
