@@ -580,43 +580,38 @@ int get_index(double nested_values[], int num_elements, double nested_value)
 Nested_elements nested_test(short **matrix, int num_rows, int num_cols, int num_randomized_matrices)
 {
     Nested_elements nested_elements;
-    double nested_values[num_randomized_matrices + 1];
-    int num_randomized_matrices_per_process = num_randomized_matrices / num_processes;
-    int scroll[num_processes], fragments[num_processes];
+    int num_randomized_matrices_per_process = num_randomized_matrices / num_processes, global_index, partial_index;
 
     if (rank_process == 0) {
-        int remainder = num_randomized_matrices % num_processes;
-
-        scroll[0] = 0;
-        fragments[0] = num_randomized_matrices_per_process + remainder;
-
-        for (int pos = 1; pos < num_processes; pos++) {
-            scroll[pos] = scroll[pos - 1] + fragments[pos - 1];
-            fragments[pos] = num_randomized_matrices_per_process;
-        }
-        num_randomized_matrices_per_process += remainder;
+        num_randomized_matrices_per_process += num_randomized_matrices % num_processes;
     }
+
+    double nested_values[num_randomized_matrices_per_process + 1];
 
         /* Generate as many randomized matrices from the real matrix as it is specified and calculate their nested values. */
     generate_nested_values_randomized(matrix, num_rows, num_cols, num_randomized_matrices_per_process,
                                       nested_values);
 
-    MPI_Gatherv(nested_values, num_randomized_matrices_per_process, MPI_DOUBLE, nested_values, fragments, scroll,
-                MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
+        /* Calculate and send the nested value of the real matrix. */
     if (rank_process == 0) {
-            /* Calculate and store the nested value of the real matrix. */
         nested_elements.nested_value = calculate_nested_value_optimized(matrix, num_rows, num_cols);
+    }
+    MPI_Bcast(&nested_elements.nested_value, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-        nested_values[num_randomized_matrices] = nested_elements.nested_value;
+        /* Store the nested value of the real matrix. */
+    nested_values[num_randomized_matrices_per_process] = nested_elements.nested_value;
 
-        /* Sort the list of nested values. */
-        quicksort(nested_values, 0, num_randomized_matrices);
+        /* Sort the lists of nested values. */
+    quicksort(nested_values, 0, num_randomized_matrices_per_process);
+
+        /* Get and reduce the index of the nested values of the real matrix after sorting the lists of nested values. */
+    partial_index = get_index(nested_values,num_randomized_matrices_per_process + 1,
+                              nested_elements.nested_value);
+    MPI_Reduce(&partial_index, &global_index, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
         /* Calculate the fraction of randomized matrices that have a nested value greater than that of the real matrix. */
-        nested_elements.p_value = ((double)(num_randomized_matrices - get_index(
-                nested_values,num_randomized_matrices + 1, nested_elements.nested_value))
-                                   / (double) (num_randomized_matrices + 1));
+    if (rank_process == 0) {
+        nested_elements.p_value = ((double)(num_randomized_matrices - global_index) / (double) (num_randomized_matrices + 1));
     }
 
     return nested_elements;
