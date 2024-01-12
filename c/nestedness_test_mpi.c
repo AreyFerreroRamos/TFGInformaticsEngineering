@@ -648,11 +648,11 @@ int main(int argc, char * argv[])
     }
 
     // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
-    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
+    nested_elements = nested_test(binary_matrix, num_rows, num_cols, atoi(argv[5]));
 
     if (rank_process == 0) {
         // printf("\nNested value: %f\n", nested_value);
-        printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+        printf("\nNested value: %f\nP-value: %f\n\n", nested_elements.nested_value, nested_elements.p_value);
 
         free_memory_shorts_matrix(binary_matrix, num_rows);
     }

@@ -614,8 +614,8 @@ int main(int argc, char * argv[])
 
     free_memory_doubles_matrix(abundances_matrix, num_rows);
 
-    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
-    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+    nested_elements = nested_test(binary_matrix, num_rows, num_cols, atoi(argv[5]));
+    printf("\nNested value: %f\nP-value: %f\n\n", nested_elements.nested_value, nested_elements.p_value);
 
     free_memory_shorts_matrix(binary_matrix, num_rows);
 

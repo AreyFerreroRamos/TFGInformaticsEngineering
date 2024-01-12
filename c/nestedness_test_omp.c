@@ -621,7 +621,7 @@ int main(int argc, char * argv[])
     Nested_elements nested_elements;
     // double nested_value;
 
-    omp_set_num_threads(atoi(argv[5]));
+    omp_set_num_threads(atoi(argv[6]));
     srand(time(NULL));
 
     select_matrix(argv[3], &num_rows, &num_cols);
@@ -639,8 +639,8 @@ int main(int argc, char * argv[])
     // nested_value = calculate_nested_value_optimized(binary_matrix, num_rows, num_cols);
     // printf("Nested value: %f\n", nested_value);
 
-    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
-    printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+    nested_elements = nested_test(binary_matrix, num_rows, num_cols, atoi(argv[5]));
+    printf("\nNested value: %f\nP-value: %f\n\n", nested_elements.nested_value, nested_elements.p_value);
 
     free_memory_shorts_matrix(binary_matrix, num_rows);
 

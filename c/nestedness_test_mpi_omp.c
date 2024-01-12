@@ -636,7 +636,7 @@ int main(int argc, char * argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank_process);
     MPI_Comm_size(MPI_COMM_WORLD, &num_processes);
 
-    omp_set_num_threads(atoi(argv[5]));
+    omp_set_num_threads(atoi(argv[6]));
 
     srand(time(NULL));
     select_matrix(argv[3], &num_rows, &num_cols);
@@ -651,10 +651,10 @@ int main(int argc, char * argv[])
         free_memory_doubles_matrix(abundances_matrix, num_rows);
     }
 
-    nested_elements = nested_test(binary_matrix, num_rows, num_cols, 1000);
+    nested_elements = nested_test(binary_matrix, num_rows, num_cols, atoi(argv[5]));
 
     if (rank_process == 0) {
-        printf("\nNested value: %f\nP-value: %f\n", nested_elements.nested_value, nested_elements.p_value);
+        printf("\nNested value: %f\nP-value: %f\n\n", nested_elements.nested_value, nested_elements.p_value);
         free_memory_shorts_matrix(binary_matrix, num_rows);
     }
 
