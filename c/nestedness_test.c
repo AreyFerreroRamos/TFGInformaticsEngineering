@@ -601,15 +601,12 @@ int main(int argc, char * argv[])
     Nested_elements nested_elements;
 
     srand(time(NULL));
-
     select_matrix(argv[3], &num_rows, &num_cols);
 
     abundances_matrix = allocate_memory_doubles_matrix(num_rows, num_cols);
-
     create_matrix(argv[3], argv[1], argv[2], abundances_matrix);
 
     binary_matrix = allocate_memory_shorts_matrix(num_rows, num_cols);
-
     discretize_matrix(abundances_matrix, binary_matrix, num_rows, num_cols, atof(argv[4]));
 
     free_memory_doubles_matrix(abundances_matrix, num_rows);
