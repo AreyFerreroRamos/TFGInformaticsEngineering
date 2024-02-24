@@ -11,7 +11,7 @@ mpi_omp: nestedness_test_mpi_omp.c
 	mpicc -O3 -fopenmp nestedness_test_mpi_omp.c -o nestedness_test_mpi_omp
 
 run: nestedness_test
-	time ./nestedness_test ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001 1000
+	time ./nestedness_test ../input_files/count_Genus_all.tsv ../input_files/metadata.csv individuals 0.0001 1000
 
 run_omp: nestedness_test_omp
 	time ./nestedness_test_omp ../input_files/count_Genus_all.tsv ../input_files/metadata.csv vertebrates 0.0001 1000 5
